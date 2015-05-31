@@ -9,6 +9,10 @@ package uy.com.cinestar.domain;
  *
  * @author Gonza
  */
-public class Cliente {
+public class Cliente extends User{
+
+    public Cliente(String nick, String password) {
+        super(nick, password);
+    }
     
 }

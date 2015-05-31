@@ -9,6 +9,13 @@ package uy.com.cinestar.domain;
  *
  * @author Gonza
  */
-public class Administrador {
+public class Administrador extends User {
+    private String category;
+
+    public Administrador(String nick, String password) {
+        super(nick, password);
+    }
+
+    
     
 }
