@@ -22,6 +22,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import uy.com.cinestar.beans.PruebaBean;
 import uy.com.cinestar.beans.SistemBean;
 import uy.com.cinestar.domain.Administrador;
 import uy.com.cinestar.domain.User;
@@ -36,6 +37,8 @@ public class LogResource {
     @EJB
     private SistemBean sistem;
 
+    @EJB
+    private PruebaBean pruebaBean;
     /**
      * Creates a new instance of LogResource
      */
@@ -62,6 +65,15 @@ public class LogResource {
         return Response.accepted(responde.toJson(logResult)).build();
     }
 
+    @POST
+    @Produces("application/json")
+    @Path("auto")
+    public Response auto(@QueryParam("matricula") String matricula, @QueryParam("año") Integer año) throws Exception {
+        
+        pruebaBean.crearAuto(matricula, año);
+        Gson responde = new GsonBuilder().create();
+        return Response.accepted(responde.toJson("ok")).build();
+    }
     
     /**
      * PUT method for updating or creating an instance of LogResource

@@ -6,7 +6,10 @@
 package uy.com.cinestar.beans;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
 import uy.com.cinestar.domain.*;
@@ -18,12 +21,14 @@ public class SistemBean {
 
     private final List<User> users;
     
-    
+    private final Map<UUID, User> loggedUsers; 
 
     public SistemBean() {
+       
         this.users = new ArrayList<>();
         users.add(new Administrador("test","pass"));
         users.add(new Administrador("test2","pass2"));
+        this.loggedUsers = new HashMap<>();
         
     }
 
