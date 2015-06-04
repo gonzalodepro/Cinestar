@@ -26,8 +26,8 @@ public class SistemBean {
     public SistemBean() {
        
         this.users = new ArrayList<>();
-        users.add(new Administrador("test","pass"));
-        users.add(new Administrador("test2","pass2"));
+        users.add(new Administrador("usu1","pass1"));
+        users.add(new Administrador("usu2","pass2"));
         this.loggedUsers = new HashMap<>();
         
     }
@@ -36,8 +36,15 @@ public class SistemBean {
         return users;
     }
     
-    public boolean UserExist(User u){
-        return users.contains(u);
+    public UUID UserLog(User u){
+        UUID ret;
+        if (users.contains(u)){
+            ret = UUID.randomUUID();
+            loggedUsers.put(ret, u);
+        }else{
+            ret = null;
+        }
+        return ret;
     }
     
     

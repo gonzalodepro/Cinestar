@@ -8,6 +8,7 @@ package uy.com.cinestar.resources;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.List;
+import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -60,7 +61,14 @@ public class LogResource {
     @Produces("application/json")
     @Path("loggin")
     public Response logg(@QueryParam("nick") String nick, @QueryParam("password") String password) {
-        boolean logResult= sistem.UserExist(new Administrador(nick, password));
+        UUID uuidToken= sistem.UserLog(new Administrador(nick, password));
+        String logResult;
+        if (uuidToken==null){
+            logResult = "Usuario/contraseña incorrectos.";
+        }else{
+            logResult="Usuario loggeado correctamente. Token: " + uuidToken.toString();
+        }
+        
         Gson responde = new GsonBuilder().create();
         return Response.accepted(responde.toJson(logResult)).build();
     }
