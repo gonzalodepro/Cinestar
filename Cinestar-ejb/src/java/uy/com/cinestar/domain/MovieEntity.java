@@ -14,7 +14,7 @@ import javax.persistence.*;
  * @author Gonza
  */
 @Entity
-public class FilmEntity implements Serializable {
+public class MovieEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -70,10 +70,10 @@ public class FilmEntity implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof FilmEntity)) {
+        if (!(object instanceof MovieEntity)) {
             return false;
         }
-        FilmEntity other = (FilmEntity) object;
+        MovieEntity other = (MovieEntity) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -82,7 +82,7 @@ public class FilmEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "Film: " + title +", description: " + description + ".";
+        return "Movie: " + title +", description: " + description + ".";
     }
     
 }

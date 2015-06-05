@@ -26,7 +26,7 @@ public class FunctionEntity implements Serializable {
     private Room room;
     
     @ManyToOne
-    private FilmEntity film;
+    private MovieEntity film;
     
     @Temporal(TemporalType.TIMESTAMP) 
     private Date startDate;
@@ -60,11 +60,11 @@ public class FunctionEntity implements Serializable {
         return room;
     }
 
-    public void setFilm(FilmEntity film) {
+    public void setFilm(MovieEntity film) {
         this.film = film;
     }
 
-    public FilmEntity getFilm() {
+    public MovieEntity getFilm() {
         return film;
     }
 

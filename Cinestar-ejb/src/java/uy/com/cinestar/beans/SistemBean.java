@@ -20,14 +20,17 @@ import uy.com.cinestar.domain.*;
 public class SistemBean {
 
     private final List<User> users;
-    
     private final Map<UUID, User> loggedUsers; 
+    private final List<ComplexEntity> complexes;
+    private final List<MovieEntity> movies;
 
     public SistemBean() {
        
         this.users = new ArrayList<>();
         users.add(new Administrador("usu1","pass1"));
         users.add(new Administrador("usu2","pass2"));
+        this.movies = new ArrayList<>();
+        this.complexes = new ArrayList<>();
         this.loggedUsers = new HashMap<>();
         
     }
