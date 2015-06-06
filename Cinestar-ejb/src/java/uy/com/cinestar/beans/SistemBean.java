@@ -19,17 +19,16 @@ import uy.com.cinestar.persistence.*;
 
 @Singleton
 @LocalBean
-public class SistemBean {
-
+public class SistemBean { 
+    
     @EJB
-    UserPersistenceBean userPersistence;
+    private UserPersistenceBean userPersistence;
     
     private final Map<UUID, User> loggedUsers; 
     
 
     public SistemBean() 
    {
-       
         this.loggedUsers = new HashMap<>();
         LoadUsers();
     }
