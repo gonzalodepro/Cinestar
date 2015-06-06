@@ -10,23 +10,21 @@ import com.google.gson.GsonBuilder;
 import java.util.List;
 import java.util.UUID;
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
-import static javax.ws.rs.HttpMethod.POST;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import uy.com.cinestar.beans.InterceptorBean;
 import uy.com.cinestar.beans.PruebaBean;
 import uy.com.cinestar.beans.SistemBean;
-import uy.com.cinestar.domain.Administrador;
-import uy.com.cinestar.domain.User;
+import uy.com.cinestar.domain.UserEntity;
 
 
 @Path("Log")
@@ -61,7 +59,12 @@ public class LogResource {
     @Produces("application/json")
     @Path("loggin")
     public Response logg(@QueryParam("nick") String nick, @QueryParam("password") String password) {
-        UUID uuidToken= sistem.UserLog(new Administrador(nick, password));
+        
+        //UUID uuidToken= sistem.UserLog(new UserEntity(nick, password));
+        UserEntity u = new UserEntity();
+        u.setNick(nick);
+        u.setPassword(password);
+        UUID uuidToken= sistem.UserLog(u);
         String logResult;
         if (uuidToken==null){
             logResult = "Usuario/contraseña incorrectos.";
@@ -75,8 +78,9 @@ public class LogResource {
 
     @POST
     @Produces("application/json")
+    @Interceptors(InterceptorBean.class)
     @Path("auto")
-    public Response auto(@QueryParam("matricula") String matricula, @QueryParam("año") Integer año) throws Exception {
+    public Response auto(@QueryParam("token") String token,@QueryParam("matricula") String matricula, @QueryParam("año") Integer año) throws Exception {
         
         pruebaBean.crearAuto(matricula, año);
         Gson responde = new GsonBuilder().create();

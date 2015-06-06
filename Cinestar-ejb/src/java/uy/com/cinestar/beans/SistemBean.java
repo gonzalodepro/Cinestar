@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.UUID;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import uy.com.cinestar.domain.*;
 
 
@@ -19,29 +21,44 @@ import uy.com.cinestar.domain.*;
 @LocalBean
 public class SistemBean {
 
-    private final List<User> users;
-    private final Map<UUID, User> loggedUsers; 
-    private final List<ComplexEntity> complexes;
-    private final List<MovieEntity> movies;
+    
+    @PersistenceContext
+    EntityManager em;
+    private final Map<UUID, UserEntity> loggedUsers; 
+    
 
-    public SistemBean() {
+    public SistemBean() throws Exception {
        
-        this.users = new ArrayList<>();
-        users.add(new Administrador("usu1","pass1"));
-        users.add(new Administrador("usu2","pass2"));
-        this.movies = new ArrayList<>();
-        this.complexes = new ArrayList<>();
         this.loggedUsers = new HashMap<>();
+        LoadUsers();
+    }
+
+    private void LoadUsers() throws Exception{
+//        UserEntity u1 = new UserEntity("usu1","pass1");
+//        UserEntity u2 = new UserEntity("usu2","pass2");
+        UserEntity u1 = new UserEntity();
+        u1.setNick("usu1");
+        u1.setPassword("pass1");
+        UserEntity u2 = new UserEntity();
+        u2.setNick("usu2");
+        u2.setPassword("pass2");
+        try{
+            em.persist(u1);
+            em.persist(u2);
+            
+        }catch(Exception e){
+            throw new Exception("Error al cargar los usuarios del sistema.");
+        }
+        
         
     }
-
-    public List<User> getUsers() {
-        return users;
+    public List<UserEntity> getUsers() {
+        return null;
     }
     
-    public UUID UserLog(User u){
+    public UUID UserLog(UserEntity u){
         UUID ret;
-        if (users.contains(u)){
+        if (getUsers().contains(u)){
             ret = UUID.randomUUID();    
             loggedUsers.put(ret, u);
         }else{

@@ -18,6 +18,8 @@ public class FunctionEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    private RoomEntity room;
+    
 //    @ManyToOne
 //    private Room room;
     

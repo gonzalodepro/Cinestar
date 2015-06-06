@@ -6,8 +6,10 @@
 package uy.com.cinestar.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
+import static javax.persistence.CascadeType.ALL;
 
 
 
@@ -18,6 +20,9 @@ public class ComplexEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @OneToMany(cascade=ALL)
+    private List<RoomEntity> rooms;
+    
     private String name;
     
     

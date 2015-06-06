@@ -3,19 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uy.com.cinestar.domain;
+package uy.com.cinestar.generics;
 
 /**
  *
  * @author Gonza
  */
-public class Administrador extends User {
-    private String category;
-
-    public Administrador(String nick, String password) {
-        super(nick, password);
-    }
-
+public class Enums {
     
+    public enum UserType {
+        Client,
+        Administrator,
+        Undefined
+    }
     
 }
