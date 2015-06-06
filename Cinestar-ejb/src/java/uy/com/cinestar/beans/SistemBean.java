@@ -24,7 +24,7 @@ public class SistemBean {
     
     @PersistenceContext
     EntityManager em;
-    private final Map<UUID, UserEntity> loggedUsers; 
+    private final Map<UUID, User> loggedUsers; 
     
 
     public SistemBean() throws Exception {
@@ -34,12 +34,12 @@ public class SistemBean {
     }
 
     private void LoadUsers() throws Exception{
-//        UserEntity u1 = new UserEntity("usu1","pass1");
-//        UserEntity u2 = new UserEntity("usu2","pass2");
-        UserEntity u1 = new UserEntity();
+//        User u1 = new User("usu1","pass1");
+//        User u2 = new User("usu2","pass2");
+        User u1 = new User();
         u1.setNick("usu1");
         u1.setPassword("pass1");
-        UserEntity u2 = new UserEntity();
+        User u2 = new User();
         u2.setNick("usu2");
         u2.setPassword("pass2");
         try{
@@ -52,11 +52,11 @@ public class SistemBean {
         
         
     }
-    public List<UserEntity> getUsers() {
+    public List<User> getUsers() {
         return null;
     }
     
-    public UUID UserLog(UserEntity u){
+    public UUID UserLog(User u){
         UUID ret;
         if (getUsers().contains(u)){
             ret = UUID.randomUUID();    

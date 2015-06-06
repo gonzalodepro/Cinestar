@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response;
 import uy.com.cinestar.beans.InterceptorBean;
 import uy.com.cinestar.beans.PruebaBean;
 import uy.com.cinestar.beans.SistemBean;
-import uy.com.cinestar.domain.UserEntity;
+import uy.com.cinestar.domain.User;
 
 
 @Path("Log")
@@ -60,8 +60,8 @@ public class LogResource {
     @Path("loggin")
     public Response logg(@QueryParam("nick") String nick, @QueryParam("password") String password) {
         
-        //UUID uuidToken= sistem.UserLog(new UserEntity(nick, password));
-        UserEntity u = new UserEntity();
+        //UUID uuidToken= sistem.UserLog(new User(nick, password));
+        User u = new User();
         u.setNick(nick);
         u.setPassword(password);
         UUID uuidToken= sistem.UserLog(u);

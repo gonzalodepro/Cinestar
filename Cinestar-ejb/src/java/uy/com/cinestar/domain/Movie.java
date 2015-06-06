@@ -7,35 +7,23 @@ package uy.com.cinestar.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 import javax.persistence.*;
 
-
+/**
+ *
+ * @author Gonza
+ */
 @Entity
-public class FunctionEntity implements Serializable {
+public class Movie implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String title;
+    private String description;
     
-    private RoomEntity room;
-    
-//    @ManyToOne
-//    private Room room;
-    
-    @ManyToOne
-    private MovieEntity film;
-    
-    @Temporal(TemporalType.TIMESTAMP) 
-    private Date startDate;
-
-    public Date getDate() {
-        return startDate;
-    }
-
-    public void setDate(Date date) {
-        this.startDate = date;
-    }
+    @Temporal(TemporalType.TIME) 
+    private Date duration;
     
     
     public Long getId() {
@@ -46,22 +34,32 @@ public class FunctionEntity implements Serializable {
         this.id = id;
     }
 
-//    public void setRoom(Room room) {
-//        this.room = room;
-//    }
-//    public Room getRoom() {
-//        return room;
-//    }
-
-    public void setFilm(MovieEntity film) {
-        this.film = film;
+    public String getTitle() {
+        return title;
     }
 
-    public MovieEntity getFilm() {
-        return film;
+    public String getDescription() {
+        return description;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Date duration) {
+        this.duration = duration;
+    }
     
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -72,10 +70,10 @@ public class FunctionEntity implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof FunctionEntity)) {
+        if (!(object instanceof Movie)) {
             return false;
         }
-        FunctionEntity other = (FunctionEntity) object;
+        Movie other = (Movie) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -84,7 +82,7 @@ public class FunctionEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "uy.com.cinestar.domain.FuncionEntity[ id=" + id + " ]";
+        return "Movie: " + title +", description: " + description + ".";
     }
     
 }

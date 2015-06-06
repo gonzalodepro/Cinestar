@@ -6,24 +6,38 @@
 package uy.com.cinestar.domain;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.Date;
+import java.util.Set;
+import javax.persistence.*;
+
 
 @Entity
-public class PruebaEntity implements Serializable {
+public class Function implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(unique=true,nullable=true,length=7)
-    private String matricula;
     
-    @Column(nullable=false)
-    private Integer año;
+    private Room room;
+    
+//    @ManyToOne
+//    private Room room;
+    
+    @ManyToOne
+    private Movie film;
+    
+    @Temporal(TemporalType.TIMESTAMP) 
+    private Date startDate;
+
+    public Date getDate() {
+        return startDate;
+    }
+
+    public void setDate(Date date) {
+        this.startDate = date;
+    }
+    
+    
     public Long getId() {
         return id;
     }
@@ -32,22 +46,22 @@ public class PruebaEntity implements Serializable {
         this.id = id;
     }
 
-    public String getMatricula() {
-        return matricula;
+//    public void setRoom(Room room) {
+//        this.room = room;
+//    }
+//    public Room getRoom() {
+//        return room;
+//    }
+
+    public void setFilm(Movie film) {
+        this.film = film;
     }
 
-    public Integer getAño() {
-        return año;
+    public Movie getFilm() {
+        return film;
     }
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
-
-    public void setAño(Integer año) {
-        this.año = año;
-    }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -58,10 +72,10 @@ public class PruebaEntity implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PruebaEntity)) {
+        if (!(object instanceof Function)) {
             return false;
         }
-        PruebaEntity other = (PruebaEntity) object;
+        Function other = (Function) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -70,7 +84,7 @@ public class PruebaEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "PruebaEntity[ id=" + id + " ]";
+        return "uy.com.cinestar.domain.FuncionEntity[ id=" + id + " ]";
     }
     
 }

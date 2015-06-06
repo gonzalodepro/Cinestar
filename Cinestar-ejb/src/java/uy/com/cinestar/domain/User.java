@@ -22,7 +22,7 @@ import uy.com.cinestar.generics.Enums.UserType;
  */
 
 @Entity
-public class UserEntity implements Serializable {
+public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,16 +37,16 @@ public class UserEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private UserType type;
 
-    public UserEntity() {
+    public User() {
     }
 
-//    public UserEntity(String nick, String password, UserType type) {
+//    public User(String nick, String password, UserType type) {
 //        this.nick = nick;
 //        this.password = password;
 //        this.type = type;
 //    }
 //
-//    public UserEntity(String nick, String password) {
+//    public User(String nick, String password) {
 //        this.nick = nick;
 //        this.password = password;
 //    }
@@ -94,10 +94,10 @@ public class UserEntity implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserEntity)) {
+        if (!(object instanceof User)) {
             return false;
         }
-        UserEntity other = (UserEntity) object;
+        User other = (User) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

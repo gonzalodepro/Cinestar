@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import uy.com.cinestar.domain.PruebaEntity;
+import uy.com.cinestar.domain.Prueba;
 
 
 @Stateless
@@ -30,7 +30,7 @@ public class PruebaBean {
         if (index>0)
             throw new Exception("Matricula ya existe");
         
-        PruebaEntity auto = new PruebaEntity();
+        Prueba auto = new Prueba();
         
         auto.setAño(año);
         auto.setMatricula(matricula);

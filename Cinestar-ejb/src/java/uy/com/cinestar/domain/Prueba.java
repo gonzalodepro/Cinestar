@@ -6,26 +6,24 @@
 package uy.com.cinestar.domain;
 
 import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-/**
- *
- * @author Gonza
- */
 @Entity
-public class MovieEntity implements Serializable {
+public class Prueba implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String title;
-    private String description;
+
+    @Column(unique=true,nullable=true,length=7)
+    private String matricula;
     
-    @Temporal(TemporalType.TIME) 
-    private Date duration;
-    
-    
+    @Column(nullable=false)
+    private Integer año;
     public Long getId() {
         return id;
     }
@@ -34,31 +32,21 @@ public class MovieEntity implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getMatricula() {
+        return matricula;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getAño() {
+        return año;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAño(Integer año) {
+        this.año = año;
     }
-
-    public Date getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Date duration) {
-        this.duration = duration;
-    }
-    
-    
 
     @Override
     public int hashCode() {
@@ -70,10 +58,10 @@ public class MovieEntity implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MovieEntity)) {
+        if (!(object instanceof Prueba)) {
             return false;
         }
-        MovieEntity other = (MovieEntity) object;
+        Prueba other = (Prueba) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -82,7 +70,7 @@ public class MovieEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "Movie: " + title +", description: " + description + ".";
+        return "PruebaEntity[ id=" + id + " ]";
     }
     
 }

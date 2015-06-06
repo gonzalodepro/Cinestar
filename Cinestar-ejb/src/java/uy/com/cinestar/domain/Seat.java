@@ -16,7 +16,7 @@ import javax.persistence.Id;
  * @author Gonza
  */
 @Entity
-public class SeatEntity implements Serializable {
+public class Seat implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,10 +26,10 @@ public class SeatEntity implements Serializable {
     private int column;
     private boolean available;
 
-    public SeatEntity() {
+    public Seat() {
     }
 
-    public SeatEntity(int row, int column, boolean available) {
+    public Seat(int row, int column, boolean available) {
         this.row = row;
         this.column = column;
         this.available = available;
@@ -78,10 +78,10 @@ public class SeatEntity implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SeatEntity)) {
+        if (!(object instanceof Seat)) {
             return false;
         }
-        SeatEntity other = (SeatEntity) object;
+        Seat other = (Seat) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
