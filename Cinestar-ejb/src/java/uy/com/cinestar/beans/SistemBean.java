@@ -5,51 +5,46 @@
  */
 package uy.com.cinestar.beans;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import uy.com.cinestar.domain.*;
+import uy.com.cinestar.generics.Enums;
+import uy.com.cinestar.persistence.*;
 
 
 @Singleton
 @LocalBean
 public class SistemBean {
 
+    @EJB
+    UserPersistenceBean userPersistence;
     
-    @PersistenceContext
-    EntityManager em;
     private final Map<UUID, User> loggedUsers; 
     
 
-    public SistemBean() throws Exception {
+    public SistemBean() 
+   {
        
         this.loggedUsers = new HashMap<>();
         LoadUsers();
     }
 
-    private void LoadUsers() throws Exception{
-//        User u1 = new User("usu1","pass1");
-//        User u2 = new User("usu2","pass2");
+    private void LoadUsers(){
         User u1 = new User();
         u1.setNick("usu1");
         u1.setPassword("pass1");
+        u1.setType(Enums.UserType.Client);
         User u2 = new User();
         u2.setNick("usu2");
         u2.setPassword("pass2");
-        try{
-            em.persist(u1);
-            em.persist(u2);
-            
-        }catch(Exception e){
-            throw new Exception("Error al cargar los usuarios del sistema.");
-        }
-        
+        u2.setType(Enums.UserType.Client);
+        userPersistence.addUser(u1);
+        userPersistence.addUser(u2);
         
     }
     public List<User> getUsers() {
