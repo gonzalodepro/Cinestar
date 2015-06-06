@@ -42,7 +42,7 @@ public class SistemBean {
     public UUID UserLog(User u){
         UUID ret;
         if (users.contains(u)){
-            ret = UUID.randomUUID();
+            ret = UUID.randomUUID();    
             loggedUsers.put(ret, u);
         }else{
             ret = null;
@@ -50,6 +50,10 @@ public class SistemBean {
         return ret;
     }
     
-    
+    public boolean IsCorrectToken(UUID token){
+        
+        return (this.loggedUsers.containsKey(token));
+        
+    }
     
 }

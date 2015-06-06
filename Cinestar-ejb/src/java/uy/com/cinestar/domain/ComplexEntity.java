@@ -20,8 +20,6 @@ public class ComplexEntity implements Serializable {
 
     private String name;
     
-    @Embedded
-    private Set<Room> rooms;
     
     public Long getId() {
         return id;
@@ -30,11 +28,7 @@ public class ComplexEntity implements Serializable {
     public String getName() {
         return name;
     }
-
-    public Set<Room> getRooms() {
-        return rooms;
-    }
-
+    
     public void setName(String name) {
         this.name = name;
     }
@@ -67,13 +61,6 @@ public class ComplexEntity implements Serializable {
     @Override
     public String toString() {
         return "uy.com.cinestar.domain.ComplexEntity[ id=" + id + " ]";
-    }
-    
-    
-    @Embeddable
-    public class Room{
-        protected Integer number;
-        protected String name;
     }
     
 }
