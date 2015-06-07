@@ -30,29 +30,26 @@ public class SistemBean {
     public SistemBean() 
    {
         this.loggedUsers = new HashMap<>();
-        LoadUsers();
+        //LoadUsers();
     }
 
-    private void LoadUsers(){
-        User u1 = new User();
-        u1.setNick("usu1");
-        u1.setPassword("pass1");
-        u1.setType(Enums.UserType.Client);
-        User u2 = new User();
-        u2.setNick("usu2");
-        u2.setPassword("pass2");
-        u2.setType(Enums.UserType.Client);
-        userPersistence.addUser(u1);
-        userPersistence.addUser(u2);
-        
-    }
-    public List<User> getUsers() {
-        return null;
-    }
+//    private void LoadUsers(){
+//        User u1 = new User();
+//        u1.setNick("usu1");
+//        u1.setPassword("pass1");
+//        u1.setType(Enums.UserType.Client);
+//        User u2 = new User();
+//        u2.setNick("usu2");
+//        u2.setPassword("pass2");
+//        u2.setType(Enums.UserType.Client);
+//        userPersistence.addUser(u1);
+//        userPersistence.addUser(u2);
+//    }
     
     public UUID UserLog(User u){
         UUID ret;
-        if (getUsers().contains(u)){
+        List<User> list = userPersistence.getAllUsers();
+        if (list.contains(u)){
             ret = UUID.randomUUID();    
             loggedUsers.put(ret, u);
         }else{
