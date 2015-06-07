@@ -33,18 +33,21 @@ public class UserPersistenceBean {
         u2.setNick("usu2");
         u2.setPassword("pass2");
         u2.setType(Enums.UserType.Client);
-        
+        em.getTransaction().begin();
         em.persist(u1);
         em.persist(u2);
-        
+        em.getTransaction().commit();
         
     }
     
     public boolean addUser(User u){
         try{
+            em.getTransaction().begin();
             em.persist(u);
+            em.getTransaction().commit();
             return true;
         }catch(Exception e){
+            em.getTransaction().rollback();
             return false;
         }
     }
@@ -52,6 +55,7 @@ public class UserPersistenceBean {
     public List<User> getAllUsers(){
         Query query = em.createQuery("SELECT u from User as u");
         return query.getResultList();
+        
     }
     
 }

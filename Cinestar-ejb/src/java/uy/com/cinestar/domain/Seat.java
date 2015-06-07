@@ -24,10 +24,10 @@ public class Seat implements Serializable {
     private Long id;
  
     @Column(nullable=false)
-    private int row;
+    private int sRow;
     
     @Column(nullable=false)
-    private int column;
+    private int sColumn;
     
     @Column(nullable=false)
     private boolean available;
@@ -36,17 +36,17 @@ public class Seat implements Serializable {
     }
 
     public Seat(int row, int column, boolean available) {
-        this.row = row;
-        this.column = column;
+        this.sRow = row;
+        this.sColumn = column;
         this.available = available;
     }
 
     public int getRow() {
-        return row;
+        return sRow;
     }
 
     public int getColumn() {
-        return column;
+        return sColumn;
     }
 
     public boolean isAvailable() {
@@ -54,11 +54,11 @@ public class Seat implements Serializable {
     }
 
     public void setRow(int row) {
-        this.row = row;
+        this.sRow = row;
     }
 
     public void setColumn(int column) {
-        this.column = column;
+        this.sColumn = column;
     }
 
     public void setAvailable(boolean available) {
@@ -96,7 +96,7 @@ public class Seat implements Serializable {
 
     @Override
     public String toString() {
-        String ret = "Asiento " + row +"-"+ column;
+        String ret = "Asiento " + sRow +"-"+ sColumn;
         if (this.isAvailable())
             ret+=" Libre.";
         else

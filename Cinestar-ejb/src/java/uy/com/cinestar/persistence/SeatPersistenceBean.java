@@ -5,13 +5,11 @@
  */
 package uy.com.cinestar.persistence;
 
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import uy.com.cinestar.domain.Function;
 
 /**
  *
@@ -19,34 +17,29 @@ import uy.com.cinestar.domain.Function;
  */
 @Stateless
 @LocalBean
-public class FunctionPersistenceBean {
+public class SeatPersistenceBean {
 
     @PersistenceContext
     EntityManager em;
     
-    public List<Function> getAllFunctions(){
-        Query query = em.createQuery("SELECT f from Function as f");
-        return query.getResultList();
-    }
-    
-    public boolean addFunction(Function f){
+    public boolean buySeat(long id){
+        
         try{
-            em.getTransaction().begin();
-            em.persist(f);
             em.getTransaction().commit();
-            return true;
-        }catch(Exception e){
+            Query query = em.createQuery("UPDATE Seat SET available=false WHERE id=:id");
+            query.setParameter("id", id);
+            int updatedRows = query.executeUpdate();
+            em.getTransaction().commit();
+            if (updatedRows==0)
+                return false;
+            else
+                return true;
+        }catch (Exception e){
             em.getTransaction().rollback();
             return false;
         }
+        
     }
-    
-    public boolean buySeatInFunction(long id, int seatRow, int seatColumn){
-        try{
-            
-            return true;
-        }catch(Exception e){
-            return false;
-        }
-    }
+    // Add business logic below. (Right-click in editor and choose
+    // "Insert Code > Add Business Method")
 }

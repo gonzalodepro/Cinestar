@@ -7,12 +7,13 @@ package uy.com.cinestar.domain;
 
 import java.io.Serializable;
 import java.util.List;
+import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -30,7 +31,7 @@ public class Room implements Serializable {
     
     private String description;
 
-    @JoinColumn
+    @OneToMany(cascade=ALL)
     private List<Seat> seats;
     
     public Room() {
