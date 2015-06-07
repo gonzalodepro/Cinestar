@@ -31,12 +31,9 @@ public class FunctionPersistenceBean {
     
     public boolean addFunction(Function f){
         try{
-            em.getTransaction().begin();
             em.persist(f);
-            em.getTransaction().commit();
             return true;
         }catch(Exception e){
-            em.getTransaction().rollback();
             return false;
         }
     }

@@ -25,17 +25,11 @@ public class SeatPersistenceBean {
     public boolean buySeat(long id){
         
         try{
-            em.getTransaction().commit();
             Query query = em.createQuery("UPDATE Seat SET available=false WHERE id=:id");
             query.setParameter("id", id);
             int updatedRows = query.executeUpdate();
-            em.getTransaction().commit();
-            if (updatedRows==0)
-                return false;
-            else
-                return true;
+            return updatedRows != 0;
         }catch (Exception e){
-            em.getTransaction().rollback();
             return false;
         }
         
