@@ -7,24 +7,25 @@ package uy.com.cinestar.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 import javax.persistence.*;
 
 
 @Entity
 public class Function implements Serializable {
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    @JoinColumn(nullable=false)
     private Room room;
     
-//    @ManyToOne
-//    private Room room;
+    @JoinColumn(nullable=false)
+    private Complex complex;
     
-    @ManyToOne
-    private Movie film;
+    @JoinColumn(nullable=false)
+    private Movie movie;
     
     @Temporal(TemporalType.TIMESTAMP) 
     private Date startDate;
@@ -46,21 +47,49 @@ public class Function implements Serializable {
         this.id = id;
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public Complex getComplex() {
+        return complex;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
 //    public void setRoom(Room room) {
 //        this.room = room;
 //    }
 //    public Room getRoom() {
 //        return room;
 //    }
-
-    public void setFilm(Movie film) {
-        this.film = film;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public Movie getFilm() {
-        return film;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
+    public void setComplex(Complex complex) {
+        this.complex = complex;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    
     
     @Override
     public int hashCode() {

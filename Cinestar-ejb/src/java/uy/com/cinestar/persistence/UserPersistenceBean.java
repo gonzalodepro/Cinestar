@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import uy.com.cinestar.domain.User;
+import uy.com.cinestar.generics.Enums;
 
 
 @Stateless
@@ -22,6 +23,22 @@ public class UserPersistenceBean {
     @PersistenceContext
     EntityManager em;
     
+    public void LoadDefaultUsers(){
+        User u1 = new User();
+        User u2 = new User();
+        
+        u1.setNick("usu1");
+        u1.setPassword("pass1");
+        u1.setType(Enums.UserType.Client);
+        u2.setNick("usu2");
+        u2.setPassword("pass2");
+        u2.setType(Enums.UserType.Client);
+        
+        em.persist(u1);
+        em.persist(u2);
+        
+        
+    }
     
     public boolean addUser(User u){
         try{
@@ -36,6 +53,5 @@ public class UserPersistenceBean {
         Query query = em.createQuery("SELECT u from User as u");
         return query.getResultList();
     }
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    
 }

@@ -6,6 +6,7 @@
 package uy.com.cinestar.domain;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,9 +22,14 @@ public class Seat implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+ 
+    @Column(nullable=false)
     private int row;
+    
+    @Column(nullable=false)
     private int column;
+    
+    @Column(nullable=false)
     private boolean available;
 
     public Seat() {

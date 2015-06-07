@@ -6,10 +6,13 @@
 package uy.com.cinestar.domain;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 
 /**
  *
@@ -21,10 +24,15 @@ public class Room implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    
+    @Column(nullable=false)
     private int number;
+    
     private String description;
 
+    @JoinColumn
+    private List<Seat> seats;
+    
     public Room() {
     }
 

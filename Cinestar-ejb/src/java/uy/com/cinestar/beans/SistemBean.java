@@ -30,7 +30,6 @@ public class SistemBean {
     public SistemBean() 
    {
         this.loggedUsers = new HashMap<>();
-        //LoadUsers();
     }
 
 //    private void LoadUsers(){
@@ -47,6 +46,7 @@ public class SistemBean {
 //    }
     
     public UUID UserLog(User u){
+        userPersistence.LoadDefaultUsers();
         UUID ret;
         List<User> list = userPersistence.getAllUsers();
         if (list.contains(u)){

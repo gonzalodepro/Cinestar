@@ -22,6 +22,10 @@ public class Complex implements Serializable {
     @OneToMany(cascade=ALL)
     private List<Room> rooms;
     
+    @OneToMany(cascade=ALL)
+    private List<Function> functions;
+    
+    @Column(nullable=false)
     private String name;
     
     
