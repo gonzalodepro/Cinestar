@@ -28,23 +28,10 @@ public class SistemBean {
     
 
     public SistemBean() 
-   {
+    {
         this.loggedUsers = new HashMap<>();
     }
 
-//    private void LoadUsers(){
-//        User u1 = new User();
-//        u1.setNick("usu1");
-//        u1.setPassword("pass1");
-//        u1.setType(Enums.UserType.Client);
-//        User u2 = new User();
-//        u2.setNick("usu2");
-//        u2.setPassword("pass2");
-//        u2.setType(Enums.UserType.Client);
-//        userPersistence.addUser(u1);
-//        userPersistence.addUser(u2);
-//    }
-    
     public UUID UserLog(User u){
         userPersistence.LoadDefaultUsers();
         UUID ret;
@@ -59,9 +46,10 @@ public class SistemBean {
     }
     
     public boolean IsCorrectToken(UUID token){
-        
         return (this.loggedUsers.containsKey(token));
-        
     }
     
+    public boolean addUser(User u){
+        return userPersistence.addUser(u);
+    }
 }

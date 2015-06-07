@@ -38,11 +38,8 @@ public class InterceptorBean {
                 throw new Exception("El usuario no esta loggeado");
             }
         }catch(Exception e){
-            throw e;
-            //throw new Exception("Para realizar esta accion debe enviar su token en el primer parametro.");
+            throw new Exception("Para realizar esta accion debe enviar su token en el primer parametro.");
         }
-            
-        
     }
 
     // Add business logic below. (Right-click in editor and choose

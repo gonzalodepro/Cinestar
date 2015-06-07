@@ -30,6 +30,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(uy.com.cinestar.resources.LogResource.class);
+        resources.add(uy.com.cinestar.resources.UserResource.class);
     }
     
 }
