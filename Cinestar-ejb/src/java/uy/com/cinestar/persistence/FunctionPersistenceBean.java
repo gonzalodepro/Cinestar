@@ -13,10 +13,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import uy.com.cinestar.domain.Function;
 
-/**
- *
- * @author Gonza
- */
 @Stateless
 @LocalBean
 public class FunctionPersistenceBean {
@@ -25,8 +21,22 @@ public class FunctionPersistenceBean {
     EntityManager em;
     
     public List<Function> getAllFunctions(){
-        Query query = em.createQuery("SELECT f from Function as f");
-        return query.getResultList();
+        try{
+            Query query = em.createQuery("SELECT f from Function as f");
+            return query.getResultList();
+        }catch(Exception e){
+            return null;
+        }
+    }
+    
+    public Function getFunction(long id){
+        try{
+            Query query = em.createQuery("SELECT f from Function as f where f.id=:id");
+            query.setParameter("id", id);
+            return (Function)query.getSingleResult();
+        }catch (Exception e){
+            return null;
+        }
     }
     
     public boolean addFunction(Function f){
@@ -38,9 +48,9 @@ public class FunctionPersistenceBean {
         }
     }
     
-    public boolean buySeatInFunction(long id, int seatRow, int seatColumn){
+    public boolean buySeatInFunction(Long id, int seatRow, int seatColumn){
         try{
-            
+            //ARMAR QUERY
             return true;
         }catch(Exception e){
             return false;

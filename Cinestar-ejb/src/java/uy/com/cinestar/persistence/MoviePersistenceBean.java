@@ -12,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import uy.com.cinestar.domain.Movie;
-import uy.com.cinestar.domain.Seat;
 
 /**
  *
@@ -20,41 +19,28 @@ import uy.com.cinestar.domain.Seat;
  */
 @Stateless
 @LocalBean
-public class SeatPersistenceBean {
+public class MoviePersistenceBean {
 
     @PersistenceContext
     EntityManager em;
     
      
-    public boolean addSeat(Seat s){
+    public boolean addMovie(Movie m){
         try{
-            em.persist(s);
+            em.persist(m);
             return true;
         }catch(Exception e){
             return false;
         }
     }
-    public boolean buySeat(long id){
-        
-        try{
-            Query query = em.createQuery("UPDATE Seat SET available=false WHERE id=:id");
-            query.setParameter("id", id);
-            int updatedRows = query.executeUpdate();
-            return updatedRows != 0;
-        }catch (Exception e){
-            return false;
-        }
-        
-    }
     
-    public List<Seat> getRoomSeats(Long roomId){
+    public List<Movie> getAllMovies(){
         try{
-            Query query = em.createQuery("ARMAR QUEY");
+            Query query = em.createQuery("SELECT m from Movie as m");
             return query.getResultList();
         }catch(Exception e){
             return null;
         }
     }
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    
 }

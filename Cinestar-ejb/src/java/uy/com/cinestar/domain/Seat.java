@@ -34,7 +34,7 @@ public class Seat implements Serializable {
 
     public Seat() {
     }
-
+    
     public Seat(int row, int column, boolean available) {
         this.sRow = row;
         this.sColumn = column;
@@ -65,7 +65,6 @@ public class Seat implements Serializable {
         this.available = available;
     }
 
-    
     public Long getId() {
         return id;
     }

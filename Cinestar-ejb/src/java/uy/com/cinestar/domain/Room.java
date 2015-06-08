@@ -6,6 +6,7 @@
 package uy.com.cinestar.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Column;
@@ -35,11 +36,25 @@ public class Room implements Serializable {
     private List<Seat> seats;
     
     public Room() {
+        seats = new ArrayList<>();
+        for (int i=1;i<11;i++){
+            for (int j=1;j<11;j++){
+                Seat s = new Seat(i,j,false);
+                seats.add(s);
+            }
+        }
     }
 
     public Room(int number, String description) {
         this.number = number;
         this.description = description;
+        seats = new ArrayList<>();
+        for (int i=1;i<11;i++){
+            for (int j=1;j<11;j++){
+                Seat s = new Seat(i,j,false);
+                seats.add(s);
+            }
+        }
     }
 
     public int getNumber() {
@@ -67,6 +82,15 @@ public class Room implements Serializable {
         this.id = id;
     }
 
+    public List<Seat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;

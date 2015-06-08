@@ -24,8 +24,10 @@ public class SistemBean {
     @EJB
     private UserPersistenceBean userPersistence;
     
-    private final Map<UUID, User> loggedUsers; 
+    @EJB
+    private FunctionPersistenceBean functionPersistence;
     
+    private final Map<UUID, User> loggedUsers; 
 
     public SistemBean() 
     {
@@ -51,5 +53,12 @@ public class SistemBean {
     
     public boolean addUser(User u){
         return userPersistence.addUser(u);
+    }
+    
+    public List<Function> getFunctions(){
+        return functionPersistence.getAllFunctions();
+    }
+    public Function getFunction(long id){
+        return functionPersistence.getFunction(id);
     }
 }

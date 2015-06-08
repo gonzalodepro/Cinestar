@@ -5,7 +5,6 @@
  */
 package uy.com.cinestar.persistence;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -14,7 +13,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import uy.com.cinestar.domain.User;
 import uy.com.cinestar.generics.Enums;
-
 
 @Stateless
 @LocalBean
@@ -35,7 +33,6 @@ public class UserPersistenceBean {
         u2.setType(Enums.UserType.Client);
         em.persist(u1);
         em.persist(u2);
-        
     }
     
     public boolean addUser(User u){
@@ -48,9 +45,23 @@ public class UserPersistenceBean {
     }
     
     public List<User> getAllUsers(){
-        Query query = em.createQuery("SELECT u from User as u");
-        return query.getResultList();
-        
+        try{
+            Query query = em.createQuery("SELECT u from User as u");
+            return query.getResultList();
+        }catch(Exception e){
+            return null;
+        }
+    }
+    
+    public User getUser(Long id){
+        try{
+            Query query = em.createQuery("SELECT u from User as u WHERE u.id=:id");
+            query.setParameter("id", id);
+            User u = (User)query.getSingleResult();
+            return u;
+        }catch(Exception e){
+            return null;
+        }
     }
     
 }

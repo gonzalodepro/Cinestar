@@ -30,6 +30,16 @@ public class Function implements Serializable {
     @Temporal(TemporalType.TIMESTAMP) 
     private Date startDate;
 
+    public Function() {
+    }
+
+    public Function(Room room, Complex complex, Movie movie, Date startDate) {
+        this.room = room;
+        this.complex = complex;
+        this.movie = movie;
+        this.startDate = startDate;
+    }
+    
     public Date getDate() {
         return startDate;
     }
@@ -37,7 +47,6 @@ public class Function implements Serializable {
     public void setDate(Date date) {
         this.startDate = date;
     }
-    
     
     public Long getId() {
         return id;
@@ -62,13 +71,7 @@ public class Function implements Serializable {
     public Movie getMovie() {
         return movie;
     }
-
-//    public void setRoom(Room room) {
-//        this.room = room;
-//    }
-//    public Room getRoom() {
-//        return room;
-//    }
+    
     public Date getStartDate() {
         return startDate;
     }
