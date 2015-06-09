@@ -23,7 +23,7 @@ public class RoomPersistenceBean {
     EntityManager em;
     
      
-    public boolean addComplex(Room r){
+    public boolean addRoom(Room r){
         try{
             em.persist(r);
             return true;

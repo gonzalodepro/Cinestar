@@ -25,8 +25,7 @@ public class Movie implements Serializable {
     
     private String description;
     
-    @Temporal(TemporalType.TIME) 
-    private Date duration;
+    private int durationMin;
     
     
     public Long getId() {
@@ -53,12 +52,12 @@ public class Movie implements Serializable {
         this.description = description;
     }
 
-    public Date getDuration() {
-        return duration;
+    public int getDurationMin() {
+        return durationMin;
     }
 
-    public void setDuration(Date duration) {
-        this.duration = duration;
+    public void setDurationMin(int duration) {
+        this.durationMin = duration;
     }
     
     

@@ -42,5 +42,15 @@ public class ComplexPersistenceBean {
             return null;
         }
     }
+    public Complex getComplex (Long id){
+        try{
+            Query query = em.createQuery("SELECT c from Complex as c WHERE c.id=:id");
+            query.setParameter("id", id);
+            return (Complex)query.getSingleResult();
+            
+        }catch (Exception e){
+            return null;
+        }
+    }
     
 }

@@ -6,6 +6,7 @@
 package uy.com.cinestar.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 import static javax.persistence.CascadeType.ALL;
@@ -27,6 +28,33 @@ public class Complex implements Serializable {
     
     @Column(nullable=false)
     private String name;
+
+    public Complex() {
+        rooms = new ArrayList<>();
+        functions = new ArrayList<>();
+    }
+
+    
+    
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    public void setFunctions(List<Function> functions) {
+        this.functions = functions;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public List<Function> getFunctions() {
+        return functions;
+    }
     
     
     public Long getId() {

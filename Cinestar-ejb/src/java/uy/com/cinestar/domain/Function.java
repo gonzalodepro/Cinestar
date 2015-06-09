@@ -40,14 +40,6 @@ public class Function implements Serializable {
         this.startDate = startDate;
     }
     
-    public Date getDate() {
-        return startDate;
-    }
-
-    public void setDate(Date date) {
-        this.startDate = date;
-    }
-    
     public Long getId() {
         return id;
     }
