@@ -29,6 +29,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(uy.com.cinestar.resources.ComplexResource.class);
         resources.add(uy.com.cinestar.resources.FunctionResource.class);
         resources.add(uy.com.cinestar.resources.GenericResource.class);
         resources.add(uy.com.cinestar.resources.LogResource.class);

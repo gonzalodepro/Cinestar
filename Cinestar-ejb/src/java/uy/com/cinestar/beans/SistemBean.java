@@ -95,6 +95,7 @@ public class SistemBean {
             c.setName("Movie montevideo Shopping");
             c.getRooms().add(r);
             c.getRooms().add(r2);
+            c.addMovieToBillboard(m);
             complexPersistence.addComplex(c);
             
             Function f = new Function();

@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import uy.com.cinestar.domain.Complex;
 import uy.com.cinestar.domain.Complex;
+import uy.com.cinestar.domain.Movie;
 
 /**
  *
@@ -49,6 +50,15 @@ public class ComplexPersistenceBean {
             return (Complex)query.getSingleResult();
             
         }catch (Exception e){
+            return null;
+        }
+    }
+    
+    public List<Movie> getComplexBillboard(Long id){
+        try{
+            Complex theComplex =em.find(Complex.class, id);
+            return theComplex.getBillboard();
+        }catch(Exception e){
             return null;
         }
     }

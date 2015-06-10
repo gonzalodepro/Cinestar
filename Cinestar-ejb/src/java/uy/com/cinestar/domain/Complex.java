@@ -26,15 +26,25 @@ public class Complex implements Serializable {
     @OneToMany(cascade=ALL)
     private List<Function> functions;
     
+    @OneToMany(cascade=ALL)
+    private List<Movie> billboard;
+    
     @Column(nullable=false)
     private String name;
 
     public Complex() {
         rooms = new ArrayList<>();
         functions = new ArrayList<>();
+        billboard = new ArrayList<>();
     }
 
-    
+    public List<Movie> getBillboard() {
+        return billboard;
+    }
+
+    public void setBillboard(List<Movie> billboard) {
+        this.billboard = billboard;
+    }
     
     public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
@@ -74,6 +84,10 @@ public class Complex implements Serializable {
         this.id = id;
     }
 
+    public void addMovieToBillboard(Movie m){
+        this.billboard.add(m);
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
