@@ -21,20 +21,6 @@ public class UserPersistenceBean {
     @PersistenceContext
     EntityManager em;
     
-    public void LoadDefaultUsers(){
-        User u1 = new User();
-        User u2 = new User();
-        
-        u1.setNick("usu1");
-        u1.setPassword("pass1");
-        u1.setType(Enums.UserType.Client);
-        u2.setNick("usu2");
-        u2.setPassword("pass2");
-        u2.setType(Enums.UserType.Client);
-        em.persist(u1);
-        em.persist(u2);
-    }
-    
     public boolean addUser(User u){
         try{
             em.persist(u);

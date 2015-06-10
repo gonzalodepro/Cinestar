@@ -18,6 +18,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import uy.com.cinestar.beans.FunctionBean;
 import uy.com.cinestar.beans.SistemBean;
 import uy.com.cinestar.domain.Function;
 
@@ -26,9 +27,9 @@ public class FunctionResource {
 
     @Context
     private UriInfo context;
-
+    
     @EJB
-    private SistemBean sistem;
+    private FunctionBean functionBean;
     
     public FunctionResource() {
     }
@@ -37,13 +38,12 @@ public class FunctionResource {
     @Produces("application/json")
     public Response getFunctions() {
         try{
-            List<Function> functions = sistem.getFunctions();
-            if (functions==null)
-                return Response.serverError().build();
-            else{
+            List<Function> functions = functionBean.getFunctions();
+            if (functions!=null) {
                 Gson responde = new GsonBuilder().create();
                 return Response.accepted(responde.toJson(functions)).build();
-            }
+            } else
+                return Response.serverError().build();
         }catch(Exception e){
             return Response.serverError().build();
         }
@@ -57,7 +57,7 @@ public class FunctionResource {
             return Response.accepted("Debe enviar el id de la funcion en el primer parametro.").build();
         }else{
             try{
-                Function function = sistem.getFunction(id);
+                Function function = functionBean.getFunction(id);
                 if (function==null)
                     return Response.serverError().build();
                 else{

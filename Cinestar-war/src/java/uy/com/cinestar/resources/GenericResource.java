@@ -29,9 +29,9 @@ public class GenericResource {
    
     
     @PUT
-    public Response loadDefoultValues(String content) {
+    public Response loadDefaultValues(String content) {
         try{
-            sistem.LoadDefoultValues();
+            sistem.LoadDefaultValues();
             return Response.accepted("Datos por defecto cargados correctamente.").build();
         }catch (Exception e){
             return Response.serverError().build();

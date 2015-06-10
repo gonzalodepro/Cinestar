@@ -22,9 +22,6 @@ public class Function implements Serializable {
     private Room room;
     
     @JoinColumn(nullable=false)
-    private Complex complex;
-    
-    @JoinColumn(nullable=false)
     private Movie movie;
     
     @Temporal(TemporalType.TIMESTAMP) 
@@ -33,9 +30,8 @@ public class Function implements Serializable {
     public Function() {
     }
 
-    public Function(Room room, Complex complex, Movie movie, Date startDate) {
+    public Function(Room room, Movie movie, Date startDate) {
         this.room = room;
-        this.complex = complex;
         this.movie = movie;
         this.startDate = startDate;
     }
@@ -56,10 +52,6 @@ public class Function implements Serializable {
         return room;
     }
 
-    public Complex getComplex() {
-        return complex;
-    }
-
     public Movie getMovie() {
         return movie;
     }
@@ -70,10 +62,6 @@ public class Function implements Serializable {
 
     public void setRoom(Room room) {
         this.room = room;
-    }
-
-    public void setComplex(Complex complex) {
-        this.complex = complex;
     }
 
     public void setMovie(Movie movie) {

@@ -7,7 +7,6 @@ package uy.com.cinestar.resources;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.util.List;
 import java.util.UUID;
 import javax.ejb.EJB;
 import javax.interceptor.Interceptors;
@@ -22,7 +21,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import uy.com.cinestar.beans.InterceptorBean;
-import uy.com.cinestar.beans.PruebaBean;
 import uy.com.cinestar.beans.SistemBean;
 import uy.com.cinestar.domain.User;
 
@@ -36,8 +34,6 @@ public class LogResource {
     @EJB
     private SistemBean sistem;
 
-    @EJB
-    private PruebaBean pruebaBean;
     /**
      * Creates a new instance of LogResource
      */
@@ -59,8 +55,6 @@ public class LogResource {
     @Produces("application/json")
     @Path("loggin")
     public Response logg(@QueryParam("nick") String nick, @QueryParam("password") String password) {
-        
-        //UUID uuidToken= sistem.UserLog(new User(nick, password));
         User u = new User();
         u.setNick(nick);
         u.setPassword(password);
@@ -76,16 +70,16 @@ public class LogResource {
         return Response.accepted(responde.toJson(logResult)).build();
     }
 
-    @POST
-    @Produces("application/json")
-    @Interceptors(InterceptorBean.class)
-    @Path("auto")
-    public Response auto(@QueryParam("token") String token,@QueryParam("matricula") String matricula, @QueryParam("año") Integer año) throws Exception {
-        
-        pruebaBean.crearAuto(matricula, año);
-        Gson responde = new GsonBuilder().create();
-        return Response.accepted(responde.toJson("ok")).build();
-    }
+//    @POST
+//    @Produces("application/json")
+//    @Interceptors(InterceptorBean.class)
+//    @Path("auto")
+//    public Response auto(@QueryParam("token") String token,@QueryParam("matricula") String matricula, @QueryParam("año") Integer año) throws Exception {
+//        
+//        pruebaBean.crearAuto(matricula, año);
+//        Gson responde = new GsonBuilder().create();
+//        return Response.accepted(responde.toJson("ok")).build();
+//    }
     
     /**
      * PUT method for updating or creating an instance of LogResource

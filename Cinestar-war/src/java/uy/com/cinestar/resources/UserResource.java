@@ -19,6 +19,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import uy.com.cinestar.beans.SistemBean;
+import uy.com.cinestar.beans.UserBean;
 import uy.com.cinestar.domain.User;
 import uy.com.cinestar.generics.Enums;
 
@@ -30,6 +31,9 @@ public class UserResource {
     
     @EJB
     private SistemBean sistem;
+    
+    @EJB
+    private UserBean userBean;
     /**
      * Creates a new instance of UserResource
      */
@@ -58,7 +62,7 @@ public class UserResource {
             u.setType(Enums.UserType.Client);
             u.setNick(nick);
             u.setPassword(pass);
-            boolean result = sistem.addUser(u);
+            boolean result = userBean.addUser(u);
             if (result)
                 return Response.accepted("Usuario ingresado correctamente.").build();
             else
@@ -75,7 +79,7 @@ public class UserResource {
             u.setType(Enums.UserType.Administrator);
             u.setNick(nick);
             u.setPassword(pass);
-            boolean result = sistem.addUser(u);
+            boolean result = userBean.addUser(u);
             if (result)
                 return Response.accepted("Usuario ingresado correctamente.").build();
             else

@@ -23,12 +23,6 @@ import uy.com.cinestar.persistence.*;
 public class SistemBean { 
     
     @EJB
-    private UserPersistenceBean userPersistence;
-    
-    @EJB
-    private FunctionPersistenceBean functionPersistence;
-    
-    @EJB
     private ComplexPersistenceBean complexPersistence;
     
     @EJB
@@ -36,6 +30,12 @@ public class SistemBean {
     
     @EJB
     private MoviePersistenceBean moviePersistence;
+    
+    @EJB
+    private FunctionPersistenceBean functionPersistence;
+    
+    @EJB
+    private UserPersistenceBean userPersistence;
     
     private final Map<UUID, User> loggedUsers; 
 
@@ -45,7 +45,6 @@ public class SistemBean {
     }
 
     public UUID UserLog(User u){
-        userPersistence.LoadDefaultUsers();
         UUID ret;
         List<User> list = userPersistence.getAllUsers();
         if (list.contains(u)){
@@ -61,18 +60,8 @@ public class SistemBean {
         return (this.loggedUsers.containsKey(token));
     }
     
-    public boolean addUser(User u){
-        return userPersistence.addUser(u);
-    }
     
-    public List<Function> getFunctions(){
-        return functionPersistence.getAllFunctions();
-    }
-    public Function getFunction(long id){
-        return functionPersistence.getFunction(id);
-    }
-    
-    public void LoadDefoultValues(){
+    public void LoadDefaultValues(){
         try{
             User u = new User();
             u.setNick("usu1");
@@ -109,7 +98,6 @@ public class SistemBean {
             complexPersistence.addComplex(c);
             
             Function f = new Function();
-            f.setComplex(c);
             f.setMovie(m);
             f.setRoom(r2);
             Date d= new Date();
