@@ -20,6 +20,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import uy.com.cinestar.beans.ComplexBean;
 import uy.com.cinestar.domain.Movie;
+import uy.com.cinestar.exceptions.ParameterException;
+import uy.com.cinestar.generics.ExceptionHelperBean;
 
 
 @Path("Complex")
@@ -30,6 +32,8 @@ public class ComplexResource {
 
     @EJB
     private ComplexBean complexBean; 
+    @EJB
+    private ExceptionHelperBean exceptionHelper;
     
     public ComplexResource() {
     }
@@ -44,15 +48,18 @@ public class ComplexResource {
     @Produces("application/json")
     public Response getBillboard(@QueryParam("id") Long id) {
         try{
+            if (id==null)
+                throw new ParameterException("Debe enviar el id del complejo en el request.");
             List<Movie> list = complexBean.getComplexBillboard(id);
             if (list!=null){
                 Gson responde = new GsonBuilder().create();
                 return Response.accepted(responde.toJson(list)).build();
             }else{
-                return Response.accepted("Ocurrio un error al acceder a la base de datos, puede que el id sea incorrecto.").build();
+                return Response.accepted("Ocurrio un error al acceder a la base de datos, "
+                        + "puede que el id sea incorrecto.").build();
             }
         }catch (Exception e){
-            return Response.serverError().build();
+            return exceptionHelper.exceptionResponse(e);
         }
     }
     

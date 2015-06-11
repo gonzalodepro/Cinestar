@@ -21,6 +21,8 @@ import javax.ws.rs.core.Response;
 import uy.com.cinestar.beans.FunctionBean;
 import uy.com.cinestar.beans.SistemBean;
 import uy.com.cinestar.domain.Function;
+import uy.com.cinestar.exceptions.ParameterException;
+import uy.com.cinestar.generics.ExceptionHelperBean;
 
 @Path("Function")
 public class FunctionResource {
@@ -30,6 +32,9 @@ public class FunctionResource {
     
     @EJB
     private FunctionBean functionBean;
+    
+    @EJB
+    private ExceptionHelperBean exceptionHelper;
     
     public FunctionResource() {
     }
@@ -52,9 +57,9 @@ public class FunctionResource {
     @GET
     @Path("h")
     @Produces("application/json")
-    public Response getFunctionSeats(@QueryParam("id") Long id) {
+    public Response getFunctionSeats(@QueryParam("id") Long id) throws Exception {
         if (id == null){
-            return Response.accepted("Debe enviar el id de la funcion en el primer parametro.").build();
+            throw new ParameterException("Debe enviar el id de la funcion en el primer parametro.");
         }else{
             try{
                 Function function = functionBean.getFunction(id);
@@ -65,7 +70,7 @@ public class FunctionResource {
                     return Response.accepted(responde.toJson(function.getRoom().getSeats())).build();
                 }
             }catch(Exception e){
-                return Response.serverError().build();
+                return exceptionHelper.exceptionResponse(e);
             }
         }
     }

@@ -14,7 +14,12 @@ public class Enums {
     public enum UserType {
         Client,
         Administrator,
-        Undefined
+        Supervisor
+    }
+    public enum ExceptionType{
+        Parameter,
+        DataAcces,
+        Other
     }
     
 }

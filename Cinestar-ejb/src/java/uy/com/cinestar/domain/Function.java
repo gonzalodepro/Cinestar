@@ -26,14 +26,17 @@ public class Function implements Serializable {
     
     @Temporal(TemporalType.TIMESTAMP) 
     private Date startDate;
+    
+    private double price;
 
     public Function() {
     }
 
-    public Function(Room room, Movie movie, Date startDate) {
+    public Function(Room room, Movie movie, Date startDate, double price) {
         this.room = room;
         this.movie = movie;
         this.startDate = startDate;
+        this.price=price;
     }
     
     public Long getId() {
@@ -72,7 +75,13 @@ public class Function implements Serializable {
         this.startDate = startDate;
     }
 
-    
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
     
     @Override
     public int hashCode() {
