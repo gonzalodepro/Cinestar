@@ -29,8 +29,11 @@ public class ExceptionHelperBean {
             eL.setExceptionType(Enums.ExceptionType.DataAcces);
         }else if (e.getClass() == ParameterException.class){
             eL.setExceptionType(Enums.ExceptionType.Parameter);
+        }else if (e.getClass() == LogginException.class)
+        {
+            eL.setExceptionType(Enums.ExceptionType.Loggin);
         }else{
-            eL.setExceptionType(Enums.ExceptionType.Other);
+            eL.setExceptionType(Enums.ExceptionType.SystemException);
         }
         errorPersistence.addLog(eL);
         return Response.accepted(e.getMessage()).build();

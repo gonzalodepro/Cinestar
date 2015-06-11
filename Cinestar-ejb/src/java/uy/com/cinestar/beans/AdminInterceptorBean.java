@@ -5,16 +5,15 @@
  */
 package uy.com.cinestar.beans;
 
-import java.lang.annotation.Target;
 import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.client.ClientRequestContext;
-import javax.ws.rs.core.HttpHeaders;
+import uy.com.cinestar.exceptions.LogginException;
+import uy.com.cinestar.exceptions.ParameterException;
+import uy.com.cinestar.generics.*;
 
 /**
  *
@@ -22,10 +21,13 @@ import javax.ws.rs.core.HttpHeaders;
  */
 @Stateless
 @LocalBean
-public class InterceptorBean {
+public class AdminInterceptorBean {
 
-    
+    @EJB
     private SistemBean sistem;
+    
+    @EJB
+    private ExceptionHelperBean exceptionBean;
     
     @AroundInvoke
     public Object intercept(InvocationContext ic) throws Exception {
@@ -35,10 +37,10 @@ public class InterceptorBean {
             if (sistem.IsCorrectToken(uuidRequest)){
                 return ic.proceed();
             }else{
-                throw new Exception("El usuario no esta loggeado");
+                throw new LogginException("El usuario no esta loggeado como Administrador");
             }
         }catch(Exception e){
-            throw new Exception("Para realizar esta accion debe enviar su token en el primer parametro.");
+            throw new ParameterException("Para realizar esta accion debe enviar su token en el primer parametro.");
         }
     }
 

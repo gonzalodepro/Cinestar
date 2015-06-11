@@ -19,7 +19,8 @@ public class Enums {
     public enum ExceptionType{
         Parameter,
         DataAcces,
-        Other
+        Loggin,
+        SystemException
     }
     
 }

@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
 import uy.com.cinestar.domain.*;
+import uy.com.cinestar.exceptions.DataAccesException;
 import uy.com.cinestar.generics.Enums;
 import uy.com.cinestar.persistence.*;
 
@@ -61,7 +62,7 @@ public class SistemBean {
     }
     
     
-    public void LoadDefaultValues(){
+    public void LoadDefaultValues() throws Exception{
         try{
             User u = new User();
             u.setNick("usu1");
@@ -106,7 +107,7 @@ public class SistemBean {
             functionPersistence.addFunction(f);
             
         }catch(Exception e){
-            throw e;
+            throw new DataAccesException("Disculpe! Ocurrio un error al persistir los datos por defecto. Intente nuevamente");
         }
     }
 }

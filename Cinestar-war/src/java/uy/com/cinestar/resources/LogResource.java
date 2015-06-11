@@ -20,7 +20,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
-import uy.com.cinestar.beans.InterceptorBean;
+import uy.com.cinestar.beans.AdminInterceptorBean;
 import uy.com.cinestar.beans.SistemBean;
 import uy.com.cinestar.domain.User;
 
@@ -72,7 +72,7 @@ public class LogResource {
 
 //    @POST
 //    @Produces("application/json")
-//    @Interceptors(InterceptorBean.class)
+//    @Interceptors(AdminInterceptorBean.class)
 //    @Path("auto")
 //    public Response auto(@QueryParam("token") String token,@QueryParam("matricula") String matricula, @QueryParam("año") Integer año) throws Exception {
 //        

@@ -29,7 +29,7 @@ public class ErrorLog implements Serializable {
 
     private String description;
     
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date occurredDate;
     
     @Enumerated(EnumType.STRING)
