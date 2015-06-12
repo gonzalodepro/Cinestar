@@ -57,13 +57,14 @@ public class MoviePersistenceBean {
     public void updateMovie(Long id, String title, String description, int duration) throws DataAccesException{
         try{
             Movie m = em.find(Movie.class, id);
-            if (title !=null)
+            if (!title.equals(""))
                 m.setTitle(title);
-            if (description !=null)
+            if (!description.equals(""))
                 m.setDescription(description);
             if (duration!=0)
                 m.setDurationMin(duration);
-            em.refresh(m);
+
+            em.merge(m);
         }catch(Exception e){
             throw new DataAccesException("Disculpe! Ocurrio un error al modificar los datos de la pelicula. Puede que el id sea incorrecto. Intente nuevamente");
         }

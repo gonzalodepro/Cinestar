@@ -11,8 +11,6 @@ import javax.ejb.EJB;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -44,11 +42,7 @@ public class MovieResource {
     public MovieResource() {
     }
 
-    /**
-     * Retrieves representation of an instance of uy.com.cinestar.resources.MovieResource
-     * @param id
-     * @return an instance of java.lang.String
-     */
+    
     @GET
     @Produces("application/json")
     public Response getMovie(@QueryParam("id") Long id) {
@@ -68,8 +62,6 @@ public class MovieResource {
         }
     }
 
-    
-    
     @PUT
     public Response addMovie(@QueryParam("title") String title,@QueryParam("description") String desc,@QueryParam("duration") int dur) {
         try{
@@ -87,7 +79,7 @@ public class MovieResource {
     }
     
     @POST
-    @Path("Upadate")
+    @Path("Update")
     public Response updateMovie(@QueryParam("id")Long id, @QueryParam("title") String title,@QueryParam("description") String desc, @QueryParam("duration") int dur){
        try{
            if (id==null){
