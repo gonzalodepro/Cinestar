@@ -69,4 +69,14 @@ public class MoviePersistenceBean {
             throw new DataAccesException("Disculpe! Ocurrio un error al modificar los datos de la pelicula. Puede que el id sea incorrecto. Intente nuevamente");
         }
     }
+    
+    public void deleteMovie (Long id) throws DataAccesException{
+        try{
+            Movie m = em.find(Movie.class, id);
+            em.remove(m);
+        }catch(Exception e){
+            throw new DataAccesException("Disculpe! Ocurrio un error al eliminar la pelicula. Puede que el id sea incorrecto. Intente nuevamente");
+        }
+        
+    }
 }

@@ -7,7 +7,9 @@ package uy.com.cinestar.resources;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -47,17 +49,29 @@ public class MovieResource {
     @Produces("application/json")
     public Response getMovie(@QueryParam("id") Long id) {
         try{
-            if (id == null)
-                throw new ParameterException("Para obtener informacion de una pelicula debe enviar su id en el request.");
-            Movie m = moviePersistence.getMovie(id);
-            if (m==null){
-                return Response.accepted("La pelicula solicitada no existe.").build();
+            if (id == null){
+                List<Movie> movies = moviePersistence.getAllMovies();
+                if (movies!=null){
+                    if (movies.isEmpty()){
+                        return Response.accepted("No hay peliculas ingresadas en el sistema.").build();
+                    }else{
+                        Gson responde = new GsonBuilder().create();
+                        return Response.accepted(responde.toJson(movies)).build();
+                    }
+                }else{
+                    return Response.accepted("No hay peliculas ingresadas en el sistema.").build();
+                }
+            }else{
+                Movie m = moviePersistence.getMovie(id);
+                if (m==null){
+                    return Response.accepted("La pelicula solicitada no existe.").build();
+                }
+                else{
+                    Gson responde = new GsonBuilder().create();
+                    return Response.accepted(responde.toJson(m)).build();
+                }
             }
-            else{
-                Gson responde = new GsonBuilder().create();
-                return Response.accepted(responde.toJson(m)).build();
-            }
-        }catch (ParameterException | DataAccesException e){
+        }catch (Exception e){
             return exceptionHelper.exceptionResponse(e);
         }
     }
@@ -90,5 +104,18 @@ public class MovieResource {
        }catch (Exception e){
            return exceptionHelper.exceptionResponse(e);
        }
+    }
+    
+    @DELETE
+    public Response deleteMovie(@QueryParam("id")Long id){
+        try{
+            if (id==null){
+                throw new ParameterException("Para eliminar una pelicula debe enviar el id en el primer parametro.");
+           }
+           moviePersistence.deleteMovie(id);
+           return Response.accepted("Pelicula eliminada satisfactoriamente.").build();
+        }catch(Exception e){
+            return exceptionHelper.exceptionResponse(e);
+        }
     }
 }
