@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uy.com.cinestar.beans;
+package uy.com.cinestar.interceptors;
 
 import java.util.UUID;
 import javax.ejb.EJB;
@@ -11,9 +11,12 @@ import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
+import uy.com.cinestar.beans.SistemBean;
+import uy.com.cinestar.domain.User;
 import uy.com.cinestar.exceptions.LogginException;
 import uy.com.cinestar.exceptions.ParameterException;
-import uy.com.cinestar.generics.*;
+import uy.com.cinestar.generics.Enums;
+import uy.com.cinestar.generics.ExceptionHelperBean;
 
 /**
  *
@@ -21,8 +24,7 @@ import uy.com.cinestar.generics.*;
  */
 @Stateless
 @LocalBean
-public class AdminInterceptorBean {
-
+public class ClientInterceptorBean {
     @EJB
     private SistemBean sistem;
     
@@ -34,16 +36,17 @@ public class AdminInterceptorBean {
         try{    
             Object[] parameters = ic.getParameters();
             UUID uuidRequest = UUID.fromString(parameters[0].toString());
-            if (sistem.IsCorrectToken(uuidRequest)){
-                return ic.proceed();
+            User u =sistem.IsCorrectToken(uuidRequest);
+            if (u !=null){
+                if (u.getType() != Enums.UserType.Client)
+                    return ic.proceed();
+                else
+                    throw new LogginException("El usuario loggeado no tiene permisos para realizar esta accion.");
             }else{
-                throw new LogginException("El usuario no esta loggeado como Administrador");
+                throw new LogginException("El usuario no esta loggeado.");
             }
         }catch(Exception e){
             throw new ParameterException("Para realizar esta accion debe enviar su token en el primer parametro.");
         }
     }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 }

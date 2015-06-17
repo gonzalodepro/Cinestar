@@ -57,8 +57,12 @@ public class SistemBean {
         return ret;
     }
     
-    public boolean IsCorrectToken(UUID token){
-        return (this.loggedUsers.containsKey(token));
+    public User IsCorrectToken(UUID token){
+        if (this.loggedUsers.containsKey(token)){
+            return loggedUsers.get(token);
+        }else{
+            return null;
+        }
     }
     
     
