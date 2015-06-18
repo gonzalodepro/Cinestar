@@ -5,22 +5,17 @@
  */
 package uy.com.cinestar.exceptions;
 
+import uy.com.cinestar.generics.Enums.ExceptionType;
+
 /**
  *
  * @author Gonza
  */
-public class DataAccesException extends Exception {
-    private final String error;
+public class DataAccesException extends CinestarException {
 
     public DataAccesException(String error) {
-        this.error = error;
+        super(error, ExceptionType.DataAcces);
     }
     
-    
-
-    @Override
-    public String getMessage() {
-        return error;
-    }
     
 }

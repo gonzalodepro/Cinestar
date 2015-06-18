@@ -5,19 +5,17 @@
  */
 package uy.com.cinestar.exceptions;
 
+import uy.com.cinestar.generics.Enums.ExceptionType;
+
 /**
  *
  * @author Gonza
  */
-public class LogginException extends Exception{
-    private final String error;
+public class LogginException extends CinestarException{
 
     public LogginException(String error) {
-        this.error = error;
+        super(error, ExceptionType.Loggin);
     }
     
-    @Override
-    public String getMessage() {
-        return error;
-    }
+    
 }

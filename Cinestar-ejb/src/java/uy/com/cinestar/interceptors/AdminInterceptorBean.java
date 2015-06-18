@@ -28,9 +28,6 @@ public class AdminInterceptorBean {
     @EJB
     private SistemBean sistem;
     
-    @EJB
-    private ExceptionHelperBean exceptionBean;
-    
     @AroundInvoke
     public Object intercept(InvocationContext ic) throws Exception {
         try{    

@@ -16,7 +16,6 @@ import uy.com.cinestar.domain.User;
 import uy.com.cinestar.exceptions.LogginException;
 import uy.com.cinestar.exceptions.ParameterException;
 import uy.com.cinestar.generics.Enums;
-import uy.com.cinestar.generics.ExceptionHelperBean;
 
 /**
  *
@@ -27,9 +26,6 @@ import uy.com.cinestar.generics.ExceptionHelperBean;
 public class ClientInterceptorBean {
     @EJB
     private SistemBean sistem;
-    
-    @EJB
-    private ExceptionHelperBean exceptionBean;
     
     @AroundInvoke
     public Object intercept(InvocationContext ic) throws Exception {

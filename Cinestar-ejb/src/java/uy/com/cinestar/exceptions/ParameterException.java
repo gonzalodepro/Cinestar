@@ -5,25 +5,20 @@
  */
 package uy.com.cinestar.exceptions;
 
+
+import uy.com.cinestar.generics.Enums.ExceptionType;
+
 /**
  *
  * @author Gonza
  */
-public class ParameterException extends Exception {
-    
-    private final String error;
+public class ParameterException extends CinestarException {
 
     public ParameterException(String error) {
-        this.error = error;
+        super(error, ExceptionType.Parameter);
     }
-    
     
 
-    @Override
-    public String getMessage() {
-        return error;
-    }
-    
     
     
 }
