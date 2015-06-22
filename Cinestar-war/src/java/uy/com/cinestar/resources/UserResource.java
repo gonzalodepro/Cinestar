@@ -57,20 +57,23 @@ public class UserResource {
     @PUT
     @Path("Client")
     public Response addClient(@QueryParam("nick") String nick,@QueryParam("password") String pass) {
-        if (nick==null || pass==null){
-            return Response.status(Response.Status.PRECONDITION_FAILED).build();
-        }else{
-            User u = new User();
-            u.setType(Enums.UserType.Client);
-            u.setNick(nick);
-            u.setPassword(pass);
-            boolean result = userBean.addUser(u);
-            if (result)
+        try {
+            if (nick==null || pass==null){
+                throw new ParameterException("Para agregar un Administrador al sistema debe enviar el nick y el password en el request.",null);
+            }else{
+                User u = new User();
+                u.setType(Enums.UserType.Client);
+                u.setNick(nick);
+                u.setPassword(pass);
+                userBean.addUser(u);
                 return Response.accepted("Usuario ingresado correctamente.").build();
-            else
-                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+        catch(Exception ex) {
+            return exceptionHelper.exceptionResponse(ex);
         }
     }
+    
     @PUT
     @Path("Admin")
     @Interceptors(AdminInterceptorBean.class)
@@ -83,15 +86,11 @@ public class UserResource {
                 u.setType(Enums.UserType.Administrator);
                 u.setNick(nick);
                 u.setPassword(pass);
-                boolean result = userBean.addUser(u);
-                if (result)
-                    return Response.accepted("Usuario ingresado correctamente.").build();
-                else
-                    return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+                userBean.addUser(u);
+                return Response.accepted("Usuario ingresado correctamente.").build();
+            }
+        }catch(Exception ex){
+            return exceptionHelper.exceptionResponse(ex);
         }
-        }catch(Exception e){
-            return exceptionHelper.exceptionResponse(e);
-        }
-        
     }
 }

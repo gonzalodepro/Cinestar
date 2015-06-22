@@ -48,8 +48,8 @@ public class FunctionResource {
                 return Response.accepted(responde.toJson(functions)).build();
             } else
                 return Response.serverError().build();
-        }catch(Exception e){
-            return Response.serverError().build();
+        }catch(Exception ex){
+            return exceptionHelper.exceptionResponse(ex);
         }
     }
     
@@ -64,8 +64,8 @@ public class FunctionResource {
                 return Response.accepted(responde.toJson(functions)).build();
             } else
                 return Response.serverError().build();
-        }catch(Exception e){
-            return Response.serverError().build();
+        }catch(Exception ex){
+            return exceptionHelper.exceptionResponse(ex);
         }
     }
     

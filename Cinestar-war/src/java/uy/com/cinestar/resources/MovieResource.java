@@ -38,6 +38,7 @@ public class MovieResource {
     @EJB
     private ExceptionResponseHelperBean exceptionHelper;
     @EJB
+    
     private MoviePersistenceBean moviePersistence;
     
     public MovieResource() {

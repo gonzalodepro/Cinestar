@@ -32,43 +32,43 @@ public class MoviePersistenceBean {
     EntityManager em;
     
      
-    public boolean addMovie(Movie m) throws DataAccesGenericException{
+    public void addMovie(Movie m) throws CinestarException{
         try{
             em.persist(m);
-            return true;
-        }catch(EntityExistsException ex){
+        }catch(javax.persistence.EntityExistsException ex){
             throw new EntityExistsException("Error! Ya existe una pelicula con ese id en la base de datos.",ex);
+        }catch (PersistenceException ex){
+            throw new DataAccesGenericException("Disculpe! Ocurrio un error al persistir los datos de la pelicula. Intente nuevamente",ex);
         }catch (Exception ex){
-            throw new DataAccesGenericException("Disculpe! Ocurrio un error en el sistema al intentar persistir la pelicula. Intente nuevamente. Si el error persiste contactese con soporte.",ex);
+            throw new CinestarException("Disculpe! Ocurrio un error en el sistema al intentar persistir la pelicula. Intente nuevamente. Si el error persiste contactese con soporte.",ex);
         }
     }
     
-    public List<Movie> getAllMovies() throws DataAccesGenericException,NoDataException, CinestarException{
+    public List<Movie> getAllMovies() throws CinestarException{
         try{
             Query query = em.createQuery("SELECT m from Movie as m");
             return query.getResultList(); 
-        }catch (NoResultException | EntityNotFoundException ex) {
-            throw new NoDataException("No hay peliculas ingresadas en el sistemaaaa.",ex);
         }catch (PersistenceException ex){
-            throw new DataAccesGenericException("Disculpe! Ocurrio un error al consultar los datos de la pelicula. Intente nuevamente",ex);
+            throw new DataAccesGenericException("Disculpe! Ocurrio un error al consultar los datos de las pelicula. Intente nuevamente",ex);
         }catch (Exception ex){
             throw new CinestarException("Disculpe! Ocurrio un error en el sistema al consultar las peliculas. Intente nuevamente. Si el error persiste contactese con soporte.",ex);
         }
     }
     
-    public Movie getMovie(Long id) throws DataAccesGenericException, NoDataException, CinestarException{
+    public Movie getMovie(Long id) throws CinestarException{
         try{
-            Movie m = em.find(Movie.class, id);
-            return m;    
-        }catch (IllegalArgumentException ex) {
-            throw new NoDataException("Error! No existe una pelicula con el id:" + id + " en el sistema.",ex);
+            Query query = em.createQuery("SELECT m from Movie as m WHERE m.id=:id");
+            query.setParameter("id", id);
+            return (Movie)query.getSingleResult();
+        }catch(NoResultException ex){
+            throw new NoDataException("Error! No existe una pelicula con el id: " + id + " en el sistema.",ex);
         }catch (PersistenceException ex){
-            throw new DataAccesGenericException("Disculpe! Ocurrio un error al consultar los datos de la pelicula. Intente nuevamente",ex);
+            throw new DataAccesGenericException("Disculpe! Ocurrio un error al obtener los datos de la pelicula. Intente nuevamente",ex);
         }catch (Exception ex){
-            throw new CinestarException("Disculpe! Ocurrio un error al consultar los datos de la pelicula. Intente nuevamente",ex);
+            throw new CinestarException("Disculpe! Ocurrio un error en el sistema al obtener los datos de la pelicula. Intente nuevamente. Si el error persiste contactese con soporte.",ex);
         }
     }
-    public void updateMovie(Long id, String title, String description, int duration) throws DataAccesGenericException, CinestarException{
+    public void updateMovie(Long id, String title, String description, int duration) throws CinestarException{
         try{
             Movie m = em.find(Movie.class, id);
             if (!title.equals(""))
@@ -87,7 +87,7 @@ public class MoviePersistenceBean {
         }
     }
     
-    public void deleteMovie (Long id) throws DataAccesGenericException, CinestarException{
+    public void deleteMovie (Long id) throws CinestarException{
         try{
             Movie m = em.find(Movie.class, id);
             em.remove(m);

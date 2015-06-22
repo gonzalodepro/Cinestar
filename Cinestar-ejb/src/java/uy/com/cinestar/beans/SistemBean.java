@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
 import uy.com.cinestar.domain.*;
+import uy.com.cinestar.exceptions.CinestarException;
 import uy.com.cinestar.exceptions.DataAccesGenericException;
 import uy.com.cinestar.generics.Enums;
 import uy.com.cinestar.persistence.*;
@@ -24,19 +25,19 @@ import uy.com.cinestar.persistence.*;
 public class SistemBean { 
     
     @EJB
-    private ComplexPersistenceBean complexPersistence;
+    private ComplexBean complexBean;
     
     @EJB
-    private RoomPersistenceBean roomPersistence;
+    private RoomBean roomBean;
     
     @EJB
-    private MoviePersistenceBean moviePersistence;
+    private MovieBean movieBean;
     
     @EJB
     private FunctionPersistenceBean functionPersistence;
     
     @EJB
-    private UserPersistenceBean userPersistence;
+    private UserBean userBean;
     
     private final Map<UUID, User> loggedUsers; 
 
@@ -45,9 +46,9 @@ public class SistemBean {
         this.loggedUsers = new HashMap<>();
     }
 
-    public UUID UserLog(User u){
+    public UUID UserLog(User u) throws CinestarException{
         UUID ret;
-        List<User> list = userPersistence.getAllUsers();
+        List<User> list = userBean.getAllUsers();
         if (list.contains(u)){
             ret = UUID.randomUUID();    
             loggedUsers.put(ret, u);
@@ -78,19 +79,19 @@ public class SistemBean {
             u2.setPassword("pass2");
             u2.setType(Enums.UserType.Administrator);
             
-            userPersistence.addUser(u);
-            userPersistence.addUser(u2);
+            userBean.addUser(u);
+            userBean.addUser(u2);
             
             Movie m = new Movie();
             m.setTitle("Titanic");
             m.setDurationMin(120);
             m.setDescription("Pelicula apta para +18");
-            moviePersistence.addMovie(m);
+            movieBean.addMovie(m);
             
             Room r = new Room();
             r.setDescription("Sala teatro");
             r.setNumber(8);
-            roomPersistence.addRoom(r);
+            roomBean.addRoom(r);
             
             Room r2 = new Room();
             r2.setNumber(1);
@@ -110,7 +111,7 @@ public class SistemBean {
             c.getRooms().add(r2);
             c.addMovieToBillboard(m);
             c.getFunctions().add(f);
-            complexPersistence.addComplex(c);
+            complexBean.addComplex(c);
             
         }catch(Exception ex){
             throw new DataAccesGenericException("Disculpe! Ocurrio un error al persistir los datos por defecto. Intente nuevamente", ex);

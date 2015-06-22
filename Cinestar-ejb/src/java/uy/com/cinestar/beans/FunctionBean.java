@@ -5,6 +5,8 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import uy.com.cinestar.domain.Function;
+import uy.com.cinestar.exceptions.CinestarException;
+import uy.com.cinestar.exceptions.DataAccesGenericException;
 import uy.com.cinestar.persistence.FunctionPersistenceBean;
 
 @Stateless
@@ -15,13 +17,13 @@ public class FunctionBean {
     private FunctionPersistenceBean functionPersistence;
     
     
-    public List<Function> getFunctions(){
+    public List<Function> getFunctions() throws CinestarException{
         return functionPersistence.getAllFunctions();
     }
-    public Function getFunction(long id){
+    public Function getFunction(long id) throws CinestarException{
         return functionPersistence.getFunction(id);
     }
-    public List<Function> getComplexFunctions (Long complexId){
+    public List<Function> getComplexFunctions (Long complexId) throws DataAccesGenericException, CinestarException{
         return functionPersistence.getComplexFunction(complexId);
     }
 }

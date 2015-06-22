@@ -11,6 +11,8 @@ import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import uy.com.cinestar.domain.Complex;
 import uy.com.cinestar.domain.Movie;
+import uy.com.cinestar.exceptions.CinestarException;
+import uy.com.cinestar.exceptions.NoDataException;
 import uy.com.cinestar.persistence.ComplexPersistenceBean;
 
 /**
@@ -22,18 +24,21 @@ import uy.com.cinestar.persistence.ComplexPersistenceBean;
 public class ComplexBean {
 
     @EJB
-    private ComplexPersistenceBean complexPersistence;
+    private ComplexPersistenceBean persistence;
     
-    public List<Complex> getAllComplex(){
-        return complexPersistence.getAllComplex();
+    public List<Complex> getAllComplex() throws CinestarException{
+        return persistence.getAllComplex();
     }
     
-    public Complex getComplex(Long id){
-        return complexPersistence.getComplex(id);
+    public Complex getComplex(Long id) throws NoDataException, CinestarException{
+        return persistence.getComplex(id);
     }
     
-    public List<Movie> getComplexBillboard(Long id){
-        return complexPersistence.getComplexBillboard(id);
+    public List<Movie> getComplexBillboard(Long id) throws NoDataException, CinestarException{
+        return persistence.getComplexBillboard(id);
+    }
+    public void addComplex(Complex comp) throws CinestarException{
+        persistence.addComplex(comp);
     }
     
 }

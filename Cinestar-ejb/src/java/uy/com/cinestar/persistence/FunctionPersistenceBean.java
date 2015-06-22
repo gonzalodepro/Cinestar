@@ -5,14 +5,21 @@
  */
 package uy.com.cinestar.persistence;
 
+import com.sun.xml.ws.rx.rm.runtime.sequence.persistent.PersistenceException;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import uy.com.cinestar.domain.Complex;
 import uy.com.cinestar.domain.Function;
+import uy.com.cinestar.exceptions.CinestarException;
+import uy.com.cinestar.exceptions.DataAccesGenericException;
+import uy.com.cinestar.exceptions.NoDataException;
 
 @Stateless
 @LocalBean
@@ -21,44 +28,57 @@ public class FunctionPersistenceBean {
     @PersistenceContext
     EntityManager em;
     
-    public List<Function> getAllFunctions(){
+    @EJB
+    private ComplexPersistenceBean complexPersistence;
+    
+    public List<Function> getAllFunctions() throws CinestarException{
         try{
             Query query = em.createQuery("SELECT f from Function as f");
             return query.getResultList();
-        }catch(Exception ex){
-            return null;
+        }catch (PersistenceException ex){
+            throw new DataAccesGenericException("Disculpe! Ocurrio un error al obtener las funciones. Intente nuevamente",ex);
+        }catch (Exception ex){
+            throw new CinestarException("Disculpe! Ocurrio un error en el sistema al obtener las funciones. Intente nuevamente. Si el error persiste contactese con soporte.",ex);
         }
     }
     
-    public Function getFunction(long id){
+    public Function getFunction(long id) throws CinestarException{
         try{
             Query query = em.createQuery("SELECT f from Function as f where f.id=:id");
             query.setParameter("id", id);
             return (Function)query.getSingleResult();
+        }catch(NoResultException ex){
+            throw new NoDataException("Error! No existe una funcion con el id: " + id + " en el sistema.",ex);
+        }catch (PersistenceException ex){
+            throw new DataAccesGenericException("Disculpe! Ocurrio un error al obtener los datos de la fucion. Intente nuevamente",ex);
         }catch (Exception ex){
-            return null;
+            throw new CinestarException("Disculpe! Ocurrio un error en el sistema al obtener los datos de la funcion. Intente nuevamente. Si el error persiste contactese con soporte.",ex);
         }
     }
     
-    public boolean addFunction(Function f){
+    public void addFunction(Function f) throws CinestarException{
         try{
             em.persist(f);
-            return true;
-        }catch(Exception ex){
-            return false;
+        }catch(javax.persistence.EntityExistsException ex){
+            throw new EntityExistsException("Error! Ya existe una funcion con ese id en la base de datos.",ex);
+        }catch (PersistenceException ex){
+            throw new DataAccesGenericException("Disculpe! Ocurrio un error al persistir los datos de la funcion. Intente nuevamente",ex);
+        }catch (Exception ex){
+            throw new CinestarException("Disculpe! Ocurrio un error en el sistema al intentar persistir la funcion. Intente nuevamente. Si el error persiste contactese con soporte.",ex);
         }
     }
     
     
-    public List<Function> getComplexFunction (Long complexId){
+    public List<Function> getComplexFunction (Long complexId) throws CinestarException{
         try{
-            Complex theComplex = em.find(Complex.class, complexId);
-            if (theComplex !=null)
-                return theComplex.getFunctions();
-            else
-                return null;
-        }catch(Exception ex){
-            return null;
+            Complex theComplex = complexPersistence.getComplex(complexId);
+            return theComplex.getFunctions();
+        }catch (NoDataException ex){
+            throw ex;
+        }catch (PersistenceException ex){
+            throw new DataAccesGenericException("Disculpe! Ocurrio un error al consultar las funciones del complejo. Intente nuevamente",ex);
+        }catch (Exception ex){
+            throw new CinestarException("Disculpe! Ocurrio un error en el sistema al consultar las funciones del complejo. Intente nuevamente. Si el error persiste contactese con soporte.",ex);
         }
     }
     

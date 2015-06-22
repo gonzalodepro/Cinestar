@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.UUID;
 import javax.ejb.EJB;
-import javax.interceptor.Interceptors;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -20,9 +19,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
-import uy.com.cinestar.interceptors.AdminInterceptorBean;
 import uy.com.cinestar.beans.SistemBean;
 import uy.com.cinestar.domain.User;
+import uy.com.cinestar.exceptions.ExceptionResponseHelperBean;
 
 
 @Path("Log")
@@ -30,6 +29,9 @@ public class LogResource {
 
     @Context
     private UriInfo context;
+    
+    @EJB
+    private ExceptionResponseHelperBean exceptionHelper;
     
     @EJB
     private SistemBean sistem;
@@ -55,37 +57,25 @@ public class LogResource {
     @Produces("application/json")
     @Path("loggin")
     public Response logg(@QueryParam("nick") String nick, @QueryParam("password") String password) {
-        User u = new User();
-        u.setNick(nick);
-        u.setPassword(password);
-        UUID uuidToken= sistem.UserLog(u);
-        String logResult;
-        if (uuidToken==null){
-            logResult = "Usuario/contraseña incorrectos.";
-        }else{
-            logResult="Usuario loggeado correctamente. Token: " + uuidToken.toString();
-        }
-        
-        Gson responde = new GsonBuilder().create();
-        return Response.accepted(responde.toJson(logResult)).build();
-    }
+        try{
+            User u = new User();
+            u.setNick(nick);
+            u.setPassword(password);
+            UUID uuidToken= sistem.UserLog(u);
+            String logResult;
+            if (uuidToken==null){
+                logResult = "Usuario/contraseña incorrectos.";
+            }else{
+                logResult="Usuario loggeado correctamente. Token: " + uuidToken.toString();
+            }
 
-//    @POST
-//    @Produces("application/json")
-//    @Interceptors(AdminInterceptorBean.class)
-//    @Path("auto")
-//    public Response auto(@QueryParam("token") String token,@QueryParam("matricula") String matricula, @QueryParam("año") Integer año) throws Exception {
-//        
-//        pruebaBean.crearAuto(matricula, año);
-//        Gson responde = new GsonBuilder().create();
-//        return Response.accepted(responde.toJson("ok")).build();
-//    }
+            Gson responde = new GsonBuilder().create();
+            return Response.accepted(responde.toJson(logResult)).build();
+        }catch(Exception ex){
+            return exceptionHelper.exceptionResponse(ex);
+        }
+    }
     
-    /**
-     * PUT method for updating or creating an instance of LogResource
-     * @param content representation for the resource
-     * @return an HTTP response with content of the updated or created resource.
-     */
     @PUT
     @Consumes("application/json")
     public void putJson(String content) {

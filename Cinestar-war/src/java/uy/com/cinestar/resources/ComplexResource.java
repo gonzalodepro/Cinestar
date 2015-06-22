@@ -60,5 +60,4 @@ public class ComplexResource {
             return exceptionHelper.exceptionResponse(e);
         }
     }
-    
 }

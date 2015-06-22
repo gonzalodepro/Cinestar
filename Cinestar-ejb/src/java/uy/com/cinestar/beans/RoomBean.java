@@ -5,13 +5,12 @@
  */
 package uy.com.cinestar.beans;
 
-import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import uy.com.cinestar.domain.User;
+import uy.com.cinestar.domain.Room;
 import uy.com.cinestar.exceptions.CinestarException;
-import uy.com.cinestar.persistence.UserPersistenceBean;
+import uy.com.cinestar.persistence.RoomPersistenceBean;
 
 /**
  *
@@ -19,15 +18,13 @@ import uy.com.cinestar.persistence.UserPersistenceBean;
  */
 @Stateless
 @LocalBean
-public class UserBean {
+public class RoomBean {
 
     @EJB
-    private UserPersistenceBean userPersistence;
+    private RoomPersistenceBean persistence;
     
-    public void addUser(User u) throws CinestarException{
-        userPersistence.addUser(u);
+    public void addRoom(Room r)throws CinestarException{
+        persistence.addRoom(r);
     }
-    public List<User> getAllUsers() throws CinestarException{
-        return userPersistence.getAllUsers();
-    }
+    
 }
