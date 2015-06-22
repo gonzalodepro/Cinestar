@@ -12,16 +12,14 @@ import javax.ejb.EJB;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import uy.com.cinestar.beans.ComplexBean;
 import uy.com.cinestar.domain.Movie;
+import uy.com.cinestar.exceptions.ExceptionResponseHelperBean;
 import uy.com.cinestar.exceptions.ParameterException;
-import uy.com.cinestar.generics.ExceptionHelperBean;
 
 
 @Path("Complex")
@@ -33,7 +31,7 @@ public class ComplexResource {
     @EJB
     private ComplexBean complexBean; 
     @EJB
-    private ExceptionHelperBean exceptionHelper;
+    private ExceptionResponseHelperBean exceptionHelper;
     
     public ComplexResource() {
     }
@@ -49,7 +47,7 @@ public class ComplexResource {
     public Response getBillboard(@QueryParam("id") Long id) {
         try{
             if (id==null)
-                throw new ParameterException("Debe enviar el id del complejo en el request.");
+                throw new ParameterException("Debe enviar el id del complejo en el request.",null);
             List<Movie> list = complexBean.getComplexBillboard(id);
             if (list!=null){
                 Gson responde = new GsonBuilder().create();

@@ -8,6 +8,8 @@ package uy.com.cinestar.domain;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
@@ -19,12 +21,13 @@ public class Function implements Serializable {
     private Long id;
     
     @JoinColumn(nullable=false)
+    @XmlTransient
     private Room room;
     
     @JoinColumn(nullable=false)
     private Movie movie;
     
-    @Temporal(TemporalType.TIMESTAMP) 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
     
     private double price;

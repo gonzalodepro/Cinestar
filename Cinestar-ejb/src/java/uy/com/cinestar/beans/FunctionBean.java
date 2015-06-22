@@ -21,4 +21,7 @@ public class FunctionBean {
     public Function getFunction(long id){
         return functionPersistence.getFunction(id);
     }
+    public List<Function> getComplexFunctions (Long complexId){
+        return functionPersistence.getComplexFunction(complexId);
+    }
 }

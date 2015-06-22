@@ -4,18 +4,16 @@
  * and open the template in the editor.
  */
 package uy.com.cinestar.exceptions;
-
 import uy.com.cinestar.generics.Enums.ExceptionType;
 
 /**
  *
  * @author Gonza
  */
-public class LogginException extends CinestarException{
+public class EntityExistsException extends CinestarException{
 
-    public LogginException(String error, Throwable ex) {
-        super(error, ExceptionType.Loggin,ex);
+    public EntityExistsException(String error, Throwable oException) {
+        super(error, ExceptionType.EntityExists, oException);
     }
-    
     
 }

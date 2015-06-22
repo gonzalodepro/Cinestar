@@ -35,15 +35,15 @@ public class SupervisorInterceptorBean {
             UUID uuidRequest = UUID.fromString(parameters[0].toString());
             User u =sistem.IsCorrectToken(uuidRequest);
             if (u !=null){
-                if (u.getType() != Enums.UserType.Supervisor)
+                if (u.getType() == Enums.UserType.Supervisor)
                     return ic.proceed();
                 else
-                    throw new LogginException("El usuario loggeado no tiene permisos para realizar esta accion.");
+                    throw new LogginException("El usuario loggeado no tiene permisos para realizar esta accion.",null);
             }else{
-                throw new LogginException("El usuario no esta loggeado.");
+                throw new LogginException("El usuario no esta loggeado.",null);
             }
-        }catch(Exception e){
-            throw new ParameterException("Para realizar esta accion debe enviar su token en el primer parametro.");
+        }catch(Exception ex){
+            throw new ParameterException("Para realizar esta accion debe enviar su token en el primer parametro.",ex);
         }
     }
     

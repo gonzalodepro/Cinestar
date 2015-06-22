@@ -11,10 +11,10 @@ import uy.com.cinestar.generics.Enums.ExceptionType;
  *
  * @author Gonza
  */
-public class LogginException extends CinestarException{
+public class DataAccesGenericException extends CinestarException {
 
-    public LogginException(String error, Throwable ex) {
-        super(error, ExceptionType.Loggin,ex);
+    public DataAccesGenericException(String error, Throwable ex) {
+        super(error, ExceptionType.DataAccesGeneric, ex);
     }
     
     

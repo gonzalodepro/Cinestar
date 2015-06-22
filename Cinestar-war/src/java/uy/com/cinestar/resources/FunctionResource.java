@@ -19,10 +19,9 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import uy.com.cinestar.beans.FunctionBean;
-import uy.com.cinestar.beans.SistemBean;
 import uy.com.cinestar.domain.Function;
 import uy.com.cinestar.exceptions.ParameterException;
-import uy.com.cinestar.generics.ExceptionHelperBean;
+import uy.com.cinestar.exceptions.ExceptionResponseHelperBean;
 
 @Path("Function")
 public class FunctionResource {
@@ -34,7 +33,7 @@ public class FunctionResource {
     private FunctionBean functionBean;
     
     @EJB
-    private ExceptionHelperBean exceptionHelper;
+    private ExceptionResponseHelperBean exceptionHelper;
     
     public FunctionResource() {
     }
@@ -55,11 +54,30 @@ public class FunctionResource {
     }
     
     @GET
+    @Path("Complex")
+    @Produces("application/json")
+    public Response getComplexFunctions(@QueryParam("complexId") Long complexId) {
+        try{
+            List<Function> functions = functionBean.getComplexFunctions(complexId);
+            if (functions!=null) {
+                Gson responde = new GsonBuilder().create();
+                return Response.accepted(responde.toJson(functions)).build();
+            } else
+                return Response.serverError().build();
+        }catch(Exception e){
+            return Response.serverError().build();
+        }
+    }
+    
+    
+    
+    
+    @GET
     @Path("h")
     @Produces("application/json")
     public Response getFunctionSeats(@QueryParam("id") Long id) throws Exception {
         if (id == null){
-            throw new ParameterException("Debe enviar el id de la funcion en el primer parametro.");
+            throw new ParameterException("Debe enviar el id de la funcion en el primer parametro.",null);
         }else{
             try{
                 Function function = functionBean.getFunction(id);

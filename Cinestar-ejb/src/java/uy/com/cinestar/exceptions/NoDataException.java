@@ -5,17 +5,19 @@
  */
 package uy.com.cinestar.exceptions;
 
-import uy.com.cinestar.generics.Enums.ExceptionType;
+import uy.com.cinestar.generics.Enums;
+
 
 /**
  *
  * @author Gonza
  */
-public class DataAccesException extends CinestarException {
+public class NoDataException extends CinestarException{
 
-    public DataAccesException(String error) {
-        super(error, ExceptionType.DataAcces);
+    public NoDataException(String error, Throwable oException) {
+        super(error,Enums.ExceptionType.NoData, oException);
     }
+    
     
     
 }

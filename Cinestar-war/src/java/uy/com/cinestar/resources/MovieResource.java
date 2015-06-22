@@ -20,9 +20,8 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import uy.com.cinestar.domain.Movie;
-import uy.com.cinestar.exceptions.DataAccesException;
 import uy.com.cinestar.exceptions.ParameterException;
-import uy.com.cinestar.generics.ExceptionHelperBean;
+import uy.com.cinestar.exceptions.ExceptionResponseHelperBean;
 import uy.com.cinestar.persistence.MoviePersistenceBean;
 
 /**
@@ -37,7 +36,7 @@ public class MovieResource {
     private UriInfo context;
 
     @EJB
-    private ExceptionHelperBean exceptionHelper;
+    private ExceptionResponseHelperBean exceptionHelper;
     @EJB
     private MoviePersistenceBean moviePersistence;
     
@@ -80,15 +79,15 @@ public class MovieResource {
     public Response addMovie(@QueryParam("title") String title,@QueryParam("description") String desc,@QueryParam("duration") int dur) {
         try{
             if (title == null || desc==null || dur==0)
-                throw new ParameterException("Para agregar una pelicula debe enviar su titulo, descripcion y duracion (mayor a cero) en el request.");
+                throw new ParameterException("Para agregar una pelicula debe enviar su titulo, descripcion y duracion (mayor a cero) en el request.",null);
             Movie m = new Movie();
             m.setTitle(title);
             m.setDescription(desc);
             m.setDurationMin(dur);
             moviePersistence.addMovie(m);
             return Response.accepted("Pelicula agregara satistactoriamente.").build();
-        }catch (Exception e){
-            return exceptionHelper.exceptionResponse(e);
+        }catch (Exception ex){
+            return exceptionHelper.exceptionResponse(ex);
         }
     }
     
@@ -97,7 +96,7 @@ public class MovieResource {
     public Response updateMovie(@QueryParam("id")Long id, @QueryParam("title") String title,@QueryParam("description") String desc, @QueryParam("duration") int dur){
        try{
            if (id==null){
-               throw new ParameterException("Para modificar una pelicula debe enviar el id en el primer parametro.");
+               throw new ParameterException("Para modificar una pelicula debe enviar el id en el primer parametro.",null);
            }
            moviePersistence.updateMovie(id, title, desc, dur);
            return Response.accepted("Pelicula modificada satisfactoriamente.").build();
@@ -110,7 +109,7 @@ public class MovieResource {
     public Response deleteMovie(@QueryParam("id")Long id){
         try{
             if (id==null){
-                throw new ParameterException("Para eliminar una pelicula debe enviar el id en el primer parametro.");
+                throw new ParameterException("Para eliminar una pelicula debe enviar el id en el primer parametro.",null);
            }
            moviePersistence.deleteMovie(id);
            return Response.accepted("Pelicula eliminada satisfactoriamente.").build();

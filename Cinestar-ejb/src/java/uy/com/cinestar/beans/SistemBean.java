@@ -14,7 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
 import uy.com.cinestar.domain.*;
-import uy.com.cinestar.exceptions.DataAccesException;
+import uy.com.cinestar.exceptions.DataAccesGenericException;
 import uy.com.cinestar.generics.Enums;
 import uy.com.cinestar.persistence.*;
 
@@ -96,22 +96,24 @@ public class SistemBean {
             r2.setNumber(1);
             r2.setDescription("Di Caprio");
             
-            Complex c = new Complex();
-            c.setName("Movie montevideo Shopping");
-            c.getRooms().add(r);
-            c.getRooms().add(r2);
-            c.addMovieToBillboard(m);
-            complexPersistence.addComplex(c);
-            
             Function f = new Function();
             f.setMovie(m);
             f.setRoom(r2);
             Date d= new Date();
             f.setStartDate(d);
+            f.setPrice(149);
             functionPersistence.addFunction(f);
             
-        }catch(Exception e){
-            throw new DataAccesException("Disculpe! Ocurrio un error al persistir los datos por defecto. Intente nuevamente");
+            Complex c = new Complex();
+            c.setName("Movie montevideo Shopping");
+            c.getRooms().add(r);
+            c.getRooms().add(r2);
+            c.addMovieToBillboard(m);
+            c.getFunctions().add(f);
+            complexPersistence.addComplex(c);
+            
+        }catch(Exception ex){
+            throw new DataAccesGenericException("Disculpe! Ocurrio un error al persistir los datos por defecto. Intente nuevamente", ex);
         }
     }
 }

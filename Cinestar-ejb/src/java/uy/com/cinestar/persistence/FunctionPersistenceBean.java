@@ -11,6 +11,7 @@ import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import uy.com.cinestar.domain.Complex;
 import uy.com.cinestar.domain.Function;
 
 @Stateless
@@ -24,7 +25,7 @@ public class FunctionPersistenceBean {
         try{
             Query query = em.createQuery("SELECT f from Function as f");
             return query.getResultList();
-        }catch(Exception e){
+        }catch(Exception ex){
             return null;
         }
     }
@@ -34,7 +35,7 @@ public class FunctionPersistenceBean {
             Query query = em.createQuery("SELECT f from Function as f where f.id=:id");
             query.setParameter("id", id);
             return (Function)query.getSingleResult();
-        }catch (Exception e){
+        }catch (Exception ex){
             return null;
         }
     }
@@ -43,8 +44,21 @@ public class FunctionPersistenceBean {
         try{
             em.persist(f);
             return true;
-        }catch(Exception e){
+        }catch(Exception ex){
             return false;
+        }
+    }
+    
+    
+    public List<Function> getComplexFunction (Long complexId){
+        try{
+            Complex theComplex = em.find(Complex.class, complexId);
+            if (theComplex !=null)
+                return theComplex.getFunctions();
+            else
+                return null;
+        }catch(Exception ex){
+            return null;
         }
     }
     
@@ -52,7 +66,7 @@ public class FunctionPersistenceBean {
         try{
             //ARMAR QUERY
             return true;
-        }catch(Exception e){
+        }catch(Exception ex){
             return false;
         }
     }

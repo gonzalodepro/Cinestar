@@ -14,8 +14,8 @@ import uy.com.cinestar.generics.Enums.ExceptionType;
  */
 public class ParameterException extends CinestarException {
 
-    public ParameterException(String error) {
-        super(error, ExceptionType.Parameter);
+    public ParameterException(String error, Throwable ex) {
+        super(error, ExceptionType.Parameter,ex);
     }
     
 
