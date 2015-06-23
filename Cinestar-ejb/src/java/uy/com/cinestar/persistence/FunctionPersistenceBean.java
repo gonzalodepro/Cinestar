@@ -82,7 +82,7 @@ public class FunctionPersistenceBean {
         }
     }
     
-    public boolean buySeatInFunction(Long id, int seatRow, int seatColumn){
+    public boolean buyTicket(Long id, int seatRow, int seatColumn){
         try{
             //ARMAR QUERY
             return true;

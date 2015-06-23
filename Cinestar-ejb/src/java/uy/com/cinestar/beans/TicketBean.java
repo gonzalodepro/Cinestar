@@ -5,8 +5,14 @@
  */
 package uy.com.cinestar.beans;
 
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import uy.com.cinestar.domain.Ticket;
+import uy.com.cinestar.exceptions.CinestarException;
+import uy.com.cinestar.persistence.TicketPersistenceBean;
+
 
 /**
  *
@@ -16,6 +22,10 @@ import javax.ejb.LocalBean;
 @LocalBean
 public class TicketBean {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @EJB
+    private TicketPersistenceBean persistence;
+    
+    public List<Ticket> getFunctionTickets(Long functionId) throws CinestarException{
+        return persistence.getFunctionTickets(functionId);
+    }
 }

@@ -84,6 +84,11 @@ public class Function implements Serializable {
 
     public void setRoom(Room room) {
         this.room = room;
+        this.tickets = new ArrayList<>();
+        for (int seatNumber=0; seatNumber<room.getSeats().size();seatNumber++){
+            Ticket newTicket = new Ticket(room.getSeats().get(seatNumber).getColumn(),room.getSeats().get(seatNumber).getRow());
+            this.tickets.add(newTicket);
+        }
     }
 
     public void setMovie(Movie movie) {

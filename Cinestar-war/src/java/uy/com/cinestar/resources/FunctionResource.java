@@ -19,7 +19,9 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import uy.com.cinestar.beans.FunctionBean;
+import uy.com.cinestar.beans.TicketBean;
 import uy.com.cinestar.domain.Function;
+import uy.com.cinestar.domain.Ticket;
 import uy.com.cinestar.exceptions.ParameterException;
 import uy.com.cinestar.exceptions.ExceptionResponseHelperBean;
 
@@ -31,6 +33,8 @@ public class FunctionResource {
     
     @EJB
     private FunctionBean functionBean;
+    @EJB
+    private TicketBean ticketBean;
     
     @EJB
     private ExceptionResponseHelperBean exceptionHelper;
@@ -69,27 +73,20 @@ public class FunctionResource {
         }
     }
     
-    
-    
-    
     @GET
-    @Path("h")
+    @Path("Tickets")
     @Produces("application/json")
-    public Response getFunctionSeats(@QueryParam("id") Long id) throws Exception {
-        if (id == null){
-            throw new ParameterException("Debe enviar el id de la funcion en el primer parametro.",null);
-        }else{
-            try{
-                Function function = functionBean.getFunction(id);
-                if (function==null)
-                    return Response.serverError().build();
-                else{
-                    Gson responde = new GsonBuilder().create();
-                    return Response.accepted(responde.toJson(function.getRoom().getSeats())).build();
-                }
-            }catch(Exception e){
-                return exceptionHelper.exceptionResponse(e);
+    public Response getFunctionTickets(@QueryParam("id") Long id) throws Exception {
+        try{
+            if (id == null){
+                throw new ParameterException("Debe enviar el id de la funcion en el primer parametro.",null);
+            }else{
+                List<Ticket> tickets = ticketBean.getFunctionTickets(id);
+                Gson responde = new GsonBuilder().create();
+                return Response.accepted(responde.toJson(tickets)).build();
             }
+        }catch(Exception ex){
+            return exceptionHelper.exceptionResponse(ex);
         }
     }
 

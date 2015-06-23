@@ -33,7 +33,7 @@ public class GenericResource {
         try{
             sistem.LoadDefaultValues();
             return Response.accepted("Datos por defecto cargados correctamente.").build();
-        }catch (Exception e){
+        }catch (Exception ex){
             return Response.serverError().build();
         }
     }
