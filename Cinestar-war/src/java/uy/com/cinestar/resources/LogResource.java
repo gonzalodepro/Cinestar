@@ -19,8 +19,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
-import uy.com.cinestar.beans.SistemBean;
-import uy.com.cinestar.domain.User;
+import uy.com.cinestar.sb.SistemBean;
+import uy.com.cinestar.entities.User;
 import uy.com.cinestar.exceptions.ExceptionResponseHelperBean;
 
 @Path("Log")

@@ -9,8 +9,8 @@ import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import uy.com.cinestar.domain.Function;
-import uy.com.cinestar.domain.Ticket;
+import uy.com.cinestar.entities.Function;
+import uy.com.cinestar.entities.Ticket;
 import uy.com.cinestar.exceptions.CinestarException;
 import uy.com.cinestar.exceptions.DataAccesGenericException;
 

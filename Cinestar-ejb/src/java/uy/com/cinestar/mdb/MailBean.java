@@ -42,7 +42,6 @@ public class MailBean {
             String subject;
 
             message.addRecipient(Message.RecipientType.TO, new InternetAddress("gonzalodepro@gmail.com"));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress("ignaciorobayna@outlook.com"));
             subject = "Cinestar - Venta entrada/s.";
             message.setContent(mensaje, "text/html");
             message.setSubject(subject);

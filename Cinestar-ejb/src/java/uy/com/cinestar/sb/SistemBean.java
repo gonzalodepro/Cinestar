@@ -1,5 +1,5 @@
 
-package uy.com.cinestar.beans;
+package uy.com.cinestar.sb;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -9,14 +9,14 @@ import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
-import uy.com.cinestar.domain.Complex;
-import uy.com.cinestar.domain.Function;
-import uy.com.cinestar.domain.Movie;
-import uy.com.cinestar.domain.Room;
-import uy.com.cinestar.domain.User;
+import uy.com.cinestar.entities.Complex;
+import uy.com.cinestar.entities.Function;
+import uy.com.cinestar.entities.Movie;
+import uy.com.cinestar.entities.Room;
+import uy.com.cinestar.entities.User;
 import uy.com.cinestar.exceptions.CinestarException;
 import uy.com.cinestar.exceptions.DataAccesGenericException;
-import uy.com.cinestar.generics.Enums;
+import uy.com.cinestar.common.Enums;
 import uy.com.cinestar.persistence.FunctionPersistenceBean;
 
 

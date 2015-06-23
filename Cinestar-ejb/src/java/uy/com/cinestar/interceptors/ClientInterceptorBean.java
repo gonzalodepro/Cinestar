@@ -11,11 +11,11 @@ import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
-import uy.com.cinestar.beans.SistemBean;
-import uy.com.cinestar.domain.User;
+import uy.com.cinestar.sb.SistemBean;
+import uy.com.cinestar.entities.User;
 import uy.com.cinestar.exceptions.LogginException;
 import uy.com.cinestar.exceptions.ParameterException;
-import uy.com.cinestar.generics.Enums;
+import uy.com.cinestar.common.Enums;
 
 /**
  *

@@ -1,10 +1,10 @@
-package uy.com.cinestar.beans;
+package uy.com.cinestar.sb;
 
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import uy.com.cinestar.domain.Function;
+import uy.com.cinestar.entities.Function;
 import uy.com.cinestar.exceptions.CinestarException;
 import uy.com.cinestar.exceptions.DataAccesGenericException;
 import uy.com.cinestar.persistence.FunctionPersistenceBean;

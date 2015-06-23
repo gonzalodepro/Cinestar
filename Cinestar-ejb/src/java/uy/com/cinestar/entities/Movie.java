@@ -3,21 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uy.com.cinestar.domain;
+package uy.com.cinestar.entities;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.Date;
+import javax.persistence.*;
 
 /**
  *
  * @author Gonza
  */
 @Entity
-public class Seat implements Serializable {
+public class Movie implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -25,34 +22,11 @@ public class Seat implements Serializable {
     private Long id;
 
     @Column(nullable = false)
-    private int _row;
+    private String title;
 
-    @Column(nullable = false)
-    private int _column;
+    private String description;
 
-    public Seat() {
-    }
-
-    public Seat(int row, int column) {
-        this._row = row;
-        this._column = column;
-    }
-
-    public int getRow() {
-        return _row;
-    }
-
-    public int getColumn() {
-        return _column;
-    }
-
-    public void setRow(int row) {
-        this._row = row;
-    }
-
-    public void setColumn(int column) {
-        this._column = column;
-    }
+    private int durationMin;
 
     public Long getId() {
         return id;
@@ -60,6 +34,30 @@ public class Seat implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getDurationMin() {
+        return durationMin;
+    }
+
+    public void setDurationMin(int duration) {
+        this.durationMin = duration;
     }
 
     @Override
@@ -71,10 +69,10 @@ public class Seat implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Seat)) {
+        if (!(object instanceof Movie)) {
             return false;
         }
-        Seat other = (Seat) object;
+        Movie other = (Movie) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -83,8 +81,7 @@ public class Seat implements Serializable {
 
     @Override
     public String toString() {
-        String ret = "Asiento " + _row + "-" + _column;
-        return ret;
+        return "Movie: " + title + ", description: " + description + ".";
     }
 
 }

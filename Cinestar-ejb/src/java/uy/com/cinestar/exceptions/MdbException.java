@@ -1,7 +1,7 @@
 
 package uy.com.cinestar.exceptions;
 
-import uy.com.cinestar.generics.Enums;
+import uy.com.cinestar.common.Enums;
 
 /**
  *

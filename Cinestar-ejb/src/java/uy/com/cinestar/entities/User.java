@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uy.com.cinestar.domain;
+package uy.com.cinestar.entities;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -13,7 +13,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import uy.com.cinestar.generics.Enums.UserType;
+import uy.com.cinestar.common.Enums.UserType;
 
 /**
  *

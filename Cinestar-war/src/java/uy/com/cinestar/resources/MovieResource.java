@@ -19,8 +19,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
-import uy.com.cinestar.beans.MovieBean;
-import uy.com.cinestar.domain.Movie;
+import uy.com.cinestar.sb.MovieBean;
+import uy.com.cinestar.entities.Movie;
 import uy.com.cinestar.exceptions.ParameterException;
 import uy.com.cinestar.exceptions.ExceptionResponseHelperBean;
 

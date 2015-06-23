@@ -1,10 +1,10 @@
 
-package uy.com.cinestar.beans;
+package uy.com.cinestar.sb;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import uy.com.cinestar.domain.Room;
+import uy.com.cinestar.entities.Room;
 import uy.com.cinestar.exceptions.CinestarException;
 import uy.com.cinestar.persistence.RoomPersistenceBean;
 

@@ -7,7 +7,7 @@ import javax.ejb.LocalBean;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import uy.com.cinestar.domain.Room;
+import uy.com.cinestar.entities.Room;
 import uy.com.cinestar.exceptions.CinestarException;
 import uy.com.cinestar.exceptions.DataAccesGenericException;
 

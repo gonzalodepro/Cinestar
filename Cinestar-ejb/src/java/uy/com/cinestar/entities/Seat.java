@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uy.com.cinestar.domain;
+package uy.com.cinestar.entities;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -17,7 +17,7 @@ import javax.persistence.Id;
  * @author Gonza
  */
 @Entity
-public class Ticket implements Serializable {
+public class Seat implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -30,33 +30,12 @@ public class Ticket implements Serializable {
     @Column(nullable = false)
     private int _column;
 
-    @Column(nullable = false)
-    private boolean available;
-
-    public Ticket() {
-        this.available = false;
+    public Seat() {
     }
 
-    public Ticket(int row, int column) {
+    public Seat(int row, int column) {
         this._row = row;
         this._column = column;
-        this.available = false;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public int getRow() {
@@ -75,6 +54,14 @@ public class Ticket implements Serializable {
         this._column = column;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -84,10 +71,10 @@ public class Ticket implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Ticket)) {
+        if (!(object instanceof Seat)) {
             return false;
         }
-        Ticket other = (Ticket) object;
+        Seat other = (Seat) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -96,7 +83,8 @@ public class Ticket implements Serializable {
 
     @Override
     public String toString() {
-        return "uy.com.cinestar.domain.Ticket[ id=" + id + " ]";
+        String ret = "Asiento " + _row + "-" + _column;
+        return ret;
     }
 
 }

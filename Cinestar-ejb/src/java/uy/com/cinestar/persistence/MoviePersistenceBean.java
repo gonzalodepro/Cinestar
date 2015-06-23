@@ -15,7 +15,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import uy.com.cinestar.domain.Movie;
+import uy.com.cinestar.entities.Movie;
 import uy.com.cinestar.exceptions.CinestarException;
 import uy.com.cinestar.exceptions.DataAccesGenericException;
 import uy.com.cinestar.exceptions.NoDataException;

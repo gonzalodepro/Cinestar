@@ -1,12 +1,12 @@
-package uy.com.cinestar.beans;
+package uy.com.cinestar.sb;
 
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import uy.com.cinestar.domain.Complex;
-import uy.com.cinestar.domain.Movie;
+import uy.com.cinestar.entities.Complex;
+import uy.com.cinestar.entities.Movie;
 import uy.com.cinestar.exceptions.CinestarException;
 import uy.com.cinestar.exceptions.NoDataException;
 import uy.com.cinestar.persistence.ComplexPersistenceBean;

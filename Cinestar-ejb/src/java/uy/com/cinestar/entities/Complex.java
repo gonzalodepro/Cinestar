@@ -1,5 +1,5 @@
 
-package uy.com.cinestar.domain;
+package uy.com.cinestar.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
