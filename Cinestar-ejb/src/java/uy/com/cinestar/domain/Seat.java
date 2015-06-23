@@ -18,42 +18,40 @@ import javax.persistence.Id;
  */
 @Entity
 public class Seat implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
- 
-    @Column(nullable=false)
-    private int sRow;
-    
-    @Column(nullable=false)
-    private int sColumn;
-    
-    
+
+    @Column(nullable = false)
+    private int _row;
+
+    @Column(nullable = false)
+    private int _column;
 
     public Seat() {
     }
-    
+
     public Seat(int row, int column) {
-        this.sRow = row;
-        this.sColumn = column;
+        this._row = row;
+        this._column = column;
     }
 
     public int getRow() {
-        return sRow;
+        return _row;
     }
 
     public int getColumn() {
-        return sColumn;
+        return _column;
     }
 
-
     public void setRow(int row) {
-        this.sRow = row;
+        this._row = row;
     }
 
     public void setColumn(int column) {
-        this.sColumn = column;
+        this._column = column;
     }
 
     public Long getId() {
@@ -67,13 +65,12 @@ public class Seat implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += id != null ? id.hashCode() : 0;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Seat)) {
             return false;
         }
@@ -86,8 +83,8 @@ public class Seat implements Serializable {
 
     @Override
     public String toString() {
-        String ret = "Asiento " + sRow +"-"+ sColumn;
+        String ret = "Asiento " + _row + "-" + _column;
         return ret;
     }
-    
+
 }

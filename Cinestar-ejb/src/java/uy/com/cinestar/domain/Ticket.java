@@ -18,28 +18,29 @@ import javax.persistence.Id;
  */
 @Entity
 public class Ticket implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable=false)
-    private int sRow;
-    
-    @Column(nullable=false)
-    private int sColumn;
+    @Column(nullable = false)
+    private int _row;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
+    private int _column;
+
+    @Column(nullable = false)
     private boolean available;
 
     public Ticket() {
-        this.available=false;
+        this.available = false;
     }
-    
-    public Ticket(int sRow, int sColumn) {
-        this.sRow = sRow;
-        this.sColumn = sColumn;
-        this.available=false;
+
+    public Ticket(int row, int column) {
+        this._row = row;
+        this._column = column;
+        this.available = false;
     }
 
     public boolean isAvailable() {
@@ -49,7 +50,7 @@ public class Ticket implements Serializable {
     public void setAvailable(boolean available) {
         this.available = available;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -59,32 +60,30 @@ public class Ticket implements Serializable {
     }
 
     public int getRow() {
-        return sRow;
+        return _row;
     }
 
     public int getColumn() {
-        return sColumn;
+        return _column;
     }
 
-
     public void setRow(int row) {
-        this.sRow = row;
+        this._row = row;
     }
 
     public void setColumn(int column) {
-        this.sColumn = column;
+        this._column = column;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += id != null ? id.hashCode() : 0;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Ticket)) {
             return false;
         }
@@ -99,5 +98,5 @@ public class Ticket implements Serializable {
     public String toString() {
         return "uy.com.cinestar.domain.Ticket[ id=" + id + " ]";
     }
-    
+
 }

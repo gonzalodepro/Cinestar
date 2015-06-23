@@ -8,11 +8,11 @@ package uy.com.cinestar.resources;
 import javax.ejb.EJB;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.Response;
 import uy.com.cinestar.beans.SistemBean;
+
 /**
  * REST Web Service
  *
@@ -25,15 +25,14 @@ public class GenericResource {
     private UriInfo context;
 
     @EJB
-    private SistemBean sistem; 
-   
-    
+    private SistemBean sistem;
+
     @PUT
     public Response loadDefaultValues(String content) {
-        try{
+        try {
             sistem.LoadDefaultValues();
             return Response.accepted("Datos por defecto cargados correctamente.").build();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             return Response.serverError().build();
         }
     }

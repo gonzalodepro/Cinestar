@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package uy.com.cinestar.beans;
 
 import java.util.Date;
@@ -13,108 +9,111 @@ import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
-import uy.com.cinestar.domain.*;
+import uy.com.cinestar.domain.Complex;
+import uy.com.cinestar.domain.Function;
+import uy.com.cinestar.domain.Movie;
+import uy.com.cinestar.domain.Room;
+import uy.com.cinestar.domain.User;
 import uy.com.cinestar.exceptions.CinestarException;
 import uy.com.cinestar.exceptions.DataAccesGenericException;
 import uy.com.cinestar.generics.Enums;
-import uy.com.cinestar.persistence.*;
+import uy.com.cinestar.persistence.FunctionPersistenceBean;
 
 
 @Singleton
 @LocalBean
-public class SistemBean { 
-    
+public class SistemBean {
+
     @EJB
     private ComplexBean complexBean;
-    
+
     @EJB
     private RoomBean roomBean;
-    
+
     @EJB
     private MovieBean movieBean;
-    
+
     @EJB
     private FunctionPersistenceBean functionPersistence;
-    
+
     @EJB
     private UserBean userBean;
-    
-    private final Map<UUID, User> loggedUsers; 
 
-    public SistemBean() 
-    {
+    private final Map<UUID, User> loggedUsers;
+
+    public SistemBean() {
         this.loggedUsers = new HashMap<>();
     }
 
-    public UUID UserLog(User u) throws CinestarException{
+    public UUID UserLog(User user) throws CinestarException {
         UUID ret;
         List<User> list = userBean.getAllUsers();
-        if (list.contains(u)){
-            ret = UUID.randomUUID();    
-            loggedUsers.put(ret, u);
-        }else{
+        if (list.contains(user)) {
+            ret = UUID.randomUUID();
+            loggedUsers.put(ret, user);
+        } else {
             ret = null;
         }
         return ret;
     }
-    
-    public User IsCorrectToken(UUID token){
-        if (this.loggedUsers.containsKey(token)){
+
+    public User IsCorrectToken(UUID token) {
+        if (this.loggedUsers.containsKey(token)) {
             return loggedUsers.get(token);
-        }else{
+        } else {
             return null;
         }
     }
-    
-    
-    public void LoadDefaultValues() throws Exception{
-        try{
-            User u = new User();
-            u.setNick("usu1");
-            u.setPassword("pass1");
-            u.setType(Enums.UserType.Client);
-            
+
+    public void LoadDefaultValues() throws Exception {
+        try {
+            User u1 = new User();
+            u1.setNick("usu1");
+            u1.setPassword("pass1");
+            u1.setType(Enums.UserType.Client);
+
             User u2 = new User();
             u2.setNick("usu2");
             u2.setPassword("pass2");
             u2.setType(Enums.UserType.Administrator);
-            
-            userBean.addUser(u);
+
+            userBean.addUser(u1);
             userBean.addUser(u2);
-            
-            Movie m = new Movie();
-            m.setTitle("Titanic");
-            m.setDurationMin(120);
-            m.setDescription("Pelicula apta para +18");
-            movieBean.addMovie(m);
-            
-            Room r = new Room();
-            r.setDescription("Sala teatro");
-            r.setNumber(8);
-            roomBean.addRoom(r);
-            
+
+            Movie m1 = new Movie();
+            m1.setTitle("Titanic");
+            m1.setDurationMin(120);
+            m1.setDescription("Pelicula apta para +18");
+            movieBean.addMovie(m1);
+
+            Room r1 = new Room();
+            r1.setDescription("Sala teatro");
+            r1.setNumber(8);
+            roomBean.addRoom(r1);
+
             Room r2 = new Room();
             r2.setNumber(1);
             r2.setDescription("Di Caprio");
-            
-            Function f = new Function();
-            f.setMovie(m);
-            f.setRoom(r2);
-            Date d= new Date();
-            f.setStartDate(d);
-            f.setPrice(149);
-            functionPersistence.addFunction(f);
-            
-            Complex c = new Complex();
-            c.setName("Movie montevideo Shopping");
-            c.getRooms().add(r);
-            c.getRooms().add(r2);
-            c.addMovieToBillboard(m);
-            c.getFunctions().add(f);
-            complexBean.addComplex(c);
-            
-        }catch(Exception ex){
-            throw new DataAccesGenericException("Disculpe! Ocurrio un error al persistir los datos por defecto. Intente nuevamente", ex);
+
+            Function func = new Function();
+            func.setMovie(m1);
+            func.setRoom(r2);
+            Date date = new Date();
+            func.setStartDate(date);
+            func.setPrice(149);
+            functionPersistence.addFunction(func);
+
+            Complex cplx = new Complex();
+            cplx.setName("Movie montevideo Shopping");
+            cplx.getRooms().add(r1);
+            cplx.getRooms().add(r2);
+            cplx.addMovieToBillboard(m1);
+            cplx.getFunctions().add(func);
+            complexBean.addComplex(cplx);
+
+        } catch (Exception ex) {
+            throw new DataAccesGenericException("Disculpe! Ocurrio un error al persistir los datos "
+                    + "por defecto. Intente nuevamente", ex);
         }
     }
 }

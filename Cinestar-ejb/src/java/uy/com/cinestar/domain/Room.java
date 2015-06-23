@@ -22,24 +22,25 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Room implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Column(nullable=false)
+
+    @Column(nullable = false)
     private int number;
-    
+
     private String description;
 
-    @OneToMany(cascade=ALL)
+    @OneToMany(cascade = ALL)
     private List<Seat> seats;
-    
+
     public Room() {
         seats = new ArrayList<>();
-        for (int i=1;i<11;i++){
-            for (int j=1;j<11;j++){
-                Seat s = new Seat(i,j);
+        for (int i = 1; i < 11; i++) {
+            for (int j = 1; j < 11; j++) {
+                Seat s = new Seat(i, j);
                 seats.add(s);
             }
         }
@@ -49,9 +50,9 @@ public class Room implements Serializable {
         this.number = number;
         this.description = description;
         seats = new ArrayList<>();
-        for (int i=1;i<11;i++){
-            for (int j=1;j<11;j++){
-                Seat s = new Seat(i,j);
+        for (int i = 1; i < 11; i++) {
+            for (int j = 1; j < 11; j++) {
+                Seat s = new Seat(i, j);
                 seats.add(s);
             }
         }
@@ -72,8 +73,7 @@ public class Room implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
+
     public Long getId() {
         return id;
     }
@@ -90,17 +90,15 @@ public class Room implements Serializable {
         this.seats = seats;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += id != null ? id.hashCode() : 0;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Room)) {
             return false;
         }
@@ -113,7 +111,7 @@ public class Room implements Serializable {
 
     @Override
     public String toString() {
-        return "Sala " + number + " - "+ description;
+        return "Sala " + number + " - " + description;
     }
-    
+
 }

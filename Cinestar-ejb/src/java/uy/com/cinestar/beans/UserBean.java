@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package uy.com.cinestar.beans;
 
 import java.util.List;
@@ -23,11 +19,12 @@ public class UserBean {
 
     @EJB
     private UserPersistenceBean userPersistence;
-    
-    public void addUser(User u) throws CinestarException{
-        userPersistence.addUser(u);
+
+    public void addUser(User user) throws CinestarException {
+        userPersistence.addUser(user);
     }
-    public List<User> getAllUsers() throws CinestarException{
+
+    public List<User> getAllUsers() throws CinestarException {
         return userPersistence.getAllUsers();
     }
 }

@@ -38,83 +38,82 @@ public class MovieResource {
     @EJB
     private ExceptionResponseHelperBean exceptionHelper;
     @EJB
-    
+
     private MovieBean movieBean;
-    
+
     public MovieResource() {
     }
 
-    
     @GET
     @Produces("application/json")
     public Response getMovie(@QueryParam("id") Long id) {
-        try{
-            if (id == null){
+        try {
+            if (id == null) {
                 List<Movie> movies = movieBean.getAllMovies();
-                if (movies!=null){
-                    if (movies.isEmpty()){
+                if (movies != null) {
+                    if (movies.isEmpty()) {
                         return Response.accepted("No hay peliculas ingresadas en el sistema.").build();
-                    }else{
+                    } else {
                         Gson responde = new GsonBuilder().create();
                         return Response.accepted(responde.toJson(movies)).build();
                     }
-                }else{
+                } else {
                     return Response.accepted("No hay peliculas ingresadas en el sistema.").build();
                 }
-            }else{
+            } else {
                 Movie m = movieBean.getMovie(id);
-                if (m==null){
+                if (m == null) {
                     return Response.accepted("La pelicula solicitada no existe.").build();
-                }
-                else{
+                } else {
                     Gson responde = new GsonBuilder().create();
                     return Response.accepted(responde.toJson(m)).build();
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return exceptionHelper.exceptionResponse(e);
         }
     }
 
     @PUT
-    public Response addMovie(@QueryParam("title") String title,@QueryParam("description") String desc,@QueryParam("duration") int dur) {
-        try{
-            if (title == null || desc==null || dur==0)
-                throw new ParameterException("Para agregar una pelicula debe enviar su titulo, descripcion y duracion (mayor a cero) en el request.",null);
+    public Response addMovie(@QueryParam("title") String title, @QueryParam("description") String desc, @QueryParam("duration") int dur) {
+        try {
+            if (title == null || desc == null || dur == 0) {
+                throw new ParameterException("Para agregar una pelicula debe enviar su titulo, descripcion y duracion (mayor a cero) en el request.", null);
+            }
             Movie m = new Movie();
             m.setTitle(title);
             m.setDescription(desc);
             m.setDurationMin(dur);
             movieBean.addMovie(m);
             return Response.accepted("Pelicula agregara satistactoriamente.").build();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             return exceptionHelper.exceptionResponse(ex);
         }
     }
-    
+
     @POST
     @Path("Update")
-    public Response updateMovie(@QueryParam("id")Long id, @QueryParam("title") String title,@QueryParam("description") String desc, @QueryParam("duration") int dur){
-       try{
-           if (id==null){
-               throw new ParameterException("Para modificar una pelicula debe enviar el id en el primer parametro.",null);
-           }
-           movieBean.updateMovie(id, title, desc, dur);
-           return Response.accepted("Pelicula modificada satisfactoriamente.").build();
-       }catch (Exception e){
-           return exceptionHelper.exceptionResponse(e);
-       }
+    public Response updateMovie(@QueryParam("id") Long id, @QueryParam("title") String title, @QueryParam("description") String desc, @QueryParam("duration") int dur) {
+        try {
+            if (id == null) {
+                throw new ParameterException("Para modificar una pelicula debe enviar el id en el primer parametro.", null);
+            }
+            movieBean.updateMovie(id, title, desc, dur);
+            return Response.accepted("Pelicula modificada satisfactoriamente.").build();
+        } catch (Exception e) {
+            return exceptionHelper.exceptionResponse(e);
+        }
     }
-    
+
     @DELETE
-    public Response deleteMovie(@QueryParam("id")Long id){
-        try{
-            if (id==null){
-                throw new ParameterException("Para eliminar una pelicula debe enviar el id en el primer parametro.",null);
-           }
-           movieBean.deleteMovie(id);
-           return Response.accepted("Pelicula eliminada satisfactoriamente.").build();
-        }catch(Exception e){
+    public Response deleteMovie(@QueryParam("id") Long id) {
+        try {
+            if (id == null) {
+                throw new ParameterException("Para eliminar una pelicula debe enviar el id en el primer parametro.", null);
+            }
+            movieBean.deleteMovie(id);
+            return Response.accepted("Pelicula eliminada satisfactoriamente.").build();
+        } catch (Exception e) {
             return exceptionHelper.exceptionResponse(e);
         }
     }

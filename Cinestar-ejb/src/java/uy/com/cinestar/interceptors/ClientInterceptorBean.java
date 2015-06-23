@@ -24,25 +24,27 @@ import uy.com.cinestar.generics.Enums;
 @Stateless
 @LocalBean
 public class ClientInterceptorBean {
+
     @EJB
     private SistemBean sistem;
-    
+
     @AroundInvoke
     public Object intercept(InvocationContext ic) throws Exception {
-        try{    
+        try {
             Object[] parameters = ic.getParameters();
             UUID uuidRequest = UUID.fromString(parameters[0].toString());
-            User u =sistem.IsCorrectToken(uuidRequest);
-            if (u !=null){
-                if (u.getType() == Enums.UserType.Client)
+            User user = sistem.IsCorrectToken(uuidRequest);
+            if (user != null) {
+                if (user.getType() == Enums.UserType.Client) {
                     return ic.proceed();
-                else
-                    throw new LogginException("El usuario loggeado no tiene permisos para realizar esta accion.",null);
-            }else{
-                throw new LogginException("El usuario no esta loggeado.",null);
+                } else {
+                    throw new LogginException("El usuario loggeado no tiene permisos para realizar esta accion.", null);
+                }
+            } else {
+                throw new LogginException("El usuario no esta loggeado.", null);
             }
-        }catch(Exception ex){
-            throw new ParameterException("Para realizar esta accion debe enviar su token en el primer parametro.",ex);
+        } catch (Exception ex) {
+            throw new ParameterException("Para realizar esta accion debe enviar su token en el primer parametro.", ex);
         }
     }
 }

@@ -1,35 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package uy.com.cinestar.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
+
 import static javax.persistence.CascadeType.ALL;
-
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Complex implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(cascade=ALL)
+    @OneToMany(cascade = ALL)
     private List<Room> rooms;
-    
-    @OneToMany(cascade=ALL)
+
+    @OneToMany(cascade = ALL)
     private List<Function> functions;
-    
-    @OneToMany(cascade=ALL)
+
+    @OneToMany(cascade = ALL)
     private List<Movie> billboard;
-    
-    @Column(nullable=false)
+
+    @Column(nullable = false)
     private String name;
 
     public Complex() {
@@ -45,7 +46,7 @@ public class Complex implements Serializable {
     public void setBillboard(List<Movie> billboard) {
         this.billboard = billboard;
     }
-    
+
     public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
     }
@@ -54,7 +55,7 @@ public class Complex implements Serializable {
         this.functions = functions;
     }
 
-    public static long getSerialVersionUID() {
+    public static long getSerialVersionUid() {
         return serialVersionUID;
     }
 
@@ -65,8 +66,7 @@ public class Complex implements Serializable {
     public List<Function> getFunctions() {
         return functions;
     }
-    
-    
+
     public Long getId() {
         return id;
     }
@@ -74,30 +74,28 @@ public class Complex implements Serializable {
     public String getName() {
         return name;
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
 
-    
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void addMovieToBillboard(Movie m){
-        this.billboard.add(m);
+    public void addMovieToBillboard(Movie movie) {
+        this.billboard.add(movie);
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += id != null ? id.hashCode() : 0;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Complex)) {
             return false;
         }
@@ -112,5 +110,5 @@ public class Complex implements Serializable {
     public String toString() {
         return "uy.com.cinestar.domain.ComplexEntity[ id=" + id + " ]";
     }
-    
+
 }

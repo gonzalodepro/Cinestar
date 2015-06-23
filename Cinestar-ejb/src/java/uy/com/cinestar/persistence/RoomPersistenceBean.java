@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package uy.com.cinestar.persistence;
 
 import com.sun.xml.ws.rx.rm.runtime.sequence.persistent.PersistenceException;
@@ -25,18 +21,19 @@ public class RoomPersistenceBean {
 
     @PersistenceContext
     EntityManager em;
-    
-     
-    public void addRoom(Room room) throws CinestarException{
-        try{
+
+    public void addRoom(Room room) throws CinestarException {
+        try {
             em.persist(room);
-        }catch(javax.persistence.EntityExistsException ex){
-            throw new EntityExistsException("Error! Ya existe una sala con ese id en la base de datos.",ex);
-        }catch (PersistenceException ex){
-            throw new DataAccesGenericException("Disculpe! Ocurrio un error al persistir los datos de la sala. Intente nuevamente",ex);
-        }catch (Exception ex){
-            throw new CinestarException("Disculpe! Ocurrio un error en el sistema al intentar persistir la sala. Intente nuevamente. Si el error persiste contactese con soporte.",ex);
+        } catch (javax.persistence.EntityExistsException ex) {
+            throw new EntityExistsException("Error! Ya existe una sala con ese id en la base de datos.", ex);
+        } catch (PersistenceException ex) {
+            throw new DataAccesGenericException("Disculpe! Ocurrio un error al persistir los datos de "
+                    + "la sala. Intente nuevamente", ex);
+        } catch (Exception ex) {
+            throw new CinestarException("Disculpe! Ocurrio un error en el sistema al intentar persistir "
+                    + "la sala. Intente nuevamente. Si el error persiste contactese con soporte.", ex);
         }
     }
-       
+
 }

@@ -13,34 +13,36 @@ import uy.com.cinestar.generics.Enums.ExceptionType;
  * @author Gonza
  */
 public class CinestarException extends Exception {
-    
+
     private final String error;
     private final ExceptionType type;
-    private final Throwable oException; 
+    private final Throwable exception;
     private final String stackTrace;
-    
-    public CinestarException(String error, ExceptionType type, Throwable oException) {
+
+    public CinestarException(String error, ExceptionType type, Throwable ex) {
         //aca loggear
         this.error = error;
-        this.type=type;
-        this.oException= oException;
-        if (this.oException != null)
-            this.stackTrace = Arrays.toString(oException.getStackTrace());
-        else
-            this.stackTrace="Sin informacion.";
+        this.type = type;
+        this.exception = ex;
+        if (this.exception != null) {
+            this.stackTrace = Arrays.toString(ex.getStackTrace());
+        } else {
+            this.stackTrace = "Sin informacion.";
+        }
     }
-    
+
     public CinestarException(String error, Throwable oException) {
         //aca loggear
         this.error = error;
-        this.type=ExceptionType.SystemException;
-        this.oException= oException;
-        if (this.oException != null)
+        this.type = ExceptionType.SystemException;
+        this.exception = oException;
+        if (this.exception != null) {
             this.stackTrace = Arrays.toString(oException.getStackTrace());
-        else
-            this.stackTrace="Sin informacion.";
+        } else {
+            this.stackTrace = "Sin informacion.";
+        }
     }
-    
+
     @Override
     public String getMessage() {
         return error;
@@ -49,6 +51,5 @@ public class CinestarException extends Exception {
     public ExceptionType getType() {
         return type;
     }
-    
-    
+
 }

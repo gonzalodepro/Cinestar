@@ -32,75 +32,75 @@ import uy.com.cinestar.domain.Function;
 import uy.com.cinestar.domain.Ticket;
 import uy.com.cinestar.exceptions.ParameterException;
 import uy.com.cinestar.exceptions.ExceptionResponseHelperBean;
-import uy.com.cinestar.exceptions.MDBException;
+import uy.com.cinestar.exceptions.MdbException;
 
 @Path("Function")
 public class FunctionResource {
 
     @Context
     private UriInfo context;
-    
-    @Resource(mappedName="jms/connectionFactory")
+
+    @Resource(mappedName = "jms/connectionFactory")
     private ConnectionFactory connectionFactory;
-    
-    @Resource(mappedName="jms/Topic")
+
+    @Resource(mappedName = "jms/Topic")
     private Topic topic;
-    
-    
+
     @EJB
     private FunctionBean functionBean;
-    
+
     @EJB
     private TicketBean ticketBean;
-    
+
     @EJB
     private ExceptionResponseHelperBean exceptionHelper;
-    
+
     public FunctionResource() {
     }
-    
+
     @GET
     @Produces("application/json")
     public Response getFunctions() {
-        try{
+        try {
             List<Function> functions = functionBean.getFunctions();
             Gson responde = new GsonBuilder().create();
             this.notifSale("prueba de notificacion de email!!!!!!!!!");
             return Response.accepted(responde.toJson(functions)).build();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             return exceptionHelper.exceptionResponse(ex);
         }
     }
-    
+
     @GET
     @Path("Complex")
     @Produces("application/json")
     public Response getComplexFunctions(@QueryParam("complexId") Long complexId) {
-        try{
+        try {
             List<Function> functions = functionBean.getComplexFunctions(complexId);
-            if (functions!=null) {
+            if (functions != null) {
                 Gson responde = new GsonBuilder().create();
                 return Response.accepted(responde.toJson(functions)).build();
-            } else
+            } else {
                 return Response.serverError().build();
-        }catch(Exception ex){
+            }
+        } catch (Exception ex) {
             return exceptionHelper.exceptionResponse(ex);
         }
     }
-    
+
     @GET
     @Path("Tickets")
     @Produces("application/json")
     public Response getFunctionTickets(@QueryParam("id") Long id) throws Exception {
-        try{
-            if (id == null){
-                throw new ParameterException("Debe enviar el id de la funcion en el primer parametro.",null);
-            }else{
+        try {
+            if (id == null) {
+                throw new ParameterException("Debe enviar el id de la funcion en el primer parametro.", null);
+            } else {
                 List<Ticket> tickets = ticketBean.getFunctionTickets(id);
                 Gson responde = new GsonBuilder().create();
                 return Response.accepted(responde.toJson(tickets)).build();
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             return exceptionHelper.exceptionResponse(ex);
         }
     }
@@ -109,19 +109,18 @@ public class FunctionResource {
     @Consumes("application/json")
     public void putJson(String content) {
     }
-    
-    private void notifSale(String message) throws MDBException{
+
+    private void notifSale(String message) throws MdbException {
         try {
             Connection connection;
             connection = connectionFactory.createConnection();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            MessageProducer messageProducer=session.createProducer(topic);
-            TextMessage textMessage=session.createTextMessage(message);
+            MessageProducer messageProducer = session.createProducer(topic);
+            TextMessage textMessage = session.createTextMessage(message);
             textMessage.setText(message);
             messageProducer.send(textMessage);
-            
         } catch (JMSException ex) {
-            throw new MDBException("Ocurrio un error al enviar el mensaje para el registro de la venta.",ex);
+            throw new MdbException("Ocurrio un error al enviar el mensaje para el registro de la venta.", ex);
         }
     }
 }

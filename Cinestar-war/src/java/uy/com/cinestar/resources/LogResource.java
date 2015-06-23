@@ -23,16 +23,15 @@ import uy.com.cinestar.beans.SistemBean;
 import uy.com.cinestar.domain.User;
 import uy.com.cinestar.exceptions.ExceptionResponseHelperBean;
 
-
 @Path("Log")
 public class LogResource {
 
     @Context
     private UriInfo context;
-    
+
     @EJB
     private ExceptionResponseHelperBean exceptionHelper;
-    
+
     @EJB
     private SistemBean sistem;
 
@@ -43,7 +42,9 @@ public class LogResource {
     }
 
     /**
-     * Retrieves representation of an instance of uy.com.cinestar.resources.LogResource
+     * Retrieves representation of an instance of
+     * uy.com.cinestar.resources.LogResource
+     *
      * @return an instance of java.lang.String
      */
     @GET
@@ -57,25 +58,25 @@ public class LogResource {
     @Produces("application/json")
     @Path("loggin")
     public Response logg(@QueryParam("nick") String nick, @QueryParam("password") String password) {
-        try{
+        try {
             User u = new User();
             u.setNick(nick);
             u.setPassword(password);
-            UUID uuidToken= sistem.UserLog(u);
+            UUID uuidToken = sistem.UserLog(u);
             String logResult;
-            if (uuidToken==null){
+            if (uuidToken == null) {
                 logResult = "Usuario/contraseña incorrectos.";
-            }else{
-                logResult="Usuario loggeado correctamente. Token: " + uuidToken.toString();
+            } else {
+                logResult = "Usuario loggeado correctamente. Token: " + uuidToken.toString();
             }
 
             Gson responde = new GsonBuilder().create();
             return Response.accepted(responde.toJson(logResult)).build();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             return exceptionHelper.exceptionResponse(ex);
         }
     }
-    
+
     @PUT
     @Consumes("application/json")
     public void putJson(String content) {

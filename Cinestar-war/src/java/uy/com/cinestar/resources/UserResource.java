@@ -5,7 +5,6 @@
  */
 package uy.com.cinestar.resources;
 
-
 import java.util.UUID;
 import javax.ejb.EJB;
 import javax.interceptor.Interceptors;
@@ -29,13 +28,13 @@ public class UserResource {
 
     @Context
     private UriInfo context;
-    
-    
+
     @EJB
     private UserBean userBean;
-    
+
     @EJB
     private ExceptionResponseHelperBean exceptionHelper;
+
     /**
      * Creates a new instance of UserResource
      */
@@ -43,7 +42,9 @@ public class UserResource {
     }
 
     /**
-     * Retrieves representation of an instance of uy.com.cinestar.resources.UserResource
+     * Retrieves representation of an instance of
+     * uy.com.cinestar.resources.UserResource
+     *
      * @return an instance of java.lang.String
      */
     @GET
@@ -53,14 +54,13 @@ public class UserResource {
         throw new UnsupportedOperationException();
     }
 
-    
     @PUT
     @Path("Client")
-    public Response addClient(@QueryParam("nick") String nick,@QueryParam("password") String pass) {
+    public Response addClient(@QueryParam("nick") String nick, @QueryParam("password") String pass) {
         try {
-            if (nick==null || pass==null){
-                throw new ParameterException("Para agregar un Administrador al sistema debe enviar el nick y el password en el request.",null);
-            }else{
+            if (nick == null || pass == null) {
+                throw new ParameterException("Para agregar un Administrador al sistema debe enviar el nick y el password en el request.", null);
+            } else {
                 User u = new User();
                 u.setType(Enums.UserType.Client);
                 u.setNick(nick);
@@ -68,20 +68,19 @@ public class UserResource {
                 userBean.addUser(u);
                 return Response.accepted("Usuario ingresado correctamente.").build();
             }
-        }
-        catch(Exception ex) {
+        } catch (Exception ex) {
             return exceptionHelper.exceptionResponse(ex);
         }
     }
-    
+
     @PUT
     @Path("Admin")
     @Interceptors(AdminInterceptorBean.class)
-    public Response addAdmin(@QueryParam("token") UUID token,@QueryParam("nick") String nick,@QueryParam("password") String pass) {
-        try{
-            if (nick==null || pass==null){
-                throw new ParameterException("Para agregar un Administrador al sistema debe enviar el nick y passowrd en el request.",null);
-            }else{
+    public Response addAdmin(@QueryParam("token") UUID token, @QueryParam("nick") String nick, @QueryParam("password") String pass) {
+        try {
+            if (nick == null || pass == null) {
+                throw new ParameterException("Para agregar un Administrador al sistema debe enviar el nick y passowrd en el request.", null);
+            } else {
                 User u = new User();
                 u.setType(Enums.UserType.Administrator);
                 u.setNick(nick);
@@ -89,7 +88,7 @@ public class UserResource {
                 userBean.addUser(u);
                 return Response.accepted("Usuario ingresado correctamente.").build();
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             return exceptionHelper.exceptionResponse(ex);
         }
     }

@@ -15,15 +15,16 @@ public class FunctionBean {
 
     @EJB
     private FunctionPersistenceBean functionPersistence;
-    
-    
-    public List<Function> getFunctions() throws CinestarException{
+
+    public List<Function> getFunctions() throws CinestarException {
         return functionPersistence.getAllFunctions();
     }
-    public Function getFunction(long id) throws CinestarException{
+
+    public Function getFunction(long id) throws CinestarException {
         return functionPersistence.getFunction(id);
     }
-    public List<Function> getComplexFunctions (Long complexId) throws DataAccesGenericException, CinestarException{
+
+    public List<Function> getComplexFunctions(Long complexId) throws DataAccesGenericException, CinestarException {
         return functionPersistence.getComplexFunction(complexId);
     }
 }

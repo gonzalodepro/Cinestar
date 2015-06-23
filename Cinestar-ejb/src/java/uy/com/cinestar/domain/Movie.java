@@ -15,19 +15,19 @@ import javax.persistence.*;
  */
 @Entity
 public class Movie implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Column(nullable=false)
+
+    @Column(nullable = false)
     private String title;
-    
+
     private String description;
-    
+
     private int durationMin;
-    
-    
+
     public Long getId() {
         return id;
     }
@@ -59,19 +59,16 @@ public class Movie implements Serializable {
     public void setDurationMin(int duration) {
         this.durationMin = duration;
     }
-    
-    
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += id != null ? id.hashCode() : 0;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Movie)) {
             return false;
         }
@@ -84,7 +81,7 @@ public class Movie implements Serializable {
 
     @Override
     public String toString() {
-        return "Movie: " + title +", description: " + description + ".";
+        return "Movie: " + title + ", description: " + description + ".";
     }
-    
+
 }

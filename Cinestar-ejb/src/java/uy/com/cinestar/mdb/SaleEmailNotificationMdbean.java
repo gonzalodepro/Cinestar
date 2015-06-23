@@ -1,15 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package uy.com.cinestar.mdb;
 
 import static com.sun.xml.ws.security.addressing.impl.policy.Constants.logger;
+
 import java.util.logging.Level;
 import javax.ejb.ActivationConfigProperty;
+import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
-import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
@@ -24,23 +21,26 @@ import javax.jms.TextMessage;
     @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "jms/Topic"),
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")
 })
-public class SaleEmailNotificationMDBean implements MessageListener {
+public class SaleEmailNotificationMdbean implements MessageListener {
+
     
-    public SaleEmailNotificationMDBean() {
+    @EJB
+    private MailBean mailBean;
+    
+    public SaleEmailNotificationMdbean() {
     }
-    
+
+
     @Override
     public void onMessage(Message message) {
         //aca enviar el email
-        try{
-            TextMessage textMessage=(TextMessage) message;
-            System.out.println("-----------------------");
-            System.out.println(textMessage.getText());
-            System.out.println("-----------------------");
-        }catch(JMSException ex){
-            logger.getLogger(SaleEmailNotificationMDBean.class.getName()).log(Level.SEVERE,null,ex);
+        try {
+            TextMessage textMessage = (TextMessage) message;
+            mailBean.sendMail(textMessage.getText());
+        } catch (Exception ex) {
+            System.out.println("Error al llamar al Mail Bean - " + ex.getMessage());
+            logger.getLogger(SaleEmailNotificationMdbean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("llego al mdbean");
     }
-    
+
 }

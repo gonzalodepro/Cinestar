@@ -5,7 +5,6 @@
  */
 package uy.com.cinestar.exceptions;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.ws.rs.core.Response;
@@ -17,11 +16,9 @@ import javax.ws.rs.core.Response;
 @Stateless
 @LocalBean
 public class ExceptionResponseHelperBean {
-    
-    
-    public Response exceptionResponse( Exception e){
-        
-        
+
+    public Response exceptionResponse(Exception e) {
+
         return Response.accepted(e.getMessage()).build();
     }
 }

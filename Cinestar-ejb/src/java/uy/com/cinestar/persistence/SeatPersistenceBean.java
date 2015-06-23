@@ -27,25 +27,26 @@ public class SeatPersistenceBean {
 
     @PersistenceContext
     EntityManager em;
-    
-     
-    public void addSeat(Seat s) throws CinestarException{
-        try{
+
+    public void addSeat(Seat s) throws CinestarException {
+        try {
             em.persist(s);
-        }catch(javax.persistence.EntityExistsException ex){
-            throw new EntityExistsException("Error! Ya existe un asiento con ese id en la base de datos.",ex);
-        }catch (PersistenceException ex){
-            throw new DataAccesGenericException("Disculpe! Ocurrio un error al persistir los datos del asiento. Intente nuevamente",ex);
-        }catch (Exception ex){
-            throw new CinestarException("Disculpe! Ocurrio un error en el sistema al intentar persistir el asiento. Intente nuevamente. Si el error persiste contactese con soporte.",ex);
+        } catch (javax.persistence.EntityExistsException ex) {
+            throw new EntityExistsException("Error! Ya existe un asiento con ese id en la base de datos.", ex);
+        } catch (PersistenceException ex) {
+            throw new DataAccesGenericException("Disculpe! Ocurrio un error al persistir los datos del "
+                    + "asiento. Intente nuevamente", ex);
+        } catch (Exception ex) {
+            throw new CinestarException("Disculpe! Ocurrio un error en el sistema al intentar persistir "
+                    + "el asiento. Intente nuevamente. Si el error persiste contactese con soporte.", ex);
         }
     }
-    
-    public List<Seat> getRoomSeats(Long roomId){
-        try{
+
+    public List<Seat> getRoomSeats(Long roomId) {
+        try {
             Query query = em.createQuery("ARMAR QUEY");
             return query.getResultList();
-        }catch(Exception e){
+        } catch (Exception e) {
             return null;
         }
     }

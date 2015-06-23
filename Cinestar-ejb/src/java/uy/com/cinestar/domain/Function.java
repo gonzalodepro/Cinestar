@@ -13,41 +13,42 @@ import javax.persistence.*;
 
 @Entity
 public class Function implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @JoinColumn(nullable=false)
+
+    @JoinColumn(nullable = false)
     private Room room;
-    
-    @JoinColumn(nullable=false)
+
+    @JoinColumn(nullable = false)
     private Movie movie;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
- 
+
     @OneToMany
     private List<Ticket> tickets;
-    
+
     private double price;
 
     public Function() {
-        tickets= new ArrayList<>();
+        tickets = new ArrayList<>();
     }
 
     public Function(Room room, Movie movie, Date startDate, double price) {
         this.room = room;
         this.movie = movie;
         this.startDate = startDate;
-        this.price=price;
+        this.price = price;
         this.tickets = new ArrayList<>();
-        for (int seatNumber=0; seatNumber<room.getSeats().size();seatNumber++){
-            Ticket newTicket = new Ticket(room.getSeats().get(seatNumber).getColumn(),room.getSeats().get(seatNumber).getRow());
+        for (int seatNumber = 0; seatNumber < room.getSeats().size(); seatNumber++) {
+            Ticket newTicket = new Ticket(room.getSeats().get(seatNumber).getColumn(), 
+                    room.getSeats().get(seatNumber).getRow());
             this.tickets.add(newTicket);
         }
-        
+
     }
 
     public void setTickets(List<Ticket> tickets) {
@@ -57,7 +58,7 @@ public class Function implements Serializable {
     public List<Ticket> getTickets() {
         return tickets;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -66,7 +67,7 @@ public class Function implements Serializable {
         this.id = id;
     }
 
-    public static long getSerialVersionUID() {
+    public static long getSerialVersionUid() {
         return serialVersionUID;
     }
 
@@ -77,7 +78,7 @@ public class Function implements Serializable {
     public Movie getMovie() {
         return movie;
     }
-    
+
     public Date getStartDate() {
         return startDate;
     }
@@ -86,7 +87,8 @@ public class Function implements Serializable {
         this.room = room;
 //        this.tickets = new ArrayList<>();
 //        for (int seatNumber=0; seatNumber<room.getSeats().size();seatNumber++){
-//            Ticket newTicket = new Ticket(room.getSeats().get(seatNumber).getColumn(),room.getSeats().get(seatNumber).getRow());
+//            Ticket newTicket = new Ticket(room.getSeats().get(seatNumber).getColumn(),
+        //room.getSeats().get(seatNumber).getRow());
 //            this.tickets.add(newTicket);
 //        }
     }
@@ -106,17 +108,16 @@ public class Function implements Serializable {
     public void setPrice(double price) {
         this.price = price;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += id != null ? id.hashCode() : 0;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Function)) {
             return false;
         }
@@ -131,5 +132,5 @@ public class Function implements Serializable {
     public String toString() {
         return "uy.com.cinestar.domain.FuncionEntity[ id=" + id + " ]";
     }
-    
+
 }

@@ -7,17 +7,14 @@ package uy.com.cinestar.exceptions;
 
 import uy.com.cinestar.generics.Enums;
 
-
 /**
  *
  * @author Gonza
  */
-public class NoDataException extends CinestarException{
+public class NoDataException extends CinestarException {
 
-    public NoDataException(String error, Throwable oException) {
-        super(error,Enums.ExceptionType.NoData, oException);
+    public NoDataException(String error, Throwable ex) {
+        super(error, Enums.ExceptionType.NoData, ex);
     }
-    
-    
-    
+
 }
