@@ -13,7 +13,6 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import uy.com.cinestar.domain.Movie;
 import uy.com.cinestar.domain.Seat;
 import uy.com.cinestar.exceptions.CinestarException;
 import uy.com.cinestar.exceptions.DataAccesGenericException;
@@ -40,19 +39,6 @@ public class SeatPersistenceBean {
         }catch (Exception ex){
             throw new CinestarException("Disculpe! Ocurrio un error en el sistema al intentar persistir el asiento. Intente nuevamente. Si el error persiste contactese con soporte.",ex);
         }
-    }
-    
-    public void buySeat(long id){
-        
-        try{
-            Query query;
-            query = em.createQuery("UPDATE Seat SET available=false WHERE id=:id");
-            query.setParameter("id", id);
-            int updatedRows = query.executeUpdate();
-        }catch (Exception e){
-            //return false;
-        }
-        
     }
     
     public List<Seat> getRoomSeats(Long roomId){

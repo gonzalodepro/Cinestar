@@ -6,11 +6,10 @@
 package uy.com.cinestar.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 
 @Entity
 public class Function implements Serializable {
@@ -21,7 +20,6 @@ public class Function implements Serializable {
     private Long id;
     
     @JoinColumn(nullable=false)
-    @XmlTransient
     private Room room;
     
     @JoinColumn(nullable=false)
@@ -29,10 +27,14 @@ public class Function implements Serializable {
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
+ 
+    @OneToMany
+    private List<Ticket> tickets;
     
     private double price;
 
     public Function() {
+        tickets= new ArrayList<>();
     }
 
     public Function(Room room, Movie movie, Date startDate, double price) {
@@ -40,6 +42,20 @@ public class Function implements Serializable {
         this.movie = movie;
         this.startDate = startDate;
         this.price=price;
+        this.tickets = new ArrayList<>();
+        for (int seatNumber=0; seatNumber<room.getSeats().size();seatNumber++){
+            Ticket newTicket = new Ticket(room.getSeats().get(seatNumber).getColumn(),room.getSeats().get(seatNumber).getRow());
+            this.tickets.add(newTicket);
+        }
+        
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
     }
     
     public Long getId() {

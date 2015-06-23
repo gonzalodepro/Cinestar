@@ -39,7 +39,7 @@ public class Room implements Serializable {
         seats = new ArrayList<>();
         for (int i=1;i<11;i++){
             for (int j=1;j<11;j++){
-                Seat s = new Seat(i,j,false);
+                Seat s = new Seat(i,j);
                 seats.add(s);
             }
         }
@@ -51,7 +51,7 @@ public class Room implements Serializable {
         seats = new ArrayList<>();
         for (int i=1;i<11;i++){
             for (int j=1;j<11;j++){
-                Seat s = new Seat(i,j,false);
+                Seat s = new Seat(i,j);
                 seats.add(s);
             }
         }

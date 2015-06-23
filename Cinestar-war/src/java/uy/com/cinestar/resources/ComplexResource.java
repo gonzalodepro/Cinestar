@@ -13,6 +13,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
@@ -56,8 +57,23 @@ public class ComplexResource {
                 return Response.accepted("Ocurrio un error al acceder a la base de datos, "
                         + "puede que el id sea incorrecto.").build();
             }
-        }catch (Exception e){
-            return exceptionHelper.exceptionResponse(e);
+        }catch (Exception ex){
+            return exceptionHelper.exceptionResponse(ex);
+        }
+    }
+    
+    @PUT
+    @Produces("application/json")
+    public Response addMovieToBillboard(@QueryParam("complexId") Long complexId, @QueryParam("movieId") Long movieId) {
+        try{
+            if (complexId ==null || movieId==null){
+                throw new ParameterException("Debe enviar el id del complejo y el id de la pelicula en el request.",null);
+            }else{
+                complexBean.addMovieToBillboard(complexId, movieId);
+                return Response.accepted("Pelicula agregara satisfactoriamente a la cartelera.").build();
+            }
+        }catch (Exception ex){
+            return exceptionHelper.exceptionResponse(ex);
         }
     }
 }

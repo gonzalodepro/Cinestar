@@ -17,26 +17,45 @@ import javax.persistence.Id;
  * @author Gonza
  */
 @Entity
-public class Seat implements Serializable {
+public class Ticket implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
- 
+
     @Column(nullable=false)
     private int sRow;
     
     @Column(nullable=false)
     private int sColumn;
-    
-    
 
-    public Seat() {
+    @Column(nullable=false)
+    private boolean available;
+
+    public Ticket() {
+        this.available=false;
     }
     
-    public Seat(int row, int column) {
-        this.sRow = row;
-        this.sColumn = column;
+    public Ticket(int sRow, int sColumn) {
+        this.sRow = sRow;
+        this.sColumn = sColumn;
+        this.available=false;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public int getRow() {
@@ -55,15 +74,7 @@ public class Seat implements Serializable {
     public void setColumn(int column) {
         this.sColumn = column;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -74,10 +85,10 @@ public class Seat implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Seat)) {
+        if (!(object instanceof Ticket)) {
             return false;
         }
-        Seat other = (Seat) object;
+        Ticket other = (Ticket) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -86,8 +97,7 @@ public class Seat implements Serializable {
 
     @Override
     public String toString() {
-        String ret = "Asiento " + sRow +"-"+ sColumn;
-        return ret;
+        return "uy.com.cinestar.domain.Ticket[ id=" + id + " ]";
     }
     
 }

@@ -80,5 +80,16 @@ public class ComplexPersistenceBean {
             throw new CinestarException("Disculpe! Ocurrio un error en el sistema al obtener los datos del complejo. Intente nuevamente. Si el error persiste contactese con soporte.",ex);
         }
     }
+ 
+    public void updateComplex(Complex complex) throws CinestarException{
+        try{
+            em.merge(complex);
+        }catch(PersistenceException ex){
+            throw new DataAccesGenericException("Disculpe! Ocurrio un error al modificar los datos de la pelicula. Puede que el id sea incorrecto. Intente nuevamente",ex);
+        }
+        catch(Exception ex){
+            throw new CinestarException("Disculpe! Ocurrio un error en el sistema al modificar los datos de la pelicula. Intente nuevamente. Si el error persiste contactese con soporte.",ex);
+        }
+    }
     
 }

@@ -14,6 +14,7 @@ import uy.com.cinestar.domain.Movie;
 import uy.com.cinestar.exceptions.CinestarException;
 import uy.com.cinestar.exceptions.NoDataException;
 import uy.com.cinestar.persistence.ComplexPersistenceBean;
+import uy.com.cinestar.persistence.MoviePersistenceBean;
 
 /**
  *
@@ -25,6 +26,9 @@ public class ComplexBean {
 
     @EJB
     private ComplexPersistenceBean persistence;
+    
+    @EJB
+    private MoviePersistenceBean moviePersistence;
     
     public List<Complex> getAllComplex() throws CinestarException{
         return persistence.getAllComplex();
@@ -39,6 +43,12 @@ public class ComplexBean {
     }
     public void addComplex(Complex comp) throws CinestarException{
         persistence.addComplex(comp);
+    }
+    public void addMovieToBillboard(Long complexId, Long movieId) throws CinestarException{
+        Movie movie = moviePersistence.getMovie(movieId);
+        Complex complex = persistence.getComplex(complexId);
+        complex.addMovieToBillboard(movie);
+        persistence.updateComplex(complex);
     }
     
 }
