@@ -22,6 +22,7 @@ public class Enums {
         NoData,
         EntityExists,
         Loggin,
+        MDBException,
         SystemException
     }
     

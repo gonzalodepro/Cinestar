@@ -57,4 +57,7 @@ public class TicketPersistenceBean {
             throw new CinestarException("Disculpe! Ocurrio un error en el sistema al obtener los tickets de una funcion.",ex);
         }
     }
+    
+    
+    
 }

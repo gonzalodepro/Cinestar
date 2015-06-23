@@ -5,6 +5,7 @@
  */
 package uy.com.cinestar.beans;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -47,8 +48,15 @@ public class ComplexBean {
     public void addMovieToBillboard(Long complexId, Long movieId) throws CinestarException{
         Movie movie = moviePersistence.getMovie(movieId);
         Complex complex = persistence.getComplex(complexId);
-        complex.addMovieToBillboard(movie);
-        persistence.updateComplex(complex);
+        if (!complex.getBillboard().contains(movie)){
+            complex.addMovieToBillboard(movie);
+            persistence.updateComplex(complex);
+        }
+    }
+    
+    public void addFunction(Long roomId, Long movieId, Date startDate, double price){
+        //Aca hacer todo lo necesario, cheqeuar si esa pelicula esta en la cartelera, etc
+        
     }
     
 }

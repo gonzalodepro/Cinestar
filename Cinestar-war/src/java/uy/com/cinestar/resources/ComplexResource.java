@@ -7,6 +7,7 @@ package uy.com.cinestar.resources;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ws.rs.core.Context;
@@ -76,4 +77,21 @@ public class ComplexResource {
             return exceptionHelper.exceptionResponse(ex);
         }
     }
+    
+    @PUT
+    @Path("AddFunction")
+    @Produces("application/json")
+    public Response addFunction(@QueryParam("movieId") Long movieId, @QueryParam("complexRoomId") Long roomId,@QueryParam("startDate") Date startDate,@QueryParam("price") double price) {
+        try{
+            if (roomId ==null || movieId==null || startDate==null || price==0){
+                throw new ParameterException("Debe enviar el id de la sala, el id de la pelicula, la fecha de inicio y el precio de la funcion en el request.",null);
+            }else{
+                complexBean.addFunction(roomId, movieId, startDate, price);
+                return Response.accepted("Funcion creada y agregara satisfactoriamente.").build();
+            }
+        }catch (Exception ex){
+            return exceptionHelper.exceptionResponse(ex);
+        }
+    }
+    
 }
