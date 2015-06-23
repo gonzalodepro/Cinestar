@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
+import javax.ws.rs.core.Response;
 import uy.com.cinestar.sb.SistemBean;
 import uy.com.cinestar.entities.User;
 import uy.com.cinestar.exceptions.LogginException;
@@ -38,6 +39,7 @@ public class ClientInterceptorBean {
                 if (user.getType() == Enums.UserType.Client) {
                     return ic.proceed();
                 } else {
+                    //return Response.accepted().build();
                     throw new LogginException("El usuario loggeado no tiene permisos para realizar esta accion.", null);
                 }
             } else {

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package uy.com.cinestar.exceptions;
 
 import javax.ejb.Stateless;
@@ -18,7 +14,10 @@ import javax.ws.rs.core.Response;
 public class ExceptionResponseHelperBean {
 
     public Response exceptionResponse(Exception e) {
-
-        return Response.accepted(e.getMessage()).build();
+//aca hacer switch entre mis excepciones.
+        return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        //bad request , es , la persona le pifio al mandar los datos en el request x ej. 
+        //el resto, problemas del servidor, es server error (500)
+        // return Response.accepted(e.getMessage()).build();
     }
 }

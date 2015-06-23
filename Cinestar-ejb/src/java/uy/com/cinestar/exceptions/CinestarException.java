@@ -31,13 +31,13 @@ public class CinestarException extends Exception {
         }
     }
 
-    public CinestarException(String error, Throwable oException) {
+    public CinestarException(String error, Throwable ex) {
         //aca loggear
         this.error = error;
         this.type = ExceptionType.SystemException;
-        this.exception = oException;
+        this.exception = ex;
         if (this.exception != null) {
-            this.stackTrace = Arrays.toString(oException.getStackTrace());
+            this.stackTrace = Arrays.toString(ex.getStackTrace());
         } else {
             this.stackTrace = "Sin informacion.";
         }

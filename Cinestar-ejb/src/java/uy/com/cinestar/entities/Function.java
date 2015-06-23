@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package uy.com.cinestar.entities;
 
 import java.io.Serializable;
@@ -10,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
+import static javax.persistence.CascadeType.ALL;
 
 @Entity
 public class Function implements Serializable {
@@ -28,7 +25,7 @@ public class Function implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
-    @OneToMany
+    @OneToMany(cascade = ALL)
     private List<Ticket> tickets;
 
     private double price;
@@ -85,12 +82,12 @@ public class Function implements Serializable {
 
     public void setRoom(Room room) {
         this.room = room;
-//        this.tickets = new ArrayList<>();
-//        for (int seatNumber=0; seatNumber<room.getSeats().size();seatNumber++){
-//            Ticket newTicket = new Ticket(room.getSeats().get(seatNumber).getColumn(),
-        //room.getSeats().get(seatNumber).getRow());
-//            this.tickets.add(newTicket);
-//        }
+        this.tickets = new ArrayList<>();
+        for (int seatNumber=0; seatNumber<room.getSeats().size();seatNumber++){
+            Ticket newTicket = new Ticket(room.getSeats().get(seatNumber).getColumn(),
+        room.getSeats().get(seatNumber).getRow());
+            this.tickets.add(newTicket);
+        }
     }
 
     public void setMovie(Movie movie) {
