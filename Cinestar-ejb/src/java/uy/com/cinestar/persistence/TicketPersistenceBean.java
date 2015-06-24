@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import uy.com.cinestar.entities.Function;
 import uy.com.cinestar.entities.Ticket;
+import uy.com.cinestar.entities.User;
 import uy.com.cinestar.exceptions.CinestarException;
 import uy.com.cinestar.exceptions.DataAccesGenericException;
 
@@ -31,12 +32,12 @@ public class TicketPersistenceBean {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 
-    public void buyTicket(Long id) throws CinestarException {
+    public void buyTicket(Long id, User user) throws CinestarException {
         try {
-            Query query;
-            query = em.createQuery("UPDATE Ticket SET available=false WHERE id=:id");
-            query.setParameter("id", id);
-            query.executeUpdate();
+            Ticket ticket = getTicker(id);
+            ticket.setAvailable(false);
+            ticket.setUser(user);
+            em.merge(ticket);
         } catch (PersistenceException ex) {
             throw new DataAccesGenericException("Disculpe! Ocurrio un error al comprar el ticket: " + id 
                     + ". Intente nuevamente", ex);
@@ -55,6 +56,14 @@ public class TicketPersistenceBean {
         } catch (Exception ex) {
             throw new CinestarException("Disculpe! Ocurrio un error en el sistema al obtener los "
                     + "tickets de una funcion.", ex);
+        }
+    }
+    
+    public Ticket getTicker (Long id) throws CinestarException{
+        try{
+            return em.find(Ticket.class, id);
+        } catch (Exception ex) {
+            throw new DataAccesGenericException("Disculpe! Ocurrio un error al obtener el ticket.",ex);
         }
     }
 

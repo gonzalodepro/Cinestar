@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -23,6 +24,7 @@ import uy.com.cinestar.sb.MovieBean;
 import uy.com.cinestar.entities.Movie;
 import uy.com.cinestar.exceptions.ParameterException;
 import uy.com.cinestar.exceptions.ExceptionResponseHelperBean;
+import uy.com.cinestar.interceptors.AdminInterceptorBean;
 
 /**
  * REST Web Service
@@ -37,8 +39,8 @@ public class MovieResource {
 
     @EJB
     private ExceptionResponseHelperBean exceptionHelper;
+    
     @EJB
-
     private MovieBean movieBean;
 
     public MovieResource() {
@@ -75,6 +77,7 @@ public class MovieResource {
     }
 
     @PUT
+    @Interceptors(AdminInterceptorBean.class)
     public Response addMovie(@QueryParam("title") String title, @QueryParam("description") String desc, @QueryParam("duration") int dur) {
         try {
             if (title == null || desc == null || dur == 0) {
@@ -92,6 +95,7 @@ public class MovieResource {
     }
 
     @POST
+    @Interceptors(AdminInterceptorBean.class)    
     @Path("Update")
     public Response updateMovie(@QueryParam("id") Long id, @QueryParam("title") String title, @QueryParam("description") String desc, @QueryParam("duration") int dur) {
         try {
@@ -106,6 +110,7 @@ public class MovieResource {
     }
 
     @DELETE
+    @Interceptors(AdminInterceptorBean.class)
     public Response deleteMovie(@QueryParam("id") Long id) {
         try {
             if (id == null) {

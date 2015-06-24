@@ -16,6 +16,9 @@ public class FunctionBean {
     @EJB
     private FunctionPersistenceBean functionPersistence;
 
+    public void addFunction(Function function) throws CinestarException{
+        functionPersistence.addFunction(function);
+    }
     public List<Function> getFunctions() throws CinestarException {
         return functionPersistence.getAllFunctions();
     }

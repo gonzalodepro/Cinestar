@@ -36,14 +36,18 @@ public class Ticket implements Serializable {
     @ManyToOne
     private User user;
     
+    @ManyToOne
+    private Function function;
+    
     public Ticket() {
-        this.available = false;
+        this.available = true;
     }
 
-    public Ticket(int row, int column) {
+    public Ticket(int row, int column, Function fun) {
         this._row = row;
         this._column = column;
-        this.available = false;
+        this.function = fun;
+        this.available = true;
     }
 
     public boolean isAvailable() {
@@ -76,6 +80,22 @@ public class Ticket implements Serializable {
 
     public void setColumn(int column) {
         this._column = column;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Function getFunction() {
+        return function;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setFunction(Function function) {
+        this.function = function;
     }
 
     @Override

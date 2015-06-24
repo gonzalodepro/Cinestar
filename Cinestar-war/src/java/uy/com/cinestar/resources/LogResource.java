@@ -19,7 +19,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
-import uy.com.cinestar.sb.SistemBean;
+import uy.com.cinestar.sb.SystemBean;
 import uy.com.cinestar.entities.User;
 import uy.com.cinestar.exceptions.ExceptionResponseHelperBean;
 
@@ -33,7 +33,7 @@ public class LogResource {
     private ExceptionResponseHelperBean exceptionHelper;
 
     @EJB
-    private SistemBean sistem;
+    private SystemBean system;
 
     /**
      * Creates a new instance of LogResource
@@ -56,22 +56,19 @@ public class LogResource {
 
     @POST
     @Produces("application/json")
-    @Path("loggin")
-    public Response logg(@QueryParam("nick") String nick, @QueryParam("password") String password) {
+    @Path("login")
+    public Response log(@QueryParam("nick") String nick, @QueryParam("password") String password) {
         try {
-            User u = new User();
-            u.setNick(nick);
-            u.setPassword(password);
-            UUID uuidToken = sistem.UserLog(u);
+            User user = new User();
+            user.setNick(nick);
+            user.setPassword(password);
+            UUID uuidToken = system.UserLog(user);
             String logResult;
             if (uuidToken == null) {
-                logResult = "Usuario/contraseña incorrectos.";
+                return Response.status(Response.Status.BAD_REQUEST).entity("Usuario/contraseña incorrectos.").build();
             } else {
-                logResult = "Usuario loggeado correctamente. Token: " + uuidToken.toString();
+                return Response.accepted("Usuario loggeado correctamente. Token: " + uuidToken.toString()).build();
             }
-
-            Gson responde = new GsonBuilder().create();
-            return Response.accepted(responde.toJson(logResult)).build();
         } catch (Exception ex) {
             return exceptionHelper.exceptionResponse(ex);
         }

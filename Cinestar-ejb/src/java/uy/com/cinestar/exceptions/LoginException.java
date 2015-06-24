@@ -7,9 +7,9 @@ import uy.com.cinestar.common.Enums.ExceptionType;
  *
  * @author Gonza
  */
-public class LogginException extends CinestarException {
+public class LoginException extends CinestarException {
 
-    public LogginException(String error, Throwable ex) {
+    public LoginException(String error, Throwable ex) {
         super(error, ExceptionType.Loggin, ex);
     }
 

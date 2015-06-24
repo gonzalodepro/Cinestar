@@ -17,9 +17,11 @@ public class Function implements Serializable {
     private Long id;
 
     @JoinColumn(nullable = false)
+    @ManyToOne
     private Room room;
 
     @JoinColumn(nullable = false)
+    @ManyToOne
     private Movie movie;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -42,7 +44,7 @@ public class Function implements Serializable {
         this.tickets = new ArrayList<>();
         for (int seatNumber = 0; seatNumber < room.getSeats().size(); seatNumber++) {
             Ticket newTicket = new Ticket(room.getSeats().get(seatNumber).getColumn(), 
-                    room.getSeats().get(seatNumber).getRow());
+                    room.getSeats().get(seatNumber).getRow(), this);
             this.tickets.add(newTicket);
         }
 
@@ -85,7 +87,7 @@ public class Function implements Serializable {
         this.tickets = new ArrayList<>();
         for (int seatNumber=0; seatNumber<room.getSeats().size();seatNumber++){
             Ticket newTicket = new Ticket(room.getSeats().get(seatNumber).getColumn(),
-        room.getSeats().get(seatNumber).getRow());
+        room.getSeats().get(seatNumber).getRow(),this);
             this.tickets.add(newTicket);
         }
     }

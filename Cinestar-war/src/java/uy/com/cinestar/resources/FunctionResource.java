@@ -40,12 +40,6 @@ public class FunctionResource {
     @Context
     private UriInfo context;
 
-    @Resource(mappedName = "jms/connectionFactory")
-    private ConnectionFactory connectionFactory;
-
-    @Resource(mappedName = "jms/Topic")
-    private Topic topic;
-
     @EJB
     private FunctionBean functionBean;
 
@@ -63,8 +57,8 @@ public class FunctionResource {
     public Response getFunctions() {
         try {
             List<Function> functions = functionBean.getFunctions();
+            functions = this.ManitupateFunctionsData(functions);
             Gson responde = new GsonBuilder().create();
-            this.notifSale("prueba de notificacion de email!!!!!!!!!");
             return Response.accepted(responde.toJson(functions)).build();
         } catch (Exception ex) {
             return exceptionHelper.exceptionResponse(ex);
@@ -97,6 +91,7 @@ public class FunctionResource {
                 throw new ParameterException("Debe enviar el id de la funcion en el primer parametro.", null);
             } else {
                 List<Ticket> tickets = ticketBean.getFunctionTickets(id);
+                tickets = this.ManipulateTicketsData(tickets);
                 Gson responde = new GsonBuilder().create();
                 return Response.accepted(responde.toJson(tickets)).build();
             }
@@ -110,17 +105,26 @@ public class FunctionResource {
     public void putJson(String content) {
     }
 
-    private void notifSale(String message) throws MdbException {
-        try {
-            Connection connection;
-            connection = connectionFactory.createConnection();
-            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            MessageProducer messageProducer = session.createProducer(topic);
-            TextMessage textMessage = session.createTextMessage(message);
-            textMessage.setText(message);
-            messageProducer.send(textMessage);
-        } catch (JMSException ex) {
-            throw new MdbException("Ocurrio un error al enviar el mensaje para el registro de la venta.", ex);
+    private List<Function> ManitupateFunctionsData(List<Function> list){
+        Function fun;
+        for (Function list1 : list) {
+            fun = list1;
+            fun.setTickets(null);
+            fun.getRoom().setSeats(null);
         }
+        return list;
+    }
+    
+    private List<Ticket> ManipulateTicketsData(List<Ticket> list){
+        Ticket tick;
+        for (Ticket list1 : list) {
+            tick = list1;
+            tick.setFunction(null);
+            if (tick.getUser() != null){
+                tick.getUser().setPassword(null);
+                tick.getUser().setType(null);
+            }
+        }
+        return list;
     }
 }

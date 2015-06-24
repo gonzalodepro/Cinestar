@@ -11,7 +11,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.Response;
-import uy.com.cinestar.sb.SistemBean;
+import uy.com.cinestar.sb.SystemBean;
 
 /**
  * REST Web Service
@@ -25,12 +25,12 @@ public class GenericResource {
     private UriInfo context;
 
     @EJB
-    private SistemBean sistem;
+    private SystemBean system;
 
     @PUT
     public Response loadDefaultValues(String content) {
         try {
-            sistem.LoadDefaultValues();
+            system.LoadDefaultValues();
             return Response.accepted("Datos por defecto cargados correctamente.").build();
         } catch (Exception ex) {
             return Response.serverError().build();

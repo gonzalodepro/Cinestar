@@ -17,12 +17,11 @@ import uy.com.cinestar.entities.User;
 import uy.com.cinestar.exceptions.CinestarException;
 import uy.com.cinestar.exceptions.DataAccesGenericException;
 import uy.com.cinestar.common.Enums;
-import uy.com.cinestar.persistence.FunctionPersistenceBean;
 
 
 @Singleton
 @LocalBean
-public class SistemBean {
+public class SystemBean {
 
     @EJB
     private ComplexBean complexBean;
@@ -34,14 +33,14 @@ public class SistemBean {
     private MovieBean movieBean;
 
     @EJB
-    private FunctionPersistenceBean functionPersistence;
+    private FunctionBean functionBean;
 
     @EJB
     private UserBean userBean;
 
     private final Map<UUID, User> loggedUsers;
 
-    public SistemBean() {
+    public SystemBean() {
         this.loggedUsers = new HashMap<>();
     }
 
@@ -49,8 +48,9 @@ public class SistemBean {
         UUID ret;
         List<User> list = userBean.getAllUsers();
         if (list.contains(user)) {
+            User realUser = userBean.getUser(user.getNick());
             ret = UUID.randomUUID();
-            loggedUsers.put(ret, user);
+            loggedUsers.put(ret, realUser);
         } else {
             ret = null;
         }
@@ -101,7 +101,7 @@ public class SistemBean {
             Date date = new Date();
             func.setStartDate(date);
             func.setPrice(149);
-            functionPersistence.addFunction(func);
+            functionBean.addFunction(func);
 
             Complex cplx = new Complex();
             cplx.setName("Movie montevideo Shopping");

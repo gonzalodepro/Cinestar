@@ -18,7 +18,7 @@ public class ExceptionResponseHelperBean {
             
             if (ex.getClass().equals(ParameterException.class)) {
                 return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
-            } else if (ex.getClass().equals(LogginException.class)) {
+            } else if (ex.getClass().equals(LoginException.class)) {
                 return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
             } else {
                 return Response.serverError().entity(ex.getMessage()).build();

@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -22,6 +23,8 @@ import uy.com.cinestar.sb.ComplexBean;
 import uy.com.cinestar.entities.Movie;
 import uy.com.cinestar.exceptions.ExceptionResponseHelperBean;
 import uy.com.cinestar.exceptions.ParameterException;
+import uy.com.cinestar.interceptors.AdminInterceptorBean;
+import uy.com.cinestar.interceptors.ClientInterceptorBean;
 
 @Path("Complex")
 public class ComplexResource {
@@ -66,6 +69,7 @@ public class ComplexResource {
     }
 
     @PUT
+    @Interceptors(AdminInterceptorBean.class)
     @Produces("application/json")
     public Response addMovieToBillboard(@QueryParam("complexId") Long complexId, @QueryParam("movieId") Long movieId) {
         try {
@@ -82,6 +86,7 @@ public class ComplexResource {
 
     @PUT
     @Path("AddFunction")
+    @Interceptors(AdminInterceptorBean.class)
     @Produces("application/json")
     public Response addFunction(@QueryParam("movieId") Long movieId, @QueryParam("complexRoomId") Long roomId, @QueryParam("startDate") Date startDate, @QueryParam("price") double price) {
         try {

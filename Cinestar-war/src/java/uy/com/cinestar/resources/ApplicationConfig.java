@@ -34,6 +34,7 @@ public class ApplicationConfig extends Application {
         resources.add(uy.com.cinestar.resources.GenericResource.class);
         resources.add(uy.com.cinestar.resources.LogResource.class);
         resources.add(uy.com.cinestar.resources.MovieResource.class);
+        resources.add(uy.com.cinestar.resources.TicketResource.class);
         resources.add(uy.com.cinestar.resources.UserResource.class);
     }
     
