@@ -1,4 +1,3 @@
-
 package uy.com.cinestar.persistence;
 
 import com.sun.xml.ws.rx.rm.runtime.sequence.persistent.PersistenceException;
@@ -8,6 +7,7 @@ import javax.ejb.LocalBean;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import uy.com.cinestar.entities.Complex;
@@ -95,6 +95,20 @@ public class ComplexPersistenceBean {
         } catch (Exception ex) {
             throw new CinestarException("Disculpe! Ocurrio un error en el sistema al modificar los datos "
                     + "de la pelicula. Intente nuevamente. Si el error persiste contactese con soporte.", ex);
+        }
+    }
+
+    public Complex getComplexFromRoom(Long roomId) throws CinestarException {
+        try {
+            Query query = em.createQuery("SELECT c FROM Complex c JOIN c.rooms r WHERE r.id = :roomId");
+            query.setParameter("roomId", roomId);
+            Complex complex = (Complex) query.getSingleResult();
+            return complex;
+        } catch (NoResultException | NonUniqueResultException ex) {
+            throw new NoDataException("Error! No existe una sala en el sistema con ese id.", ex);
+        } catch (Exception ex) {
+            throw new CinestarException("Disculpe! Ocurrio un error en el sistema al intentr recuperar datos."
+                    + " Intente nuevamente. Si el error persiste contactese con soporte.", ex);
         }
     }
 

@@ -1,4 +1,3 @@
-
 package uy.com.cinestar.entities;
 
 import java.io.Serializable;
@@ -43,7 +42,7 @@ public class Function implements Serializable {
         this.price = price;
         this.tickets = new ArrayList<>();
         for (int seatNumber = 0; seatNumber < room.getSeats().size(); seatNumber++) {
-            Ticket newTicket = new Ticket(room.getSeats().get(seatNumber).getColumn(), 
+            Ticket newTicket = new Ticket(room.getSeats().get(seatNumber).getColumn(),
                     room.getSeats().get(seatNumber).getRow(), this);
             this.tickets.add(newTicket);
         }
@@ -85,9 +84,9 @@ public class Function implements Serializable {
     public void setRoom(Room room) {
         this.room = room;
         this.tickets = new ArrayList<>();
-        for (int seatNumber=0; seatNumber<room.getSeats().size();seatNumber++){
+        for (int seatNumber = 0; seatNumber < room.getSeats().size(); seatNumber++) {
             Ticket newTicket = new Ticket(room.getSeats().get(seatNumber).getColumn(),
-        room.getSeats().get(seatNumber).getRow(),this);
+                    room.getSeats().get(seatNumber).getRow(), this);
             this.tickets.add(newTicket);
         }
     }

@@ -39,7 +39,7 @@ public class MovieResource {
 
     @EJB
     private ExceptionResponseHelperBean exceptionHelper;
-    
+
     @EJB
     private MovieBean movieBean;
 
@@ -95,7 +95,7 @@ public class MovieResource {
     }
 
     @POST
-    @Interceptors(AdminInterceptorBean.class)    
+    @Interceptors(AdminInterceptorBean.class)
     @Path("Update")
     public Response updateMovie(@QueryParam("id") Long id, @QueryParam("title") String title, @QueryParam("description") String desc, @QueryParam("duration") int dur) {
         try {

@@ -1,4 +1,3 @@
-
 package uy.com.cinestar.interceptors;
 
 import java.util.UUID;
@@ -14,7 +13,6 @@ import uy.com.cinestar.common.Enums;
 import uy.com.cinestar.exceptions.ExceptionResponseHelperBean;
 import uy.com.cinestar.exceptions.ParameterException;
 
-
 @Stateless
 @LocalBean
 public class ClientInterceptorBean {
@@ -24,7 +22,7 @@ public class ClientInterceptorBean {
 
     @Inject
     private ExceptionResponseHelperBean exceptionHelper;
-    
+
     @AroundInvoke
     public Object intercept(InvocationContext ic) throws Exception {
         try {
@@ -41,10 +39,9 @@ public class ClientInterceptorBean {
                 throw new LoginException("El usuario no esta logueado. Para realizar esta accion debe "
                         + "ingresar al sistema como Cliente.", null);
             }
-        }catch (LoginException ex){
+        } catch (LoginException ex) {
             return exceptionHelper.exceptionResponse(ex);
-        } 
-        catch (IllegalArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             return exceptionHelper.exceptionResponse(new ParameterException("El token enviado no tiene el formato correcto.", ex));
         } catch (Exception ex) {
             return exceptionHelper.exceptionResponse(new LoginException("Para realizar esta accion debe enviar su token en el primer parametro.", ex));

@@ -1,4 +1,3 @@
-
 package uy.com.cinestar.common;
 
 /**

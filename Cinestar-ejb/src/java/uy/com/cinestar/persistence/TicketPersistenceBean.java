@@ -1,4 +1,3 @@
-
 package uy.com.cinestar.persistence;
 
 import com.sun.xml.ws.rx.rm.runtime.sequence.persistent.PersistenceException;
@@ -30,7 +29,6 @@ public class TicketPersistenceBean {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-
     public void buyTicket(Long id, User user) throws CinestarException {
         try {
             Ticket ticket = getTicket(id);
@@ -38,10 +36,10 @@ public class TicketPersistenceBean {
             ticket.setUser(user);
             em.merge(ticket);
         } catch (PersistenceException ex) {
-            throw new DataAccesGenericException("Disculpe! Ocurrio un error al comprar el ticket: " + id 
+            throw new DataAccesGenericException("Disculpe! Ocurrio un error al comprar el ticket: " + id
                     + ". Intente nuevamente", ex);
         } catch (Exception ex) {
-            throw new CinestarException("Disculpe! Ocurrio un error en el sistema al comprar el ticket: " + id 
+            throw new CinestarException("Disculpe! Ocurrio un error en el sistema al comprar el ticket: " + id
                     + ". Intente nuevamente. Si el error persiste contactese con soporte.", ex);
         }
     }
@@ -57,12 +55,12 @@ public class TicketPersistenceBean {
                     + "tickets de una funcion.", ex);
         }
     }
-    
-    public Ticket getTicket (Long id) throws CinestarException{
-        try{
+
+    public Ticket getTicket(Long id) throws CinestarException {
+        try {
             return em.find(Ticket.class, id);
         } catch (Exception ex) {
-            throw new DataAccesGenericException("Disculpe! Ocurrio un error al obtener el ticket.",ex);
+            throw new DataAccesGenericException("Disculpe! Ocurrio un error al obtener el ticket.", ex);
         }
     }
 

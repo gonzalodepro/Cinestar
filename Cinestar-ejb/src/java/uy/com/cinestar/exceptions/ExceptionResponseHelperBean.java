@@ -13,9 +13,9 @@ import javax.ws.rs.core.Response;
 public class ExceptionResponseHelperBean {
 
     public Response exceptionResponse(Exception ex) {
-        
+
         if (ex.getClass().equals(CinestarException.class)) {
-            
+
             if (ex.getClass().equals(ParameterException.class)) {
                 return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
             } else if (ex.getClass().equals(LoginException.class)) {

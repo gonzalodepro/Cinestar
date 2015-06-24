@@ -1,4 +1,3 @@
-
 package uy.com.cinestar.sb;
 
 import java.util.List;
@@ -27,10 +26,12 @@ public class UserBean {
     public List<User> getAllUsers() throws CinestarException {
         return userPersistence.getAllUsers();
     }
-    public User getUser(String nick) throws CinestarException{
+
+    public User getUser(String nick) throws CinestarException {
         return userPersistence.getUser(nick);
     }
-    public User getUser(Long id) throws CinestarException{
+
+    public User getUser(Long id) throws CinestarException {
         return userPersistence.getUser(id);
     }
 }

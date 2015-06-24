@@ -34,7 +34,7 @@ public class MailBean {
             props.setProperty("mail.smtp.user", "cinestar.ventas.aut@gmail.com");
             props.setProperty("mail.smtp.auth", "true");
 
-            Session session = Session.getInstance(props, new GmailAuthenticator("cinestar.ventas.aut@gmail.com", 
+            Session session = Session.getInstance(props, new GmailAuthenticator("cinestar.ventas.aut@gmail.com",
                     "CinestarObl"));
 
             MimeMessage message = new MimeMessage(session);

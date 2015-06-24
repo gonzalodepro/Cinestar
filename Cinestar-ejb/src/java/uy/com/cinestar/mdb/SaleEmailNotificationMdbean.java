@@ -1,4 +1,3 @@
-
 package uy.com.cinestar.mdb;
 
 import static com.sun.xml.ws.security.addressing.impl.policy.Constants.logger;
@@ -23,13 +22,11 @@ import javax.jms.TextMessage;
 })
 public class SaleEmailNotificationMdbean implements MessageListener {
 
-    
     @EJB
     private MailBean mailBean;
-    
+
     public SaleEmailNotificationMdbean() {
     }
-
 
     @Override
     public void onMessage(Message message) {

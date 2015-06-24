@@ -98,7 +98,7 @@ public class FunctionResource {
     @Path("Report")
     @Interceptors(SupervisorInterceptorBean.class)
     @Produces("application/json")
-    public Response getFunctionFundraising(@QueryParam("token") UUID token,@QueryParam("id") Long id) throws Exception {
+    public Response getFunctionFundraising(@QueryParam("token") UUID token, @QueryParam("id") Long id) throws Exception {
         try {
             if (id == null) {
                 throw new ParameterException("Debe enviar el id de la funcion en el primer parametro.", null);
@@ -111,15 +111,12 @@ public class FunctionResource {
         }
     }
 
-    
-    
-    
     @PUT
     @Consumes("application/json")
     public void putJson(String content) {
     }
 
-    private List<Function> ManitupateFunctionsData(List<Function> list){
+    private List<Function> ManitupateFunctionsData(List<Function> list) {
         Function fun;
         for (Function list1 : list) {
             fun = list1;
@@ -128,13 +125,13 @@ public class FunctionResource {
         }
         return list;
     }
-    
-    private List<Ticket> ManipulateTicketsData(List<Ticket> list){
+
+    private List<Ticket> ManipulateTicketsData(List<Ticket> list) {
         Ticket tick;
         for (Ticket list1 : list) {
             tick = list1;
             tick.setFunction(null);
-            if (tick.getUser() != null){
+            if (tick.getUser() != null) {
                 tick.getUser().setPassword(null);
                 tick.getUser().setType(null);
                 tick.getUser().setTickets(null);

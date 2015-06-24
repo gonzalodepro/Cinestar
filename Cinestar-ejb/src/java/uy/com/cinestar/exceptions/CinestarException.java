@@ -1,6 +1,5 @@
 package uy.com.cinestar.exceptions;
 
-
 import uy.com.cinestar.common.Enums.ExceptionType;
 
 import java.util.Arrays;
@@ -15,12 +14,12 @@ import org.apache.log4j.BasicConfigurator;
 public class CinestarException extends Exception {
 
     private static Logger log = Logger.getLogger(CinestarException.class.getName());
-    
+
     private final String error;
     private final ExceptionType type;
     private final Throwable exception;
     private final String stackTrace;
-    
+
     public CinestarException(String error, ExceptionType type, Throwable ex) {
         this.error = error;
         this.type = type;

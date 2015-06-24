@@ -1,4 +1,3 @@
-
 package uy.com.cinestar.sb;
 
 import java.util.Date;
@@ -17,7 +16,6 @@ import uy.com.cinestar.entities.User;
 import uy.com.cinestar.exceptions.CinestarException;
 import uy.com.cinestar.exceptions.DataAccesGenericException;
 import uy.com.cinestar.common.Enums;
-
 
 @Singleton
 @LocalBean
@@ -68,17 +66,23 @@ public class SystemBean {
     public void LoadDefaultValues() throws Exception {
         try {
             User u1 = new User();
-            u1.setNick("usu1");
-            u1.setPassword("pass1");
+            u1.setNick("usuCli");
+            u1.setPassword("passCli");
             u1.setType(Enums.UserType.Client);
 
             User u2 = new User();
-            u2.setNick("usu2");
-            u2.setPassword("pass2");
+            u2.setNick("usuAdm");
+            u2.setPassword("passAdm");
             u2.setType(Enums.UserType.Administrator);
+
+            User u3 = new User();
+            u3.setNick("usuSup");
+            u3.setPassword("passSup");
+            u3.setType(Enums.UserType.Supervisor);
 
             userBean.addUser(u1);
             userBean.addUser(u2);
+            userBean.addUser(u3);
 
             Movie m1 = new Movie();
             m1.setTitle("Titanic");

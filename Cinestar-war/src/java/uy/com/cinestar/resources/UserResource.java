@@ -93,9 +93,9 @@ public class UserResource {
             return exceptionHelper.exceptionResponse(ex);
         }
     }
-    
+
     @PUT
-    @Path("Supervisor")
+    @Path("Supervisor   ")
     @Interceptors(SupervisorInterceptorBean.class)
     public Response addSupervisor(@QueryParam("token") UUID token, @QueryParam("nick") String nick, @QueryParam("password") String pass) {
         try {

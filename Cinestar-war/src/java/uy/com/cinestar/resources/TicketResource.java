@@ -43,7 +43,7 @@ public class TicketResource {
 
     @Resource(mappedName = "jms/Topic")
     private Topic topic;
-    
+
     @EJB
     private TicketBean ticketBean;
 
@@ -71,7 +71,7 @@ public class TicketResource {
                 throw new ParameterException("Debe enviar la lista de tickets a comprar en el request.", null);
             } else {
                 String emailText = ticketBean.buyTickets(token, ticketsId);
-                
+
                 notifPurchase(emailText);
                 return Response.accepted("Tickets comprados con exito.").build();
 
@@ -81,15 +81,13 @@ public class TicketResource {
         }
     }
 
-    
-    
     @GET
     @Produces("application/xml")
     public String getXml() {
         //TODO return proper representation object
         throw new UnsupportedOperationException();
     }
-    
+
     private void notifPurchase(String message) throws MdbException {
         try {
             Connection connection;

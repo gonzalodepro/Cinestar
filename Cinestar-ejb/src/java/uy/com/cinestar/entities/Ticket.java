@@ -1,4 +1,3 @@
-
 package uy.com.cinestar.entities;
 
 import java.io.Serializable;
@@ -33,10 +32,10 @@ public class Ticket implements Serializable {
 
     @ManyToOne(optional = true)
     private User user;
-    
+
     @ManyToOne
     private Function function;
-    
+
     public Ticket() {
         this.available = true;
     }

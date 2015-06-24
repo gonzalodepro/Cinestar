@@ -34,8 +34,8 @@ public class TicketBean {
             boolean allTicketsIdCorrects = true;
             for (Long ticketsId1 : ticketsId) {
                 Ticket theTicket = persistence.getTicket(ticketsId1);
-                if (theTicket==null){
-                    allTicketsIdCorrects=false;
+                if (theTicket == null) {
+                    allTicketsIdCorrects = false;
                     break;
                 }
                 if (!theTicket.isAvailable()) {
@@ -43,9 +43,9 @@ public class TicketBean {
                     break;
                 }
             }
-            if (!allTicketsIdCorrects){
+            if (!allTicketsIdCorrects) {
                 throw new EntityExistsException("Error! Al menos uno de los id de los tickets que quiere "
-                        + "comprar es incorrecto.",null);
+                        + "comprar es incorrecto.", null);
             }
             if (!allTicketsAvailable) {
                 throw new CinestarException("Disculpe! Al menos uno de los tickets que desea "
@@ -70,12 +70,12 @@ public class TicketBean {
                 emailText += "<br><br><br> Costo total compra " + totalPrice + "$";
             }
             return emailText;
-        
-        }catch(CinestarException ex){
+
+        } catch (CinestarException ex) {
             throw ex;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new CinestarException("Disculpe! Ocurrio un error en el sistema al intentar realizar la compra. Intente nuevamente. "
-                    + "Si el error persiste contactese con soporte.",ex);
+                    + "Si el error persiste contactese con soporte.", ex);
         }
     }
 }

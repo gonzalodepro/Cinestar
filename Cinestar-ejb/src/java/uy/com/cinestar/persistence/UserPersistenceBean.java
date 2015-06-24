@@ -1,4 +1,3 @@
-
 package uy.com.cinestar.persistence;
 
 import java.util.List;
@@ -36,17 +35,18 @@ public class UserPersistenceBean {
         }
     }
 
-    public User getUser(String nick) throws CinestarException{
-        try{
-            Query query = em.createQuery("SELECT u FROM User as u WHERE u.nick=:nick").setParameter("nick",nick);
-            return (User)query.getSingleResult();
-        }catch (NoResultException ex){
-            throw new NoDataException("Disculpe! Pareceria que no hay un usuario con su nick en el sistema. Intente nuevamente!",ex);
-        }catch(PersistenceException ex){
+    public User getUser(String nick) throws CinestarException {
+        try {
+            Query query = em.createQuery("SELECT u FROM User as u WHERE u.nick=:nick").setParameter("nick", nick);
+            return (User) query.getSingleResult();
+        } catch (NoResultException ex) {
+            throw new NoDataException("Disculpe! Pareceria que no hay un usuario con su nick en el sistema. Intente nuevamente!", ex);
+        } catch (PersistenceException ex) {
             throw new DataAccesGenericException("Disculpe! Ocurrio un error en el sistema al "
-                    + "consultar tu id de usuario. Intente nuevamente. Si el error persiste contactese con soporte.",ex);
+                    + "consultar tu id de usuario. Intente nuevamente. Si el error persiste contactese con soporte.", ex);
         }
     }
+
     public List<User> getAllUsers() throws CinestarException {
         try {
             Query query = em.createQuery("SELECT u from User as u");

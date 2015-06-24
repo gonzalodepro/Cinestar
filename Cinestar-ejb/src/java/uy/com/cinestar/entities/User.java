@@ -38,7 +38,7 @@ public class User implements Serializable {
 
     @OneToMany
     List<Ticket> tickets;
-    
+
     @Enumerated(EnumType.STRING)
     private UserType type;
 

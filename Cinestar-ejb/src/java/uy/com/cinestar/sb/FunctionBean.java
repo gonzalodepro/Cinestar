@@ -17,9 +17,10 @@ public class FunctionBean {
     @EJB
     private FunctionPersistenceBean functionPersistence;
 
-    public void addFunction(Function function) throws CinestarException{
+    public void addFunction(Function function) throws CinestarException {
         functionPersistence.addFunction(function);
     }
+
     public List<Function> getFunctions() throws CinestarException {
         return functionPersistence.getAllFunctions();
     }
@@ -31,18 +32,18 @@ public class FunctionBean {
     public List<Function> getComplexFunctions(Long complexId) throws DataAccesGenericException, CinestarException {
         return functionPersistence.getComplexFunction(complexId);
     }
-    
-    public String getFunctionFundraising(Long functionId) throws CinestarException{
+
+    public String getFunctionFundraising(Long functionId) throws CinestarException {
         Function func = functionPersistence.getFunction(functionId);
         List<Ticket> functionTickets = func.getTickets();
-        int ticketsSold=0;
+        int ticketsSold = 0;
         for (Ticket functionTicket : functionTickets) {
             if (!functionTicket.isAvailable()) {
                 ticketsSold++;
             }
         }
         double totalAmount = func.getPrice() * ticketsSold;
-        String resume = "Entradas vendidas: "+ ticketsSold + ", Recaudacion: " + totalAmount + "$.";
+        String resume = "Entradas vendidas: " + ticketsSold + ", Recaudacion: " + totalAmount + "$.";
         return resume;
     }
 }
