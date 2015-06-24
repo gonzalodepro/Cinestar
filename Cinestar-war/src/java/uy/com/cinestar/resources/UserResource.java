@@ -59,7 +59,7 @@ public class UserResource {
     public Response addClient(@QueryParam("nick") String nick, @QueryParam("password") String pass) {
         try {
             if (nick == null || pass == null) {
-                throw new ParameterException("Para agregar un Administrador al sistema debe enviar el nick y el password en el request.", null);
+                throw new ParameterException("Para agregar un Cliente al sistema debe enviar el nick y el password en el request.", null);
             } else {
                 User u = new User();
                 u.setType(Enums.UserType.Client);

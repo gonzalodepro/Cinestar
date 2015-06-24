@@ -1,12 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uy.com.cinestar.exceptions;
 
-import java.util.Arrays;
+
 import uy.com.cinestar.common.Enums.ExceptionType;
+
+import java.util.Arrays;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.BasicConfigurator;
 
 /**
  *
@@ -14,13 +14,14 @@ import uy.com.cinestar.common.Enums.ExceptionType;
  */
 public class CinestarException extends Exception {
 
+    private static Logger log = Logger.getLogger(CinestarException.class.getName());
+    
     private final String error;
     private final ExceptionType type;
     private final Throwable exception;
     private final String stackTrace;
-
+    
     public CinestarException(String error, ExceptionType type, Throwable ex) {
-        //aca loggear
         this.error = error;
         this.type = type;
         this.exception = ex;
@@ -29,10 +30,10 @@ public class CinestarException extends Exception {
         } else {
             this.stackTrace = "Sin informacion.";
         }
+        logException();
     }
 
     public CinestarException(String error, Throwable ex) {
-        //aca loggear
         this.error = error;
         this.type = ExceptionType.SystemException;
         this.exception = ex;
@@ -41,6 +42,12 @@ public class CinestarException extends Exception {
         } else {
             this.stackTrace = "Sin informacion.";
         }
+        logException();
+    }
+
+    private void logException() {
+        BasicConfigurator.configure();
+        log.error("Exception test!");
     }
 
     @Override
