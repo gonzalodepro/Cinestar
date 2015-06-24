@@ -47,7 +47,9 @@ public class CinestarException extends Exception {
 
     private void logException() {
         BasicConfigurator.configure();
-        log.error("Exception test!");
+        String errorText;
+        errorText = "Tipo: " + this.type.toString() + " - Mensaje: " + this.error + " - Stacktrace: " + this.stackTrace;
+        log.error(errorText);
     }
 
     @Override
