@@ -31,9 +31,7 @@ public class Ticket implements Serializable {
     @Column(nullable = false)
     private boolean available;
 
-    //manytoone y aca tengo atributo usuario.
-    @Null
-    @ManyToOne
+    @ManyToOne(optional = true)
     private User user;
     
     @ManyToOne

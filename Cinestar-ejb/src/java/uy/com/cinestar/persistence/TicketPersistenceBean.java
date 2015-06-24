@@ -8,7 +8,6 @@ import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import uy.com.cinestar.entities.Function;
 import uy.com.cinestar.entities.Ticket;
 import uy.com.cinestar.entities.User;
@@ -34,7 +33,7 @@ public class TicketPersistenceBean {
 
     public void buyTicket(Long id, User user) throws CinestarException {
         try {
-            Ticket ticket = getTicker(id);
+            Ticket ticket = getTicket(id);
             ticket.setAvailable(false);
             ticket.setUser(user);
             em.merge(ticket);
@@ -59,7 +58,7 @@ public class TicketPersistenceBean {
         }
     }
     
-    public Ticket getTicker (Long id) throws CinestarException{
+    public Ticket getTicket (Long id) throws CinestarException{
         try{
             return em.find(Ticket.class, id);
         } catch (Exception ex) {

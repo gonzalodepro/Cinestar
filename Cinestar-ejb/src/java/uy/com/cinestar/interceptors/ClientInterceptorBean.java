@@ -2,12 +2,11 @@
 package uy.com.cinestar.interceptors;
 
 import java.util.UUID;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
-import javax.ws.rs.core.Response;
 import uy.com.cinestar.sb.SystemBean;
 import uy.com.cinestar.entities.User;
 import uy.com.cinestar.exceptions.LoginException;
@@ -20,10 +19,10 @@ import uy.com.cinestar.exceptions.ParameterException;
 @LocalBean
 public class ClientInterceptorBean {
 
-    @EJB
+    @Inject
     private SystemBean system;
 
-    @EJB
+    @Inject
     private ExceptionResponseHelperBean exceptionHelper;
     
     @AroundInvoke
@@ -36,12 +35,16 @@ public class ClientInterceptorBean {
                 if (user.getType() == Enums.UserType.Client) {
                     return ic.proceed();
                 } else {
-                    throw new LoginException("El usuario loggeado no tiene permisos para realizar esta accion.", null);
+                    throw new LoginException("El usuario logueado no tiene permisos para realizar esta accion.", null);
                 }
             } else {
-                throw new LoginException("El usuario no esta loggeado.", null);
+                throw new LoginException("El usuario no esta logueado. Para realizar esta accion debe "
+                        + "ingresar al sistema como Cliente.", null);
             }
-        } catch (IllegalArgumentException ex) {
+        }catch (LoginException ex){
+            return exceptionHelper.exceptionResponse(ex);
+        } 
+        catch (IllegalArgumentException ex) {
             return exceptionHelper.exceptionResponse(new ParameterException("El token enviado no tiene el formato correcto.", ex));
         } catch (Exception ex) {
             return exceptionHelper.exceptionResponse(new LoginException("Para realizar esta accion debe enviar su token en el primer parametro.", ex));

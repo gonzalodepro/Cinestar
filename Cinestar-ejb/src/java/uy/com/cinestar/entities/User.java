@@ -95,6 +95,10 @@ public class User implements Serializable {
         return hash;
     }
 
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof User)) {

@@ -7,16 +7,10 @@ package uy.com.cinestar.resources;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import javax.jms.Connection;
 import java.util.List;
-import javax.annotation.Resource;
+import java.util.UUID;
 import javax.ejb.EJB;
-import javax.jms.ConnectionFactory;
-import javax.jms.JMSException;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
-import javax.jms.TextMessage;
-import javax.jms.Topic;
+import javax.interceptor.Interceptors;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -32,7 +26,7 @@ import uy.com.cinestar.entities.Function;
 import uy.com.cinestar.entities.Ticket;
 import uy.com.cinestar.exceptions.ParameterException;
 import uy.com.cinestar.exceptions.ExceptionResponseHelperBean;
-import uy.com.cinestar.exceptions.MdbException;
+import uy.com.cinestar.interceptors.SupervisorInterceptorBean;
 
 @Path("Function")
 public class FunctionResource {
@@ -100,6 +94,26 @@ public class FunctionResource {
         }
     }
 
+    @GET
+    @Path("Report")
+    @Interceptors(SupervisorInterceptorBean.class)
+    @Produces("application/json")
+    public Response getFunctionFundraising(@QueryParam("token") UUID token,@QueryParam("id") Long id) throws Exception {
+        try {
+            if (id == null) {
+                throw new ParameterException("Debe enviar el id de la funcion en el primer parametro.", null);
+            } else {
+                String resume = functionBean.getFunctionFundraising(id);
+                return Response.accepted(resume).build();
+            }
+        } catch (Exception ex) {
+            return exceptionHelper.exceptionResponse(ex);
+        }
+    }
+
+    
+    
+    
     @PUT
     @Consumes("application/json")
     public void putJson(String content) {
@@ -123,6 +137,7 @@ public class FunctionResource {
             if (tick.getUser() != null){
                 tick.getUser().setPassword(null);
                 tick.getUser().setType(null);
+                tick.getUser().setTickets(null);
             }
         }
         return list;

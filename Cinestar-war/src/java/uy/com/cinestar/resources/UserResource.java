@@ -22,6 +22,7 @@ import uy.com.cinestar.entities.User;
 import uy.com.cinestar.exceptions.ParameterException;
 import uy.com.cinestar.common.Enums;
 import uy.com.cinestar.exceptions.ExceptionResponseHelperBean;
+import uy.com.cinestar.interceptors.SupervisorInterceptorBean;
 
 @Path("User")
 public class UserResource {
@@ -83,6 +84,26 @@ public class UserResource {
             } else {
                 User u = new User();
                 u.setType(Enums.UserType.Administrator);
+                u.setNick(nick);
+                u.setPassword(pass);
+                userBean.addUser(u);
+                return Response.accepted("Usuario ingresado correctamente.").build();
+            }
+        } catch (Exception ex) {
+            return exceptionHelper.exceptionResponse(ex);
+        }
+    }
+    
+    @PUT
+    @Path("Supervisor")
+    @Interceptors(SupervisorInterceptorBean.class)
+    public Response addSupervisor(@QueryParam("token") UUID token, @QueryParam("nick") String nick, @QueryParam("password") String pass) {
+        try {
+            if (nick == null || pass == null) {
+                throw new ParameterException("Para agregar un Administrador al sistema debe enviar el nick y passowrd en el request.", null);
+            } else {
+                User u = new User();
+                u.setType(Enums.UserType.Supervisor);
                 u.setNick(nick);
                 u.setPassword(pass);
                 userBean.addUser(u);

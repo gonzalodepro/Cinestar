@@ -18,14 +18,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import uy.com.cinestar.exceptions.CinestarException;
 import uy.com.cinestar.exceptions.ExceptionResponseHelperBean;
 import uy.com.cinestar.exceptions.MdbException;
 import uy.com.cinestar.exceptions.ParameterException;
-import uy.com.cinestar.interceptors.AdminInterceptorBean;
 import uy.com.cinestar.interceptors.ClientInterceptorBean;
 import uy.com.cinestar.sb.TicketBean;
 
@@ -65,16 +63,16 @@ public class TicketResource {
      * @return an instance of java.lang.String
      */
     @POST
-    //@Interceptors(ClientInterceptorBean.class)
+    @Interceptors(ClientInterceptorBean.class)
     @Path("Buy")
     public Response buyTickets(@QueryParam("token") UUID token, @QueryParam("ticketId") List<Long> ticketsId) throws CinestarException {
         try {
             if (ticketsId == null || ticketsId.isEmpty()) {
                 throw new ParameterException("Debe enviar la lista de tickets a comprar en el request.", null);
             } else {
-                ticketBean.buyTickets(token, ticketsId);
+                String emailText = ticketBean.buyTickets(token, ticketsId);
                 
-                notifSale("armar texto!");
+                notifPurchase(emailText);
                 return Response.accepted("Tickets comprados con exito.").build();
 
             }
@@ -92,7 +90,7 @@ public class TicketResource {
         throw new UnsupportedOperationException();
     }
     
-    private void notifSale(String message) throws MdbException {
+    private void notifPurchase(String message) throws MdbException {
         try {
             Connection connection;
             connection = connectionFactory.createConnection();
@@ -102,7 +100,8 @@ public class TicketResource {
             textMessage.setText(message);
             messageProducer.send(textMessage);
         } catch (JMSException ex) {
-            throw new MdbException("Ocurrio un error al enviar el mensaje para el registro de la venta.", ex);
+            throw new MdbException("Ocurrio un error al enviar el mensaje para la notificacion de la venta."
+                    + " Contenido del mensaje a enviar: \n" + message, ex);
         }
     }
 }
